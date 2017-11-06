@@ -22,8 +22,8 @@
     <table class="table table-bordered">
         <tr>
         @if ($allStudents)
-		    <th>Student</th>
-			<th>No</th>
+		    <th width= "150px">Naam</th>
+			<th width= "100px">Studentnummer</th>
 		@endif
             <th width= "100px">Date</th>
             <th>Note</th>
