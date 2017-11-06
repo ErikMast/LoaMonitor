@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use LoaMonitor\Note;
 use LoaMonitor\NoteType;
 use LoaMonitor\Student;
+use LoaMonitor\User;
 
 class NoteController extends Controller
 {
@@ -41,8 +42,18 @@ class NoteController extends Controller
      */
     public function create()
     {
-          $student = Student::where('id','=',$note->student_id);
-		      return view('notes.create', compact('student'));
+      if (isset($_GET) && isset($_GET['student_id'])) {
+        $notetypes = NoteType::pluck('name', 'id');
+        $student = Student::where('id','=',$_GET['student_id'])->first();
+        $note = new Note();
+        $note->Student = $student;
+        $note->NoteType = NoteType::where('id', '=', "1")->first();
+        $note->User = User::where('id','=', $_GET['user_id'])->first();
+        return view('notes.create', compact('student', 'notetypes', 'note'));
+      } else {
+        return view('home');
+      }
+
     }
 
     /**
@@ -53,14 +64,15 @@ class NoteController extends Controller
      */
     public function store(Request $request)
     {
-	   $this->validate($request, [
-            'notes' => 'required',
-            'date' => 'required',
-        ]);
-
-        Note::create($request->all());
-        return redirect()->route('notes')
-                       ->with('success','Item created successfully');
+      dd($request);
+      //  $this->validate($request, [
+      //       'notes' => 'required',
+      //       'date' => 'required',
+      //   ]);
+       //
+      //   Note::create($request->all());
+      //   return redirect()->route('notes')
+      //                  ->with('success','Item created successfully');
     }
 
     /**

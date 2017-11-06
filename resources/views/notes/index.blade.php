@@ -11,7 +11,7 @@
         		    @endif
             </div>
             <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('notes.create') }}"> Nieuwe notitie</a>
+                <a class="btn btn-success" href="{{ route('notes.create', ['student_id' => $student->id, 'user_id'=>Auth::user()->id]) }}"> Nieuwe notitie</a>
             </div>
         </div>
     </div>
