@@ -15,21 +15,23 @@ class NoteController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {	
-		$allStudents = false;
+    {
+		    $allStudents = false;
+        $student = null;
         if (isset($_GET) && isset($_GET['student_id'])) {
-			$notes = Note::where('students_id','=',$_GET['student_id'])
-			  ->orderBy('id','DESC')->paginate(10);
-		} else {
-			$notes = Note::orderBy('id','DESC')->paginate(10);
-			$allStudents = true;
-		}
-		
+			       $notes = Note::where('students_id','=',$_GET['student_id'])
+			          ->orderBy('id','DESC')->paginate(10);
+             $student = Student::where('id','=', $_GET['student_id'])->first();
+		    } else {
+			       $notes = Note::orderBy('id','DESC')->paginate(10);
+			       $allStudents = true;
+		    }
+
         //return view('notes.index',compact('notes', 'student_id'))
         //    ->with('i', ($request->input('page', 1) - 1) * 5);
-		
-		return view('notes.index', compact('notes', 'allStudents'));
- 
+
+		return view('notes.index', compact('notes', 'allStudents', 'student'));
+
     }
 
     /**
@@ -39,8 +41,8 @@ class NoteController extends Controller
      */
     public function create()
     {
-        $student = Student::where('id','=',$note->student_id);
-		return view('notes.create', compact('student'));
+          $student = Student::where('id','=',$note->student_id);
+		      return view('notes.create', compact('student'));
     }
 
     /**
@@ -116,7 +118,7 @@ class NoteController extends Controller
      */
     public function destroy($id)
     {
-        
+
         Note::find($id)->delete();
 
         return redirect()->route('notes.index')
