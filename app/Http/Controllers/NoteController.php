@@ -64,15 +64,16 @@ class NoteController extends Controller
      */
     public function store(Request $request)
     {
-      dd($request);
-      //  $this->validate($request, [
-      //       'notes' => 'required',
-      //       'date' => 'required',
-      //   ]);
-       //
-      //   Note::create($request->all());
-      //   return redirect()->route('notes')
-      //                  ->with('success','Item created successfully');
+       $this->validate($request, [
+            'notes' => 'required',
+            'date' => 'required',
+            'students_id' => 'required',
+            'users_id' => 'required'
+        ]);
+
+        Note::create($request->all());
+        return redirect()->route('notes')
+                       ->with('success','Item created successfully');
     }
 
     /**
@@ -114,6 +115,8 @@ class NoteController extends Controller
         $this->validate($request, [
             'date' => 'required',
             'notes' => 'required',
+            'students_id' => 'required',
+            'users_id' => 'required'
         ]);
 
         Note::find($id)->update($request->all());
