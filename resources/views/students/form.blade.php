@@ -12,11 +12,11 @@
     </div>
 	<div class="row">
         <div class="col-lg-6">{{ Form::label('villages_id', 'Woonplaats: ') }}</div>
-		<div class="col-lg-6">{!! Form::select('villages', $villages, $student->Village->id) !!}</div>
+		<div class="col-lg-6">{!! Form::select('villages_id', $villages, $student->Village->id) !!}</div>
 	</div>
 	<div class="row">
         <div class="col-lg-6">{{ Form::label('groups_id', 'Klas: ') }}</div>
-        <div class="col-lg-6">{!! Form::select('groups', $groups, $student->Group->id) !!}</div>
+        <div class="col-lg-6">{!! Form::select('groups_id', $groups, $student->Group->id) !!}</div>
     </div>
 	<div class="row">
         <div class="col-lg-6">{{ Form::label('eta', 'Tijd: ') }}</div>
