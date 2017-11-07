@@ -2,14 +2,12 @@
 
 @section('content')
 <div class="container">
-    <div class="row">
-        <div class="col-lg-12 margin-tb">
-            <div class="pull-left">
-                <h2>Import Data</h2>
-            </div>
-            
-        </div>
-    </div>
+  <div class="page-header">
+      <div class="row">
+          <div class="col-lg-4"><h1>Import Data</h1></div>
+      </div>
+  </div>
+
 
     <form action="{{url('csvdata/import')}}" method="post" enctype="multipart/form-data">
 		<div class="row">
