@@ -3,7 +3,6 @@
 namespace LoaMonitor\Http\Controllers;
 
 use Illuminate\Http\Request;
-use LoaMonitor\Csvdata;
 use LoaMonitor\Village;
 use LoaMonitor\Group;
 use LoaMonitor\Student;
@@ -20,7 +19,7 @@ class CsvdataController extends Controller
     {
         return view('csvdata');
     }
-	
+
 	/**
      * Store a newly created resource in storage.
      *
@@ -53,13 +52,13 @@ class CsvdataController extends Controller
 						}
 						$student['villages_id']=$village->id;
 						$student['firstname'] = $data[$i]['roepnaam'];
-					
+
 						if (!$data[$i]['tussenv']==""){
 							$student['lastname'] = $data[$i]['tussenv'].' '.$data[$i]['achternaam'];
 						} else {
 							$student['lastname'] = $data[$i]['achternaam'];
 						}
-					
+
 						$student['student_number']= $data[$i]['stamnr'];
 						//$student['eta'] = new DateTime('2000-01-01 12:30:00');
 						$student['groups_id'] = $group->id;
@@ -68,7 +67,7 @@ class CsvdataController extends Controller
 					}
 				}
 			}
-			
+
 			//Csvdata::insert($dataImported);
 		}
 		return back();
