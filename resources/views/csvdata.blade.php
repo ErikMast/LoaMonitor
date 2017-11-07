@@ -7,12 +7,10 @@
             <div class="pull-left">
                 <h2>Import Data</h2>
             </div>
-            <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('students.create') }}"> Create New Item</a>
-            </div>
+            
         </div>
     </div>
-	
+
     <form action="{{url('csvdata/import')}}" method="post" enctype="multipart/form-data">
 		<div class="row">
               <div class="col-md-4">
@@ -24,7 +22,7 @@
              <div class="col-md-4">
                   <button class="btn btn-primary" type="submit">Import</button>
 			  </div>
-           
+
 		</div>
 	</form>
 </div>
