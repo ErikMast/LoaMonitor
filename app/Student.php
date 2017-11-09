@@ -16,31 +16,34 @@ class Student extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 
+        'id',
 		'firstname',
 		'lastname',
 		'student_number',
-		'villages_id', 
-		'eta', 
-		'groups_id',  
+		'villages_id',
+		'eta',
+		'groups_id',
 	];
 
-    
+
 	public function village(){
 		return $this->belongsTo(Village::class, 'villages_id');
 	}
-	
+
 	public function group() {
 		return $this->belongsTo(Group::class, 'groups_id');
 	}
-	
+
 	public function notes() {
 		return $this->hasMany(Note::class, 'students_id');
 	}
-	
-	
+
+  public function modules_done(){
+    return $this->hasMany(ModuleDone:class, 'students_id');
+  }
+
 	public function mostRecentNotes(){
 		return $this->notes()->orderBy('date', 'desc')->take(3);
 	}
-	
+
 }
