@@ -153,7 +153,7 @@ class TestCaseSeeder extends Seeder
                   'modules_id' => $moduleB1->id,
                   'students_id' => 1,
                   'users_id'=>1,
-                  'date' => $oldDate
+                  'date' => new DateTime()
                 ]
     ]);
    }
