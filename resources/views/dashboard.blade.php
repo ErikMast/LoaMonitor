@@ -4,16 +4,14 @@
 <div class="container">
   <div class="page-header">
       <div class="row">
-          <div class="col-lg-4"><h1>Dashboard</h1></div>
+          <div class="col-lg-8"><h1>Dashboard {{ $currentDay }}</h1></div>
       </div>
   </div>
 
   <div class="dashboard-links">
   </div>
 
-  <h2>{{ $currentDay }}</h2>
-  <br>
-  <br>
+
   <div class="dashboard-overview">
     <div class="dashboard_table">
       <div class="col-lg-4"><h4>Aantal studenten: {{ sizeof($students) }}</h4>
