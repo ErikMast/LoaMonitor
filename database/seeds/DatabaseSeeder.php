@@ -16,6 +16,6 @@ class DatabaseSeeder extends Seeder
 		$this->call(DaysTableSeeder::class);
 		$this->call(TimeTableSeeder::class);
 		$this->call(NoteTypesSeeder::class);
-		
-    }
+		$this->call(ModuleSeeder::class);
+     }
 }

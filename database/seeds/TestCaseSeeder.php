@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use LoaMonitor\Module;
 
 class TestCaseSeeder extends Seeder
 {
@@ -22,11 +23,11 @@ class TestCaseSeeder extends Seeder
 
 			]
 		);
-		
+
 		$usualTime = new DateTime('2000-01-01 12:30:00');
-		
+
 		DB::table('students')->insert(
-			[	
+			[
 				[
 					'firstname'=>'Jaap',
 					'lastname'=>'Aap',
@@ -45,10 +46,10 @@ class TestCaseSeeder extends Seeder
 				]
 			]
 		);
-		
+
 		$oldDate = new DateTime();
 		$oldDate->sub(new DateInterval('P10D'));
-		
+
 		DB::table('notes')->insert(
 			[
 				[
@@ -137,5 +138,23 @@ class TestCaseSeeder extends Seeder
 				]
 			]
 		);
+
+    $moduleA1 = Module::where('domain', '=', 'A')->where('level', '=', '1')->first();
+    $moduleB1 = Module::where('domain', '=', 'B')->where('level', '=', '1')->first();
+    DB::table('module_dones')->insert(
+            [
+                [
+                  'modules_id' => $moduleA1->id,
+                  'students_id' => 1,
+                  'users_id'=> 1,
+                  'date' => $oldDate
+                ],
+                [
+                  'modules_id' => $moduleB1->id,
+                  'students_id' => 1,
+                  'users_id'=>1,
+                  'date' => $oldDate
+                ]
+    ]);
    }
 }
