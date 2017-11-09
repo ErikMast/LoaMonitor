@@ -39,7 +39,7 @@ class Student extends Model
 	}
 
   public function modules_done(){
-    return $this->hasMany(ModuleDone:class, 'students_id');
+    return $this->hasMany(ModuleDone::class, 'students_id');
   }
 
 	public function mostRecentNotes(){
