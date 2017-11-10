@@ -19,26 +19,7 @@
         </div>
     @endif
 
-    <table class="table table-bordered">
-        <tr>
-            <th width="150px">Naam</th>
-            <th width="100px">Studentnr.</th>
-            <th>Klas</th>
-            <th width="280px">Action</th>
-        </tr>
-    @foreach ($students as $key => $student)
-    <tr>
-        <td>{{ $student->firstname }} {{ $student->lastname }}</td>
-        <td>{{ $student->student_number }}</td>
-        <td>{{ $student->Group->name }}</td>
-        <td>
-            <a class="btn btn-info" href="{{ route('students.show',$student->id) }}">Show</a>
-            <a class="btn btn-primary" href="{{ route('students.edit',$student->id) }}">Edit</a>
-            
-        </td>
-    </tr>
-    @endforeach
-    </table>
+    @include('students.table');
 
     {!! $students->render() !!}
 </div>
