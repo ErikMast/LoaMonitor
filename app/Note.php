@@ -17,19 +17,19 @@ class Note extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'date','notes', 'note_types_id',
+        'id', 'date','notes', 'note_types_id', 'users_id', 'students_id'
 	];
 
 	public function NoteType() {
 		return $this->belongsTo(NoteType::class, 'note_types_id');
 	}
-	
+
 	public function User() {
         return $this->belongsTo(User::class, 'users_id');
     }
-	
+
 	public function Student(){
 		return $this->belongsTo(Student::class, 'students_id');
 	}
-	
+
 }
