@@ -73,7 +73,7 @@ class NoteController extends Controller
         ]);
 
         Note::create($request->all());
-        return redirect()->route('notes')
+        return redirect()->route('home')
                        ->with('success','Item created successfully');
     }
 
@@ -122,7 +122,7 @@ class NoteController extends Controller
 
         Note::find($id)->update($request->all());
 
-        return redirect()->route('notes.index')
+        return redirect()->route('home')
                         ->with('success','Item updated successfully');
     }
 
