@@ -7,6 +7,7 @@ use LoaMonitor\Note;
 use LoaMonitor\NoteType;
 use LoaMonitor\Student;
 use LoaMonitor\User;
+use Illuminate\Support\Facades\Input;
 
 class NoteController extends Controller
 {
@@ -18,22 +19,18 @@ class NoteController extends Controller
     public function index()
     {
 		    $allStudents = false;
-        $student = null;
-        if (isset($_GET) && isset($_GET['student_id'])) {
-			       $notes = Note::where('students_id','=',$_GET['student_id'])
+        $studentId = Input::get('student_id');
+        if ($studentId != null) {
+			       $notes = Note::where('students_id','=',$studentId)
 			          ->orderBy('id','DESC')->paginate(10);
-             $student = Student::where('id','=', $_GET['student_id'])->first();
+             $student = Student::find($studentId);
+             return view('notes.index', compact('notes', 'allStudents', 'student'));
 		    } else {
 			       $notes = Note::orderBy('id','DESC')->paginate(10);
 			       $allStudents = true;
+             return view('notes.index', compact('notes', 'allStudents'));
 		    }
-
-        //return view('notes.index',compact('notes', 'student_id'))
-        //    ->with('i', ($request->input('page', 1) - 1) * 5);
-
-		return view('notes.index', compact('notes', 'allStudents', 'student'));
-
-    }
+      }
 
     /**
      * Show the form for creating a new resource.
@@ -42,16 +39,20 @@ class NoteController extends Controller
      */
     public function create()
     {
-      if (isset($_GET) && isset($_GET['student_id'])) {
+      $studentId = Input::get('student_id');
+      if ($studentId != null) {
         $notetypes = NoteType::pluck('name', 'id');
-        $student = Student::where('id','=',$_GET['student_id'])->first();
+        $student = Student::find($studentId);
         $note = new Note();
         $note->Student = $student;
-        $note->NoteType = NoteType::where('id', '=', "1")->first();
-        $note->User = User::where('id','=', $_GET['user_id'])->first();
+        $note->NoteType = NoteType::find(1);
+        $note->User = User::find(Input::get('user_id'));
         return view('notes.create', compact('student', 'notetypes', 'note'));
       } else {
-        return view('home');
+        $note = new Note();
+        $note->NoteType = NoteType::find(1);
+        $note->User = User::find(Input::get('user_id'));
+        return view('notes.create', compact('notetypes', 'note'));
       }
 
     }
@@ -98,8 +99,8 @@ class NoteController extends Controller
     public function edit($id)
     {
         $note = Note::find($id);
-		$notetypes = NoteType::pluck('name', 'id');
-		$student = Student::where('id','=',$note->student_id);
+		    $notetypes = NoteType::pluck('name', 'id');
+		    $student = Student::find($note->student_id);
         return view('notes.edit',compact('note', 'notetypes', 'student'));
     }
 
