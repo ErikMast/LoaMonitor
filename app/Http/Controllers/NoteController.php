@@ -8,6 +8,7 @@ use LoaMonitor\NoteType;
 use LoaMonitor\Student;
 use LoaMonitor\User;
 use Illuminate\Support\Facades\Input;
+use DateTime;
 
 class NoteController extends Controller
 {
@@ -39,22 +40,21 @@ class NoteController extends Controller
      */
     public function create()
     {
+      $notetypes = NoteType::pluck('name', 'id');
+
+      $note = new Note();
+      $note->date = new DateTime();
+      $note->NoteType = NoteType::find(1);
+      $note->User = User::find(Input::get('user_id'));
+
       $studentId = Input::get('student_id');
       if ($studentId != null) {
-        $notetypes = NoteType::pluck('name', 'id');
         $student = Student::find($studentId);
-        $note = new Note();
         $note->Student = $student;
-        $note->NoteType = NoteType::find(1);
-        $note->User = User::find(Input::get('user_id'));
         return view('notes.create', compact('student', 'notetypes', 'note'));
       } else {
-        $note = new Note();
-        $note->NoteType = NoteType::find(1);
-        $note->User = User::find(Input::get('user_id'));
         return view('notes.create', compact('notetypes', 'note'));
       }
-
     }
 
     /**
