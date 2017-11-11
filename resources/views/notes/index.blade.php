@@ -11,7 +11,11 @@
         		    @endif
             </div>
             <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('notes.create', ['student_id' => $student->id, 'user_id'=>Auth::user()->id]) }}"> Nieuwe notitie</a>
+                @if (!$allStudents)
+                  <a class="btn btn-success" href="{{ route('notes.create', ['student_id' => $student->id, 'user_id'=>Auth::user()->id]) }}"> Nieuwe notitie</a>
+                @else
+                  <a class="btn btn-success" href="{{ route('notes.create', ['user_id'=>Auth::user()->id]) }}"> Nieuwe notitie</a>
+                @endif
             </div>
         </div>
     </div>
