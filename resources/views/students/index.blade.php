@@ -8,7 +8,7 @@
                 <h2>Studenten</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('students.create') }}"> Create New Item</a>
+                <a class="btn btn-success" href="{{ route('students.create') }}"> Student toevoegen</a>
             </div>
         </div>
     </div>
