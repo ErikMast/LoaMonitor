@@ -61,11 +61,6 @@
 	          Modules komen hier
 	        </td>
 	        <td>
-	          <a href="{{ url('/students/' . $student->id ) }}">
-	            <button class="btn btn-info">
-	              <span class="glyphicon glyphicon-info-sign"> Info</span>
-	            </button>
-	          </a>
 						<a href="{{ route('notes.index', ['student_id' => $student->id, 'user_id'=>Auth::user()->id])}}">
 	            <button class="btn btn-warning">
 	              <span class="glyphicon glyphicon-info-sign"> Notities</span>
