@@ -13,13 +13,15 @@
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index')->name('home');
+//Route::group: disables access when not logged in (redirect to Login page)
+Route::group(['middleware' => ['auth']], function() {
+  Route::get('/', 'HomeController@index')->name('home');
 
-//todo implement change password
-Route::get('/changepassword', 'PasswordController@edit')->name('changepassword');
+  //todo implement change password
+  Route::get('/changepassword', 'PasswordController@edit')->name('changepassword');
 
-Route::resource('students','StudentController');
-Route::resource('notes','NoteController');
-//Route::resource('students/{student_id}/notes', 'NoteController');
-Route::get('csvdata', 'CsvdataController@index');
-Route::post('csvdata/import', 'CsvdataController@import');
+  Route::resource('students','StudentController');
+  Route::resource('notes','NoteController');
+  Route::get('csvdata', 'CsvdataController@index');
+  Route::post('csvdata/import', 'CsvdataController@import');
+});
