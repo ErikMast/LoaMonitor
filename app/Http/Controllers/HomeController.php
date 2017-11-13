@@ -30,7 +30,7 @@ class HomeController extends Controller
 		} else {
             //$totalStudents = Student::count();
             $currentDay = date("j F Y");
-            $students = Student::all();
+            $students = Student::orderBy('groups_id')->orderBy('lastname')->get();
 			return view('dashboard', compact('currentDay', 'students'));
 		}
     }
