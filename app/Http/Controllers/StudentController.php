@@ -18,10 +18,10 @@ class StudentController extends Controller
 
     public function index(Request $request)
     {
-        $students = Student::orderBy('id','DESC')->paginate(5);
+        $students = Student::orderBy('groups_id')->orderBy('lastname')->paginate(10);
 
         return view('students.index',compact('students'))
-            ->with('i', ($request->input('page', 1) - 1) * 5);
+            ->with('i', ($request->input('page', 1) - 1) * 10);
     }
 
     /**
@@ -101,7 +101,7 @@ class StudentController extends Controller
             'firstname' => 'required',
             'lastname' => 'required',
         ]);
-		
+
         Student::find($id)->update($request->all());
 
 		return redirect()->route('home')
