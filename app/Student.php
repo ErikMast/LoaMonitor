@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use LoaMonitor\Village;
 use LoaMonitor\Group;
 use LoaMonitor\Note;
+use DateTime;
 
 class Student extends Model
 {
@@ -43,7 +44,15 @@ class Student extends Model
   }
 
 	public function mostRecentNotes(){
-		return $this->notes()->orderBy('date', 'desc')->take(3);
+    //get last contact and last progress note
+		$contacts = $this->notes()->where("note_types_id", '=', 1)->orderBy('date', 'DESC')->take(1);
+    $progresses = $this->notes()->where("note_types_id", '=', 2)->orderBy('date', 'DESC')->take(1);
+
+    //Day notes don't have to be visible after date
+    $daynotes = $this->notes()->where("note_types_id", '=', 3)->where('date','>=',date('Y-m-d'))->take(1);
+
+    //join them in one collection
+    return $contacts->union($progresses)->union($daynotes);
 	}
 
 }
