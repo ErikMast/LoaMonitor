@@ -23,11 +23,11 @@ class NoteController extends Controller
         $studentId = Input::get('student_id');
         if ($studentId != null) {
 			       $notes = Note::where('students_id','=',$studentId)
-			          ->orderBy('id','DESC')->paginate(10);
+			          ->orderBy('date','DESC')->paginate(10);
              $student = Student::find($studentId);
              return view('notes.index', compact('notes', 'allStudents', 'student'));
 		    } else {
-			       $notes = Note::orderBy('id','DESC')->paginate(10);
+			       $notes = Note::orderBy('date','DESC')->paginate(10);
 			       $allStudents = true;
              return view('notes.index', compact('notes', 'allStudents'));
 		    }
