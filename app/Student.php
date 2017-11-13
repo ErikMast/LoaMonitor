@@ -36,7 +36,7 @@ class Student extends Model
 	}
 
 	public function notes() {
-		return $this->hasMany(Note::class, 'students_id');
+		return $this->hasMany(Note::class, 'students_id')->orderBy('date', 'DESC')->orderBy('note_types_id');
 	}
 
   public function modules_done(){
