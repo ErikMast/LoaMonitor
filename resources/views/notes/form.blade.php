@@ -2,6 +2,7 @@
 {!! Form::hidden('students_id', $note->Student->id) !!}
 {!! Form::hidden('users_id', $note->User->id) !!}
 
+
 <div class="row">
         <div class="col-lg-3">{{ Form::label('note_types_id', 'Soort notitie: ') }}</div>
         <div class="col-lg-6">{!! Form::select('note_types_id', $notetypes, $note->NoteType->id) !!}</div>
@@ -12,7 +13,11 @@
 </div>
 <div class="row">
         <div class="col-lg-3">{{ Form::label('date', 'Datum: ') }}</div>
-        <div class="col-lg-6">{!! Form::text('date') !!}</div>
+        @if ($note->id == null)
+        <div class="col-lg-6">{!! Form::date('date', \Carbon\Carbon::now()) !!}</div>
+        @else
+        <div class="col-lg-6">{!! Form::date('date') !!}</div>
+        @endif
 </div>
 
 <div class="row">
