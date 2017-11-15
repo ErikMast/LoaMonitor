@@ -8,7 +8,7 @@
 </div>
 <div class="row">
         <div class="col-lg-3">{{ Form::label('notes', 'Notitie: ') }}</div>
-		<div class="col-lg-6">{!! Form::text('notes') !!}</div>
+		<div class="col-lg-6">{!! Form::textarea('notes') !!}</div>
 </div>
 <div class="row">
         <div class="col-lg-3">{{ Form::label('date', 'Datum: ') }}</div>
