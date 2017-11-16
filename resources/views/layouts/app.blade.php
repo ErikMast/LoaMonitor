@@ -37,13 +37,13 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
                         @if (!Auth::guest())
-							<li>
+							          <li>
                                 <a href="{{ url('/students') }}">
                                     Studenten
                                 </a>
-							</li>
-							<!--li>
-										<a href="{{ url('/users') }}">
+							          </li>
+							          <!--li>
+										              <a href="{{ url('/users') }}">
 											Gebruikers
 										</a>
 							</li -->
@@ -63,13 +63,12 @@
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
-								    
-									<!--li>
-                                        <a href="{{ route('changepassword') }}">
+								                  <li>
+                                    <a href="{{ route('changepassword') }}">
                                             Change Password
-                                        </a>
-                                    </li-->
-									
+                                    </a>
+                                  </li>
+
                                     <li>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();

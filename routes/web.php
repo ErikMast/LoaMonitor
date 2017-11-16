@@ -19,6 +19,7 @@ Route::group(['middleware' => ['auth']], function() {
 
   //todo implement change password
   Route::get('/changepassword', 'PasswordController@edit')->name('changepassword');
+  Route::post('/updatepassword/{id}', 'PasswordController@update')->name('updatepassword');
 
   Route::resource('students','StudentController');
   Route::resource('notes','NoteController');
