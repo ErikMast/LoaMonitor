@@ -10,6 +10,8 @@ class Module extends Model
       'id', 'domain','level', 'description'
     ];
 
-    
+    public function domainInt() {
+        return ord($this->domain)-ord('A')+1;
+    }
 
 }
