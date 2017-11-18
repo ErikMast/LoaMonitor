@@ -34,9 +34,7 @@
             <td>{{ $module->level }}</td>
             <td>{{ $module->description }}</td>
             <td><a class="btn btn-primary" href="{{ route('modules.edit',$module->id) }}">Edit</a>
-              {!! Form::open(['method' => 'DELETE','route' => ['modules.destroy', $module->id],'style'=>'display:inline']) !!}
-              {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
-              {!! Form::close() !!}</td>
+              </td>
           </tr>
           @endforeach
     </table>
