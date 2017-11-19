@@ -17,13 +17,14 @@ Auth::routes();
 Route::group(['middleware' => ['auth']], function() {
   Route::get('/', 'HomeController@index')->name('home');
 
-  //todo implement change password
   Route::get('/changepassword', 'PasswordController@edit')->name('changepassword');
   Route::post('/updatepassword/{id}', 'PasswordController@update')->name('updatepassword');
 
   Route::resource('students','StudentController');
   Route::resource('notes','NoteController');
   Route::resource('modules', 'ModuleController');
+  Route::resource('moduledones', 'ModuleDoneController');
+  //csv import studenten
   Route::get('csvdata', 'CsvdataController@index');
   Route::post('csvdata/import', 'CsvdataController@import');
 });

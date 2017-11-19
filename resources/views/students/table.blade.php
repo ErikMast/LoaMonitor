@@ -23,7 +23,10 @@
           @endforeach
         </td>
         <td>
-          Modules komen hier
+          @foreach($student->modulesDoneSorted as $moduledone)
+          <strong>{{$moduledone->Module->domain}}{{$moduledone->Module->level}}</strong>
+          {{$moduledone->date}} {{$moduledone->Module->description}}<br>
+          @endforeach
         </td>
         <td>
           <a href="{{ url('/students/' . $student->id ) }}">
@@ -37,8 +40,20 @@
             </button>
           </a>
           <a href="{{ route('notes.create', ['student_id' => $student->id, 'user_id'=>Auth::user()->id])}}">
-            <button class="btn btn-warning">
+            <button class="btn btn-success">
               <span class="glyphicon glyphicon-plus"> Notitie</span>
+            </button>
+          </a>
+          <br>
+          <br>
+          <a href="{{ route('moduledones.index', ['student_id' => $student->id, 'user_id'=>Auth::user()->id])}}">
+            <button class="btn btn-warning">
+              <span class="glyphicon glyphicon-hourglass">Modules</span>
+            </button>
+          </a>
+          <a href="{{ route('moduledones.create', ['student_id' => $student->id, 'user_id'=>Auth::user()->id])}}">
+            <button class="btn btn-success">
+              <span class="glyphicon glyphicon-plus">Module</span>
             </button>
           </a>
         </td>

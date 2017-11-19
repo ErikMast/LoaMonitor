@@ -55,4 +55,8 @@ class Student extends Model
     return $contacts->union($progresses)->union($daynotes);
 	}
 
+  public function modulesDoneSorted(){
+    return $this->modules_done()->orderBy('date', 'DESC')->take(5);
+  }
+
 }

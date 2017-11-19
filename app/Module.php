@@ -14,4 +14,10 @@ class Module extends Model
         return ord($this->domain)-ord('A')+1;
     }
 
+    public function getFullNameAttribute()
+    {
+        return $this->domain . $this->level." ".$this->description;
+    }
+
+
 }
