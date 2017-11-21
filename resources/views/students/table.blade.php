@@ -3,8 +3,9 @@
     <tr>
       <th width="200px">Student</th>
       <th width="300px">Notitie</th>
+      <th width="120px"></th>
       <th>Modules</th>
-      <th width="300px">Acties</th>
+      <th width="120px"></th>
     </tr>
   </thead>
   <tbody>
@@ -12,7 +13,9 @@
     @foreach($students as $student)
       <tr class="clickable-row" data-url="/student/{{ $student->id }}">
         <td>
-          {{$student->firstname}} {{$student->lastname}}<br>
+          <a href="{{ url('/students/' . $student->id ) }}">
+          {{$student->firstname}} {{$student->lastname}}</a>
+          <br>
           {{$student->student_number}} - {{$student->group->name}}<br>
           {{$student->village->name}} - {{$student->eta}}
         </td>
@@ -22,6 +25,15 @@
           {{$note->date}} {{$note->notes}}<br>
           @endforeach
         </td>
+
+        <td>
+          
+        <a href="{{ route('notes.create', ['student_id' => $student->id, 'user_id'=>Auth::user()->id])}}">
+          <button class="btn btn-success">
+            <span class="glyphicon glyphicon-plus"> Notitie</span>
+          </button>
+        </a>
+        </td>
         <td>
           @foreach($student->modulesDoneSorted as $moduledone)
           <strong>{{$moduledone->Module->domain}}{{$moduledone->Module->level}}</strong>
@@ -29,28 +41,6 @@
           @endforeach
         </td>
         <td>
-          <a href="{{ url('/students/' . $student->id ) }}">
-            <button class="btn btn-info">
-              <span class="glyphicon glyphicon-info-sign"> Info</span>
-            </button>
-          </a>
-          <a href="{{ route('notes.index', ['student_id' => $student->id, 'user_id'=>Auth::user()->id])}}">
-            <button class="btn btn-warning">
-              <span class="glyphicon glyphicon-info-sign"> Notities</span>
-            </button>
-          </a>
-          <a href="{{ route('notes.create', ['student_id' => $student->id, 'user_id'=>Auth::user()->id])}}">
-            <button class="btn btn-success">
-              <span class="glyphicon glyphicon-plus"> Notitie</span>
-            </button>
-          </a>
-          <br>
-          <br>
-          <a href="{{ route('moduledones.index', ['student_id' => $student->id, 'user_id'=>Auth::user()->id])}}">
-            <button class="btn btn-warning">
-              <span class="glyphicon glyphicon-hourglass">Modules</span>
-            </button>
-          </a>
           <a href="{{ route('moduledones.create', ['student_id' => $student->id, 'user_id'=>Auth::user()->id])}}">
             <button class="btn btn-success">
               <span class="glyphicon glyphicon-plus">Module</span>

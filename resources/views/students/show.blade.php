@@ -7,22 +7,15 @@
             <div class="pull-left">
                 <h2> {{ $student->firstname }} {{ $student->lastname }}</h2>
             </div>
-			<div class="pull-right">
+						<div class="col-lg-1 pull-right">
+								<a href="{{ url('/students/' . $student->id . '/edit') }}" class="btn btn-warning">
+									<i class="fa fa-pencil-square-o"></i>Aanpassen</a>
+        	  </div><div class="col-lg-1 pull-right">
                 <a class="btn btn-primary" href="{{ route('home') }}"> Terug</a>
             </div>
 
-        </div>
     </div>
-	<div class="row">
-        <div class="col-lg-12 margin-tb">
-            <div class="pull-right">
-				<a href="{{ url('/students/' . $student->id . '/edit') }}" class="btn btn-warning">
-				<i class="fa fa-pencil-square-o"></i>Update</a>
-			</div>
-
-        </div>
-    </div>
-
+	</div>
 	<div class="row">
         <div class="col-lg-3">{{ Form::label('naam', 'Naam: ') }}</div>
 		<div class="col-lg-6">{{ $student->firstname }} {{ $student->lastname }}</div>
@@ -43,8 +36,16 @@
 	<table class="display table table-bordered table-condensed table-responsive dynamic-table">
 	  <thead>
 	    <tr>
-	      <th width="300px">Notitie</th>
-	      <th>Modules</th>
+	      <th width="300px">
+					<a href="{{ route('notes.index', ['student_id' => $student->id, 'user_id'=>Auth::user()->id])}}">
+						Notitie
+					</a>
+				</th>
+	      <th>
+					<a href="{{ route('moduledones.index', ['student_id' => $student->id, 'user_id'=>Auth::user()->id])}}">
+						Modules
+					</a>
+				</th>
 	      <th width="300px">Acties</th>
 	    </tr>
 	  </thead>
@@ -64,14 +65,14 @@
 						@endforeach
 	        </td>
 	        <td>
-						<a href="{{ route('notes.index', ['student_id' => $student->id, 'user_id'=>Auth::user()->id])}}">
-	            <button class="btn btn-warning">
-	              <span class="glyphicon glyphicon-info-sign"> Notities</span>
-	            </button>
-	          </a>
 	          <a href="{{ route('notes.create', ['student_id' => $student->id, 'user_id'=>Auth::user()->id])}}">
 	            <button class="btn btn-warning">
 	              <span class="glyphicon glyphicon-plus"> Notitie</span>
+	            </button>
+	          </a>
+						<a href="{{ route('moduledones.create', ['student_id' => $student->id, 'user_id'=>Auth::user()->id])}}">
+	            <button class="btn btn-success">
+	              <span class="glyphicon glyphicon-plus">Module</span>
 	            </button>
 	          </a>
 	        </td>
