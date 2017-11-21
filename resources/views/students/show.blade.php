@@ -58,7 +58,10 @@
 	          @endforeach
 	        </td>
 	        <td>
-	          Modules komen hier
+						@foreach($student->modulesDoneSorted as $moduledone)
+						<strong>{{$moduledone->Module->domain}}{{$moduledone->Module->level}}</strong>
+						{{$moduledone->date}} {{$moduledone->Module->description}}<br>
+						@endforeach
 	        </td>
 	        <td>
 						<a href="{{ route('notes.index', ['student_id' => $student->id, 'user_id'=>Auth::user()->id])}}">
