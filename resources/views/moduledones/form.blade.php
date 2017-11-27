@@ -15,6 +15,10 @@
         <div class="col-lg-6">{!! Form::date('date') !!}</div>
         @endif
 </div>
+<div class="row">
+        <div class="col-lg-3">{{ Form::label('result', 'Resultaat: ') }}</div>
+        <div class="col-lg-6">{!! Form::text('result') !!}</div>        
+</div>
 
 <div class="row">
 		<button type="submit" class="btn btn-primary">Opslaan</button>

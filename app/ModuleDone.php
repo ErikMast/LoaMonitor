@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ModuleDone extends Model
 {
     protected $fillable = [
-      'id', 'date','modules_id', 'students_id', 'users_id'
+      'id', 'date','modules_id', 'students_id', 'users_id', 'result'
     ];
 
     public function Module() {

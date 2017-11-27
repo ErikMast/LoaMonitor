@@ -60,7 +60,7 @@
 	        </td>
 	        <td>
 						@foreach($student->modulesDoneSorted as $moduledone)
-						<strong>{{$moduledone->Module->domain}}{{$moduledone->Module->level}}</strong>
+						<strong>{{$moduledone->Module->domain}}{{$moduledone->Module->level}} ({{$moduledone->result}})</strong>
 						{{$moduledone->date}} {{$moduledone->Module->description}}<br>
 						@endforeach
 	        </td>

@@ -27,7 +27,7 @@
         </td>
 
         <td>
-          
+
         <a href="{{ route('notes.create', ['student_id' => $student->id, 'user_id'=>Auth::user()->id])}}">
           <button class="btn btn-success">
             <span class="glyphicon glyphicon-plus"> Notitie</span>
@@ -36,7 +36,7 @@
         </td>
         <td>
           @foreach($student->modulesDoneSorted as $moduledone)
-          <strong>{{$moduledone->Module->domain}}{{$moduledone->Module->level}}</strong>
+          <strong>{{$moduledone->Module->domain}}{{$moduledone->Module->level}} ({{$moduledone->result}})</strong>
           {{$moduledone->date}} {{$moduledone->Module->description}}<br>
           @endforeach
         </td>

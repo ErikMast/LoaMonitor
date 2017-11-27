@@ -30,7 +30,7 @@
         @foreach ($moduledones as $key => $moduledone)
         <tr>
 		         <td>{{ $moduledone->date }}</td>
-            <td>{{ $moduledone->Module->domain}}{{$moduledone->Module->level}} {{ $moduledone->Module->description}}</td>
+            <td>{{ $moduledone->Module->domain}}{{$moduledone->Module->level}} ({{$moduledone->result}}) {{ $moduledone->Module->description}}</td>
             <td>
               <a class="btn btn-info" href="{{ route('moduledones.show',$moduledone->id) }}">Show</a>
               <a class="btn btn-primary" href="{{ route('moduledones.edit',$moduledone->id) }}">Edit</a>

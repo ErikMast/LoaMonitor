@@ -32,6 +32,10 @@
         <div class="col-lg-6">{{ Form::label('date', 'Datum: ') }}</div>
         <div class="col-lg-6">{{ $moduledone->date }}</div>
     </div>
+		<div class="row">
+	        <div class="col-lg-6">{{ Form::label('result', 'Resultaat: ') }}</div>
+	        <div class="col-lg-6">{{ $moduledone->result }}</div>
+	  </div>
 	{!! Form::close() !!}
 </div>
 
