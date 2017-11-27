@@ -12,14 +12,13 @@
     <br>
     @foreach($students as $student)
       <tr class="clickable-row" data-url="/student/{{ $student->id }}">
-        <td>
-          <a href="{{ url('/students/' . $student->id ) }}">
-          {{$student->firstname}} {{$student->lastname}}</a>
+        <td onClick="document.location.href='{{ route('students.index')}}/{{ $student->id }}';">
+          <strong>{{$student->firstname}} {{$student->lastname}}</strong>
           <br>
           {{$student->student_number}} - {{$student->group->name}}<br>
           {{$student->village->name}} - {{$student->eta}}
         </td>
-        <td>
+        <td onClick="document.location.href='{{ route('notes.index', ['student_id' => $student->id, 'user_id'=>Auth::user()->id])}}';">
           @foreach($student->mostRecentNotes as $note)
           <strong>{{$note->NoteType->name}}</strong>
           {{$note->date}} {{$note->notes}}<br>
@@ -34,7 +33,7 @@
           </button>
         </a>
         </td>
-        <td>
+        <td onClick="document.location.href='{{ route('moduledones.index', ['student_id' => $student->id, 'user_id'=>Auth::user()->id])}}';">
           @foreach($student->modulesDoneSorted as $moduledone)
           <strong>{{$moduledone->Module->domain}}{{$moduledone->Module->level}} ({{$moduledone->result}})</strong>
           {{$moduledone->date}} {{$moduledone->Module->description}}<br>
