@@ -147,13 +147,15 @@ class TestCaseSeeder extends Seeder
                   'modules_id' => $moduleA1->id,
                   'students_id' => 1,
                   'users_id'=> 1,
-                  'date' => $oldDate
+                  'date' => $oldDate,
+                  'result'=> '6'
                 ],
                 [
                   'modules_id' => $moduleB1->id,
                   'students_id' => 1,
                   'users_id'=>1,
-                  'date' => new DateTime()
+                  'date' => new DateTime(),
+                  'result'=> '7'
                 ]
     ]);
    }
