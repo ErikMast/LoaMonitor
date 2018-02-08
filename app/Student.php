@@ -8,6 +8,7 @@ use LoaMonitor\Village;
 use LoaMonitor\Group;
 use LoaMonitor\Note;
 use DateTime;
+use Illuminate\Support\Facades\Log;
 
 class Student extends Model
 {
@@ -57,6 +58,15 @@ class Student extends Model
 
   public function modulesDoneSorted(){
     return $this->modules_done()->orderBy('date', 'DESC')->take(5);
+  }
+
+  public function sumOfSBU(){
+    $som = DB::table('module_dones')->
+      where('module_dones.students_id', '=', $this->id)->
+      join('modules', 'module_dones.modules_id','=', 'modules.id')->
+      select('modules.sbu')->
+      sum('sbu');
+    return $som;
   }
 
 }

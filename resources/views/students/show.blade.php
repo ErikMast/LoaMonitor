@@ -59,9 +59,11 @@
 	          @endforeach
 	        </td>
 	        <td>
+						<strong>SBU: {{$student->sumOfSBU()}}</strong><br>
+
 						@foreach($student->modulesDoneSorted as $moduledone)
 						<strong>{{$moduledone->Module->domain}}{{$moduledone->Module->level}} ({{$moduledone->result}})</strong>
-						{{$moduledone->date}} {{$moduledone->Module->description}}<br>
+						{{$moduledone->date}} {{$moduledone->Module->description}} ({{$moduledone->Module->sbu}})<br>
 						@endforeach
 	        </td>
 	        <td>
