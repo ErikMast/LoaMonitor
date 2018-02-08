@@ -7,6 +7,7 @@
             <div class="pull-left">
                 <h2>Voltooide modules</h2>
                 <h3>{{$student->firstname}} {{$student->lastname}}</h3>
+                <p>SBU: {{$student->sumOfSBU()}}<br></p>
         		</div>
             <div class="pull-right">
                 <a class="btn btn-success"
@@ -23,9 +24,9 @@
 
     <table class="table table-bordered">
         <tr>
-            <th width= "100px">Date</th>
+            <th width= "100px">Datum</th>
             <th>Module</th>
-            <th width="280px">Action</th>
+            <th width="280px">Actie</th>
         </tr>
         @foreach ($moduledones as $key => $moduledone)
         <tr>

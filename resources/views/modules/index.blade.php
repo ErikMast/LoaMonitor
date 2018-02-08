@@ -25,7 +25,8 @@
         <tr>
 	        <th width= "50px">Domein</th>
 		      <th width= "50px">Level</th>
-          <th>Berschrijving</th>
+          <th>Beschrijving</th>
+          <th>Sbu</th>
           <th>Acties</th>
         </tr>
         @foreach ($modules as $key => $module)
