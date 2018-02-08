@@ -3,15 +3,16 @@
 1. Clone doen van deze git repository (in de webservermap van je keuze)
 2. kopie maken van .env.example naar .env
 3. Een nieuwe database maken in phpMyAdmin (van Xampp of USBWebserver) en een nieuwe gebruiker.
-4. Gegevens invullen in .env
-5. Cmd openen en naar map van project gaan
-6. composer install 
-7. php artisan migrate 
-8. php artisan db:seed
-9. php artisan db:seed --class TestCaseSeeder (alleen als je ook teststudenten wilt)
-10. php artisan serve 
-11. Met een webbrowser naar localhost:8000 gaan
-12. Inloggen met je mailadres en wachtwoord Test
+4. Een nieuwe key genereren met php artisan key:generate
+5. Gegevens invullen in .env
+6. Cmd openen en naar map van project gaan
+7. composer install 
+8. php artisan migrate 
+9. php artisan db:seed
+10. php artisan db:seed --class TestCaseSeeder (alleen als je ook teststudenten wilt)
+11. php artisan serve 
+12. Met een webbrowser naar localhost:8000 gaan
+13. Inloggen met je mailadres en wachtwoord Test
 
 
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
