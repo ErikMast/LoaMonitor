@@ -25,15 +25,19 @@
     </div>
 
 	<div class="row">
-        <div class="col-lg-6">{{ Form::label('module', 'Module: ') }}</div>
+        <div class="col-lg-3">{{ Form::label('module', 'Module: ') }}</div>
 		<div class="col-lg-6">{{ $moduledone->Module->domain}}{{$moduledone->Module->level}} {{ $moduledone->Module->description}}</div>
 	</div>
 	<div class="row">
-        <div class="col-lg-6">{{ Form::label('date', 'Datum: ') }}</div>
+				<div class="col-lg-3">{{ Form::label('sbu', 'SBU: ') }}</div>
+				<div class="col-lg-6">{{ $moduledone->Module->sbu }}</div>
+	</div>
+	<div class="row">
+        <div class="col-lg-3">{{ Form::label('date', 'Datum: ') }}</div>
         <div class="col-lg-6">{{ $moduledone->date }}</div>
     </div>
 		<div class="row">
-	        <div class="col-lg-6">{{ Form::label('result', 'Resultaat: ') }}</div>
+	        <div class="col-lg-3">{{ Form::label('result', 'Resultaat: ') }}</div>
 	        <div class="col-lg-6">{{ $moduledone->result }}</div>
 	  </div>
 	{!! Form::close() !!}
