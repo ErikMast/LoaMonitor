@@ -35,7 +35,11 @@
 		<div class="row">
 	        <div class="col-lg-6">{{ Form::label('description', 'Beschrijving: ') }}</div>
 	        <div class="col-lg-6">{{ $module->description }}</div>
-	    </div>
+    </div>
+		<div class="row">
+	        <div class="col-lg-6">{{ Form::label('sbu', 'SBU: ') }}</div>
+	        <div class="col-lg-6">{{ $module->sbu }}</div>
+    </div>
 	{!! Form::close() !!}
 </div>
 

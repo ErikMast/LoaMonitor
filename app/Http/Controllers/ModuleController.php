@@ -42,6 +42,7 @@ class ModuleController extends Controller
     $module = new Module();
     $module -> domain = 'A';
     $module ->level = 0;
+    $module ->sbu = 0;
     $domains = $this->domains;
     $levels = $this->levels;
     return view('modules.create',compact('module', 'domains', 'levels'));
@@ -59,7 +60,8 @@ class ModuleController extends Controller
      $this->validate($request, [
           'domain' => 'required',
           'level' => 'required',
-          'description' => 'required'
+          'description' => 'required',
+          'sbu'=> 'required|integer'
       ]);
       $request["domain"] = $this->adjustDomain($request["domain"]);
       Module::create($request->all());
@@ -105,7 +107,8 @@ class ModuleController extends Controller
     $this->validate($request, [
          'domain' => 'required',
          'level' => 'required',
-         'description' => 'required'
+         'description' => 'required',
+         'sbu'=> 'required|integer'
      ]);
 
      //workaround voor lijst

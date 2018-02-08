@@ -16,7 +16,6 @@
           <strong>{{$student->firstname}} {{$student->lastname}}</strong>
           <br>
           {{$student->student_number}} - {{$student->group->name}}<br>
-          {{$student->village->name}} - {{$student->eta}}
         </td>
         <td onClick="document.location.href='{{ route('notes.index', ['student_id' => $student->id, 'user_id'=>Auth::user()->id])}}';">
           @foreach($student->mostRecentNotes as $note)
@@ -36,7 +35,7 @@
         <td onClick="document.location.href='{{ route('moduledones.index', ['student_id' => $student->id, 'user_id'=>Auth::user()->id])}}';">
           @foreach($student->modulesDoneSorted as $moduledone)
           <strong>{{$moduledone->Module->domain}}{{$moduledone->Module->level}} ({{$moduledone->result}})</strong>
-          {{$moduledone->date}} {{$moduledone->Module->description}}<br>
+          {{$moduledone->date}} {{$moduledone->Module->description}} ({{$moduledone->Module->sbu}})<br>
           @endforeach
         </td>
         <td>
