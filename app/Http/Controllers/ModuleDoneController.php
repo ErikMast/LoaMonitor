@@ -136,9 +136,11 @@ class ModuleDoneController extends Controller
    */
   public function destroy($id)
   {
+    $moduledone = ModuleDone::find($id);
+    $student_id = $moduledone->student->id;
+    $user_id = $moduledone->user->id;
+    ModuleDone::find($id)->delete();
 
-      ModuleDone::find($id)->delete();
-
-      return redirect()->route('moduledones.index')
+    return redirect()->route('moduledones.index', ['student_id'=> $student_id, 'user_id'=> $user_id])
                       ->with('success','Voltooide module verwijderd');
   }}

@@ -134,10 +134,12 @@ class NoteController extends Controller
      */
     public function destroy($id)
     {
+      $note = Note::find($id);
+      $student_id = $note->student->id;
+      $user_id = $note->user->id;
+      Note::find($id)->delete();
 
-        Note::find($id)->delete();
-
-        return redirect()->route('notes.index')
+      return redirect()->route('notes.index', ['student_id'=> $student_id, 'user_id'=> $user_id])
                         ->with('success','Item deleted successfully');
     }
 }
