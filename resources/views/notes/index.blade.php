@@ -42,7 +42,7 @@
 		          <td>{{ $note->Student->firstname}} {{ $note->Student->lastname}}</td>
               <td>{{ $note->Student->student_number}}</td>
 		        @endif
-		        <td>{{ $note->date }}</td>
+		        <td>{{ $note->date->format('d-m-Y') }}</td>
             <td>{{ $note->notes }}</td>
             <td>
               <a class="btn btn-info" href="{{ route('notes.show',$note->id) }}">Show</a>

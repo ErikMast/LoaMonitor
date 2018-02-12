@@ -11,7 +11,12 @@ use LoaMonitor\NoteType;
 
 class Note extends Model
 {
-	/**
+  protected $dateFormat = 'd-m-Y';
+  protected $dates = [
+        'date'
+    ];
+
+  /**
      * The attributes that are mass assignable.
      *
      * @var array

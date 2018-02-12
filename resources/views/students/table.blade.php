@@ -20,7 +20,7 @@
         <td onClick="document.location.href='{{ route('notes.index', ['student_id' => $student->id, 'user_id'=>Auth::user()->id])}}';">
           @foreach($student->mostRecentNotes as $note)
           <strong>{{$note->NoteType->name}}</strong>
-          {{$note->date}} {{$note->notes}}<br>
+          {{$note->date->format('d-m-Y')}} {{$note->notes}}<br>
           @endforeach
         </td>
 
@@ -36,7 +36,7 @@
           <strong>SBU: {{$student->sumOfSBU()}}</strong><br>
           @foreach($student->modulesDoneSorted as $moduledone)
           <strong>{{$moduledone->Module->domain}}{{$moduledone->Module->level}} ({{$moduledone->result}})</strong>
-          {{$moduledone->date}} {{$moduledone->Module->description}} ({{$moduledone->Module->sbu}})<br>
+          {{$moduledone->date->format('d-m-Y')}} {{$moduledone->Module->description}} ({{$moduledone->Module->sbu}})<br>
           @endforeach
         </td>
         <td>

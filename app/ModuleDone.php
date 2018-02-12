@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class ModuleDone extends Model
 {
+
+    protected $dates = [
+        'date'
+    ];
     protected $fillable = [
       'id', 'date','modules_id', 'students_id', 'users_id', 'result'
     ];
