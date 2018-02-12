@@ -32,9 +32,11 @@
 		        <th width= "150px">Naam</th>
 			      <th width= "100px">Studentnummer</th>
 		      @endif
-            <th width= "100px">Date</th>
-            <th>Note</th>
-            <th width="280px">Action</th>
+            <th width= "100px">Datum</th>
+            <th width= "100px">Docent</th>
+            <th width= "100px">Type</th>
+            <th>Notitie</th>
+            <th width="280px">Actie</th>
         </tr>
         @foreach ($notes as $key => $note)
         <tr>
@@ -43,7 +45,9 @@
               <td>{{ $note->Student->student_number}}</td>
 		        @endif
 		        <td>{{ $note->date->format('d-m-Y') }}</td>
-            <td>{{ $note->notes }}</td>
+            <td>{{$note->user->firstname}} {{$note->user->lastname}}</td>
+            <td>{{$note->NoteType->name}}</td>
+            <td>{{$note->notes}}</td>
             <td>
               <a class="btn btn-info" href="{{ route('notes.show',$note->id) }}">Show</a>
               <a class="btn btn-primary" href="{{ route('notes.edit',$note->id) }}">Edit</a>

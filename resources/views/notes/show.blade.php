@@ -25,11 +25,19 @@
     </div>
 
 	<div class="row">
-        <div class="col-lg-6">{{ Form::label('notes', 'Notitie: ') }}</div>
+        <div class="col-lg-3">{{ Form::label('notes', 'Docent: ') }}</div>
+		<div class="col-lg-6">{{$note->user->firstname}} {{$note->user->lastname}}</div>
+	</div>
+	<div class="row">
+        <div class="col-lg-3">{{ Form::label('notetype', 'Type: ') }}</div>
+		<div class="col-lg-6">{{ $note->NoteType->name }}</div>
+	</div>
+	<div class="row">
+        <div class="col-lg-3">{{ Form::label('notes', 'Notitie: ') }}</div>
 		<div class="col-lg-6">{{ $note->notes }}</div>
 	</div>
 	<div class="row">
-        <div class="col-lg-6">{{ Form::label('date', 'Datum: ') }}</div>
+        <div class="col-lg-3">{{ Form::label('date', 'Datum: ') }}</div>
         <div class="col-lg-6">{{ $note->date->format('d-m-Y') }}</div>
     </div>
 	{!! Form::close() !!}

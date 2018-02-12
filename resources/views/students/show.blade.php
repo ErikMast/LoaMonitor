@@ -55,7 +55,8 @@
 	        <td>
 	          @foreach($student->notes as $note)
 	          <strong>{{$note->NoteType->name}}</strong>
-	          {{$note->date->format('d-m-Y')}} {{$note->notes}}<br>
+	          {{$note->date->format('d-m-Y')}} {{$note->user->firstname}} {{$note->user->lastname}} <br>
+						{{$note->notes}}<br>
 	          @endforeach
 	        </td>
 	        <td>
