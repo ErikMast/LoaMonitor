@@ -11,8 +11,7 @@ use LoaMonitor\NoteType;
 
 class Note extends Model
 {
-  protected $dateFormat = 'd-m-Y';
-  protected $dates = [
+    protected $dates = [
         'date'
     ];
 

@@ -12,12 +12,12 @@
         @if ($moduledone->id == null)
         <div class="col-lg-6">{!! Form::date('date', \Carbon\Carbon::now()) !!}</div>
         @else
-        <div class="col-lg-6">{!! Form::date('date') !!}</div>
+        <div class="col-lg-6">{!! Form::date('date', $moduledone->date) !!}</div>
         @endif
 </div>
 <div class="row">
         <div class="col-lg-3">{{ Form::label('result', 'Resultaat: ') }}</div>
-        <div class="col-lg-6">{!! Form::text('result') !!}</div>        
+        <div class="col-lg-6">{!! Form::text('result') !!}</div>
 </div>
 
 <div class="row">

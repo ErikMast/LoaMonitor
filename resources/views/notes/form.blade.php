@@ -16,7 +16,7 @@
         @if ($note->id == null)
         <div class="col-lg-6">{!! Form::date('date', \Carbon\Carbon::now()) !!}</div>
         @else
-        <div class="col-lg-6">{!! Form::date('date') !!}</div>
+        <div class="col-lg-6">{!! Form::date('date', $note->date) !!}</div>
         @endif
 </div>
 
