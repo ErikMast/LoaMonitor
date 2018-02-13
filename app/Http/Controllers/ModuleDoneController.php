@@ -71,7 +71,8 @@ class ModuleDoneController extends Controller
           'modules_id' => 'required',
           'date' => 'required',
           'students_id' => 'required',
-          'users_id' => 'required'
+          'users_id' => 'required',
+          'result' => 'required'
       ]);
 
       ModuleDone::create($request->all());
@@ -119,7 +120,8 @@ class ModuleDoneController extends Controller
           'date' => 'required',
           'modules_id' => 'required',
           'students_id' => 'required',
-          'users_id' => 'required'
+          'users_id' => 'required',
+          'result' => 'required'
       ]);
 
       ModuleDone::find($id)->update($request->all());
