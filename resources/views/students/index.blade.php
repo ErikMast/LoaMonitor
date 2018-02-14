@@ -12,6 +12,20 @@
             </div>
         </div>
     </div>
+    <div class="">
+      {!! Form::open(['method'=>'GET','url'=>'/students','class'=>'navbar-form navbar-left','role'=>'search'])  !!}
+      <a href="{{ url('/students') }}" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-search"></span></a>
+
+      <div class="input-group custom-search-form">
+        <input type="text" class="form-control" name="keyword" placeholder="Search...">
+        <span class="input-group-btn">
+            <button class="btn btn-default-sm" type="submit">
+                <i class="fa fa-search"><!--<span class="hiddenGrammarError" pre="" data-mce-bogus="1"--></i>
+            </button>
+        </span>
+
+      {!! Form::close() !!}
+    </div>
 
     @if ($message = Session::get('success'))
         <div class="alert alert-success">

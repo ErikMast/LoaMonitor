@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use LoaMonitor\Student;
 use LoaMonitor\Village;
 use LoaMonitor\Group;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Input;
 
 class StudentController extends Controller
 {
@@ -18,8 +20,14 @@ class StudentController extends Controller
 
     public function index(Request $request)
     {
-        $students = Student::orderBy('groups_id')->orderBy('lastname')->paginate(10);
-
+        Log::info('student index');
+        $keyword = Input::get('keyword');
+        Log::info("Keyword= $keyword");
+        if (isset($keyword)){
+          $students = Student::where('lastname', 'LIKE', "%$keyword%")->orderBy('groups_id')->orderBy('lastname')->paginate(10);
+        } else {
+          $students = Student::orderBy('groups_id')->orderBy('lastname')->paginate(10);
+        }
         return view('students.index',compact('students'))
             ->with('i', ($request->input('page', 1) - 1) * 10);
     }
