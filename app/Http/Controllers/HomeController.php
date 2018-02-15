@@ -32,13 +32,11 @@ class HomeController extends Controller
 		    } else {
           $currentDay = date("j F Y");
 
-          Log::info('dashboard index');
           $keyword = Input::get('keyword');
-          Log::info("Keyword= $keyword");
           if (isset($keyword)){
-            $students = Student::where('lastname', 'LIKE', "%$keyword%")->orderBy('groups_id')->orderBy('lastname')->get();
+            $students = Student::getStudents($keyword);
           } else {
-            $students = Student::orderBy('groups_id')->orderBy('lastname')->get();
+            $students = Student::getStudents('');
           }
 
     			return view('dashboard', compact('currentDay', 'students'));

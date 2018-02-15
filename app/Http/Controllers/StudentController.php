@@ -20,16 +20,14 @@ class StudentController extends Controller
 
     public function index(Request $request)
     {
-        Log::info('student index');
         $keyword = Input::get('keyword');
-        Log::info("Keyword= $keyword");
         if (isset($keyword)){
-          $students = Student::where('lastname', 'LIKE', "%$keyword%")->orderBy('groups_id')->orderBy('lastname')->paginate(10);
+          $students = Student::getStudents($keyword);
         } else {
-          $students = Student::orderBy('groups_id')->orderBy('lastname')->paginate(10);
+          $students = Student::getStudents('');
         }
-        return view('students.index',compact('students'))
-            ->with('i', ($request->input('page', 1) - 1) * 10);
+
+        return view('students.index',compact('students'));
     }
 
     /**
