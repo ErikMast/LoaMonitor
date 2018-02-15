@@ -70,6 +70,7 @@ class CsvdataController extends Controller
 
 			//Csvdata::insert($dataImported);
 		}
-		return back();
+		return redirect()->route('home')
+                   ->with('success','Studentimport gelukt');
   }
 }

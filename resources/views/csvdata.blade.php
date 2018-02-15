@@ -15,8 +15,7 @@
                 {{csrf_field()}}
                 <input type="file" name="imported-file"/>
               </div>
-		</div>
-        <div class="row">
+		
              <div class="col-md-4">
                   <button class="btn btn-primary" type="submit">Import</button>
 			  </div>
