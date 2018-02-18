@@ -73,10 +73,11 @@ class Student extends Model
     Log::info("Search for $keyword");
     $groups = Group::where('name', 'LIKE', "%$keyword%")->pluck('id');
     Log::info('groupcount = '.sizeof($groups));
-    if (sizeof($groups)>0) {
+    if ((sizeof($groups)>0)&&($keyword !== '')) {
       Log::info('in Groups');
       return Student::wherein('groups_id', $groups)->
-              orderBy('lastname')->get();
+          orderBy('groups_id')->
+          orderBy('lastname')->get();
     } else
       Log::info('in students');
       return Student::where('lastname', 'LIKE', "%$keyword%")->
