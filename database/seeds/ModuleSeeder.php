@@ -60,6 +60,48 @@ class ModuleSeeder extends Seeder
                     'level' => 1,
                     'description'=>'Eigen code onder controle',
                     'sbu'=>26
+                  ],
+                  [
+                    'domain' => 'A',
+                    'level' => 2,
+                    'description'=>'Code indelen in PHP',
+                    'sbu'=>32
+                  ],
+                  [
+                    'domain' => 'A',
+                    'level' => 2,
+                    'description'=>'Code indelen in Java',
+                    'sbu'=>32
+                  ],
+                  [
+                    'domain' => 'A',
+                    'level' => 3,
+                    'description'=>'Object Oriented Programming in Java',
+                    'sbu'=>64
+                  ],
+                  [
+                    'domain' => 'B',
+                    'level' => 3,
+                    'description'=>'Werken met relationele databases',
+                    'sbu'=>0
+                  ],
+                  [
+                    'domain' => 'B',
+                    'level' => 4,
+                    'description'=>'Normaliseren',
+                    'sbu'=>0
+                  ],
+                  [
+                    'domain' => 'C',
+                    'level' => 4,
+                    'description'=>'Angular.js',
+                    'sbu'=>26
+                  ],
+                  [
+                    'domain' => 'E',
+                    'level' => 2,
+                    'description'=>'Samen in code werken',
+                    'sbu'=>26
                   ]
 
       ]);
