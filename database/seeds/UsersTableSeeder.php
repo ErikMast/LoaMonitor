@@ -15,21 +15,27 @@ class UsersTableSeeder extends Seeder
       [
         [
 				      'email' => 'e.mast@drenthecollege.nl',
-                        'password' => bcrypt('Test'),
+                        'password' => bcrypt('Welkom1234'),
                         'firstname' => 'Erik',
                         'lastname' => 'Mast'
         ],
         [
               'email' => 'a.balfaqih@drenthecollege.nl',
-                        'password' => bcrypt('Test'),
+                        'password' => bcrypt('Welkom1234'),
                         'firstname' => 'Aminah',
                         'lastname' => 'Balfaqih'
         ],
         [
               'email' => 'h.steenbergen@drenthecollege.nl',
-                        'password' => bcrypt('Test'),
+                        'password' => bcrypt('Welkom1234'),
                         'firstname' => 'Harmen',
                         'lastname' => 'Steenbergen'
+        ],
+        [
+              'email' => 'b.bergmann@drenthecollege.nl',
+                        'password' => bcrypt('Welkom1234'),
+                        'firstname' => 'Benn',
+                        'lastname' => 'Bergman'
         ]
       ]);
     }

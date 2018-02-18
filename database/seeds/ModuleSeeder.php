@@ -54,6 +54,12 @@ class ModuleSeeder extends Seeder
                     'level' => 3,
                     'description'=>'Bootstrap',
                     'sbu'=>78
+                  ],
+                  [
+                    'domain' => 'E',
+                    'level' => 1,
+                    'description'=>'Eigen code onder controle',
+                    'sbu'=>26
                   ]
 
       ]);

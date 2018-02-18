@@ -6,13 +6,13 @@
 4. Een nieuwe key genereren met php artisan key:generate
 5. Gegevens invullen in .env
 6. Cmd openen en naar map van project gaan
-7. composer install 
-8. php artisan migrate 
+7. composer install
+8. php artisan migrate
 9. php artisan db:seed
 10. php artisan db:seed --class TestCaseSeeder (alleen als je ook teststudenten wilt)
-11. php artisan serve 
+11. php artisan serve
 12. Met een webbrowser naar localhost:8000 gaan
-13. Inloggen met je mailadres en wachtwoord Test
+13. Inloggen met je mailadres en wachtwoord Welkom1234
 
 
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
