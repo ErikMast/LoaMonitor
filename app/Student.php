@@ -71,7 +71,7 @@ class Student extends Model
 
   public static function getStudents($keyword) {
     Log::info("Search for $keyword");
-    $groups = Group::where('name', 'LIKE', "%$keyword%")->pluck('id');
+    $groups = Group::where('name', 'LIKE', "%$keyword%")->orderBy("name")->pluck('id');
     Log::info('groupcount = '.sizeof($groups));
     if ((sizeof($groups)>0)&&($keyword !== '')) {
       Log::info('in Groups');
@@ -80,9 +80,10 @@ class Student extends Model
           orderBy('lastname')->get();
     } else
       Log::info('in students');
-      return Student::where('lastname', 'LIKE', "%$keyword%")->
+      return Student::join("groups", "groups.id", "=", "students.groups_id")->
+              where('lastname', 'LIKE', "%$keyword%")->
               orwhere('firstname', 'LIKE', "%$keyword%")->
-              orderBy('groups_id')->
+              orderBy('groups.name')->
               orderBy('lastname')->get();
   }
 
