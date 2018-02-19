@@ -72,9 +72,8 @@ class Student extends Model
   public static function getStudents($keyword) {
     Log::info("Search for $keyword");
     $groups = Group::where('name', 'LIKE', "%$keyword%")->orderBy("name")->pluck('id');
-    Log::info('groupcount = '.sizeof($groups));
     if ((sizeof($groups)>0)&&($keyword !== '')) {
-      Log::info('in Groups');
+      Log::info('in Groups: groupcount = '.sizeof($groups));
       return Student::wherein('groups_id', $groups)->
           orderBy('groups_id')->
           orderBy('lastname')->paginate(10);
