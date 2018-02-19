@@ -10,7 +10,14 @@
   </thead>
   <tbody>
     <br>
+    {{$currentGroup = ""}}
     @foreach($students as $student)
+      @if ($currentGroup!==$student->group->name)
+      <tr>
+        <td><h4>{{$student->group->name}}</h4></td>
+      </tr>
+      {{$currentGroup=$student->group->name}}
+      @endif
       <tr class="clickable-row" data-url="/student/{{ $student->id }}">
         <td onClick="document.location.href='{{ route('students.index')}}/{{ $student->id }}';">
           <strong>{{$student->firstname}} {{$student->lastname}}</strong>
