@@ -13,7 +13,7 @@ class Group extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'name',
+        'id', 'name','sortorder'
     ];
 
     /*

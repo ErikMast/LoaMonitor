@@ -71,11 +71,12 @@ class Student extends Model
 
   public static function getStudents($keyword) {
     Log::info("Search for $keyword");
-    $groups = Group::where('name', 'LIKE', "%$keyword%")->orderBy("name")->pluck('id');
+    $groups = Group::where('name', 'LIKE', "%$keyword%")->orderBy("sortorder")->pluck('id');
     if ((sizeof($groups)>0)&&($keyword !== '')) {
       Log::info('in Groups: groupcount = '.sizeof($groups));
-      return Student::wherein('groups_id', $groups)->
-          orderBy('groups_id')->
+      return Student::join("groups", "groups.id", "=", "students.groups_id")->
+          wherein('groups_id', $groups)->
+          orderBy('groups.sortorder')->
           orderBy('lastname')->get();
           //orderBy('lastname')->paginate(10);
     } else
@@ -83,7 +84,7 @@ class Student extends Model
       return Student::join("groups", "groups.id", "=", "students.groups_id")->
               where('lastname', 'LIKE', "%$keyword%")->
               orwhere('firstname', 'LIKE', "%$keyword%")->
-              orderBy('groups.name')->
+              orderBy('groups.sortorder')->
               orderBy('lastname')->get();
 //              orderBy('lastname')->paginate(10);
   }
