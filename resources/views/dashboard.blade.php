@@ -33,6 +33,6 @@
         @include('students.table');
       </div>
     </div>
-    {!! $students->render() !!}
+  
 </div>
 @endsection

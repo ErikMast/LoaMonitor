@@ -76,14 +76,16 @@ class Student extends Model
       Log::info('in Groups: groupcount = '.sizeof($groups));
       return Student::wherein('groups_id', $groups)->
           orderBy('groups_id')->
-          orderBy('lastname')->paginate(10);
+          orderBy('lastname')->get();
+          //orderBy('lastname')->paginate(10);
     } else
       Log::info('in students');
       return Student::join("groups", "groups.id", "=", "students.groups_id")->
               where('lastname', 'LIKE', "%$keyword%")->
               orwhere('firstname', 'LIKE', "%$keyword%")->
               orderBy('groups.name')->
-              orderBy('lastname')->paginate(10);
+              orderBy('lastname')->get();
+//              orderBy('lastname')->paginate(10);
   }
 
 }
