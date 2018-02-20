@@ -14,28 +14,28 @@ class GroupsTableSeeder extends Seeder
         DB::table('groups')->insert(
                 [
                     [
-						'name' => 'avicos1a'
+						'name' => 'avicos1a', 'sortorder' => '1'
                     ],
 					[
-						'name' => 'avicos2a'
+						'name' => 'avicos2a', 'sortorder' => '2'
                     ],
 					[
-						'name' => 'avicos3a'
+						'name' => 'avicos3a', 'sortorder' => '3'
                     ],
 					[
-						'name' => 'swicos1a'
+						'name' => 'swicos1a', 'sortorder' => '4'
                     ],
 					[
-						'name' => 'swicos1b'
+						'name' => 'swicos1b', 'sortorder' => '5'
                     ],
 					[
-						'name' => 'swicos2a'
+						'name' => 'swicos2a', 'sortorder' => '6'
                     ],
 					[
-						'name' => 'swicos2b'
+						'name' => 'swicos2b', 'sortorder' => '7'
                     ],
 					[
-						'name' => 'swicos3a'
+						'name' => 'swicos3a', 'sortorder' => '8'
                     ]
         ]);
     }
