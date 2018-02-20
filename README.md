@@ -6,7 +6,7 @@
 4. Een nieuwe key genereren met php artisan key:generate
 5. Gegevens invullen in .env
 6. Cmd openen en naar map van project gaan
-7. composer install
+7. composer install (mbstring en phpxml en ...)
 8. php artisan migrate
 9. php artisan db:seed
 10. php artisan db:seed --class TestCaseSeeder (alleen als je ook teststudenten wilt)
