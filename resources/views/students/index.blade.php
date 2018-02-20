@@ -14,13 +14,13 @@
     </div>
     <div class="">
       {!! Form::open(['method'=>'GET','url'=>'/students','class'=>'navbar-form navbar-left','role'=>'search'])  !!}
-      <a href="{{ url('/students') }}" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-search"></span></a>
+      <a href="{{ url('/students') }}" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-erase"></span></a>
 
       <div class="input-group custom-search-form">
         <input type="text" class="form-control" name="keyword" placeholder="Search...">
         <span class="input-group-btn">
             <button class="btn btn-default-sm" type="submit">
-                <i class="fa fa-search"><!--<span class="hiddenGrammarError" pre="" data-mce-bogus="1"--></i>
+                <i class="fa fa-search"><span class="glyphicon glyphicon-search"></span></i>
             </button>
         </span>
 
@@ -35,7 +35,7 @@
 
     @include('students.table');
 
-    
+
 
 </div>
 @endsection
