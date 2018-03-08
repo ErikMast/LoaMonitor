@@ -28,11 +28,11 @@ class Student extends Model
 	];
 
 
-	public function village(){
+	public function Village(){
 		return $this->belongsTo(Village::class, 'villages_id');
 	}
 
-	public function group() {
+	public function Group() {
 		return $this->belongsTo(Group::class, 'groups_id');
 	}
 

@@ -38,7 +38,12 @@ class StudentController extends Controller
 
     public function create()
     {
-        return view('students.create');
+        $villages = Village::orderBy("name")->pluck('name', 'id');
+  		  $groups = Group::orderBy("sortorder")->pluck('name', 'id');
+        $student = new Student();
+        $student->Village = Village::find(1);
+        $student->Group = Group::find(1);
+        return view('students.create',compact('student', 'villages', 'groups'));
     }
 
 
@@ -54,6 +59,7 @@ class StudentController extends Controller
         $this->validate($request, [
             'firstname' => 'required',
             'lastname' => 'required',
+            'student_number' => 'reuired'
         ]);
 		Student::create($request->all());
         return redirect()->route('home')
@@ -86,8 +92,8 @@ class StudentController extends Controller
     public function edit($id)
     {
         $student = Student::find($id);
-		$villages = Village::pluck('name', 'id');
-		$groups = Group::orderBy("sortorder")->pluck('name', 'id');
+		    $villages = Village::pluck('name', 'id');
+		    $groups = Group::orderBy("sortorder")->pluck('name', 'id');
         return view('students.edit',compact('student', 'villages', 'groups'));
     }
 
@@ -106,6 +112,7 @@ class StudentController extends Controller
         $this->validate($request, [
             'firstname' => 'required',
             'lastname' => 'required',
+            'student_number' => 'reuired'
         ]);
 
         Student::find($id)->update($request->all());
