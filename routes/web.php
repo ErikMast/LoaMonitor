@@ -27,6 +27,7 @@ Route::group(['middleware' => ['auth']], function() {
   //csv import studenten
   Route::get('csvdata', 'CsvdataController@index');
   Route::post('csvdata/import', 'CsvdataController@import');
+  Route::get('sbustats', 'SbuStatsController@index');
 
   Route::get('laravel-version', function()  {
       $laravel = app();

@@ -43,9 +43,25 @@
                                     Studenten
                                 </a>
 							          </li>
+
 							          <!--li>
 										              <a href="{{ url('/users') }}">Gebruikers</a>
 							          </li -->
+                        <ul class= "nav navbar-nav navbar-left">
+                            <li class="dropdown">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                  Overzichten <span class="caret"></span>
+                              </a>
+                              <ul class="dropdown-menu" role="menu">
+                                <li>
+                                  <a href="{{ url('/sbustats') }}">
+                                      SBU voortgang
+                                  </a>
+                                </li>
+                              </ul>
+        					          </li>
+                        </ul>
+
                         <ul class= "nav navbar-nav navbar-right">
                             <li class="dropdown">
                               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
