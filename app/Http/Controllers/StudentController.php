@@ -59,7 +59,7 @@ class StudentController extends Controller
         $this->validate($request, [
             'firstname' => 'required',
             'lastname' => 'required',
-            'student_number' => 'reuired'
+            'student_number' => 'required'
         ]);
 		Student::create($request->all());
         return redirect()->route('home')
@@ -112,7 +112,7 @@ class StudentController extends Controller
         $this->validate($request, [
             'firstname' => 'required',
             'lastname' => 'required',
-            'student_number' => 'reuired'
+            'student_number' => 'required'
         ]);
 
         Student::find($id)->update($request->all());
