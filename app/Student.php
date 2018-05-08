@@ -63,6 +63,7 @@ class Student extends Model
   public function sumOfSBU(){
     $som = DB::table('module_dones')->
       where('module_dones.students_id', '=', $this->id)->
+      distinct()->
       join('modules', 'module_dones.modules_id','=', 'modules.id')->
       select('modules.sbu')->
       sum('sbu');
