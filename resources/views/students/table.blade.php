@@ -24,6 +24,7 @@
           <strong>{{$student->firstname}} {{$student->lastname}}</strong>
           <br>
           {{$student->student_number}} - {{$student->group->name}}<br>
+          {{ $student->Village->name }} ({{ $student->eta }})<br>
         </td>
         <td onClick="document.location.href='{{ route('notes.index', ['student_id' => $student->id, 'user_id'=>Auth::user()->id])}}';">
           @foreach($student->mostRecentNotes as $note)
