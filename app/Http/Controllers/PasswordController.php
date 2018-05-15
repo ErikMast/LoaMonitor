@@ -33,11 +33,11 @@ class PasswordController extends Controller
     {
        $this->validate($request, [
            'old_password' => 'required',
-           'password' => 'required',
+           'password' => 'required', //confirmed
            'password_confirmation'=> 'required|same:password'
        ]);
 
-       //dit kan nog beter...
+       //Todo: dit kan nog beter...
        $user = User::findOrFail($id);
        $user->password = bcrypt($request->password);
        $user->save();

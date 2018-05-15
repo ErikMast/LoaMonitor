@@ -69,6 +69,9 @@
                               </a>
                               <ul class="dropdown-menu" role="menu">
                                 <li>
+								                   <a href="/users">Gebruikers</a>
+                                </li>
+                                <li>
 								                   <a href="/modules">Modules</a>
                                 </li>
                                 <li>

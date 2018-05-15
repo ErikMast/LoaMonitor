@@ -24,6 +24,8 @@ Route::group(['middleware' => ['auth']], function() {
   Route::resource('notes','NoteController');
   Route::resource('modules', 'ModuleController');
   Route::resource('moduledones', 'ModuleDoneController');
+  Route::resource('users', 'UserController');
+
   //csv import studenten
   Route::get('csvdata', 'CsvdataController@index');
   Route::post('csvdata/import', 'CsvdataController@import');
