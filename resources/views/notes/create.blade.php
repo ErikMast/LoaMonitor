@@ -7,6 +7,8 @@
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
                 <h2>Nieuwe notitie invoeren</h2>
+                <h3>Student: {{ $note->Student->firstname }} {{ $note->Student->lastname }}</h3>
+                
             </div>
             <div class="pull-right">
                 <a class="btn btn-primary" href="{{ route('notes.index') }}"> Back</a>
