@@ -4,7 +4,7 @@
       <th width="60px">Voornaam</th>
       <th width="60px">Achternaam</th>
       <th width="100px">email</th>
-      <th width="50px">email</th>
+      <th width="50px">Wijzigen</th>
 
     </tr>
   </thead>
