@@ -2,6 +2,7 @@
   <thead>
     <tr>
       <th width="200px">Student</th>
+      <th width="50px"></th>
       <th width="300px">Notitie</th>
       <th width="120px"></th>
       <th>Modules</th>
@@ -27,6 +28,11 @@
           {{ $student->Village->name }} ({{ $student->eta }})<br>
           @if ( $student->end_date != null)
             {{ $student->end_date->format('d-m-Y')}}<br>
+          @endif
+        </td>
+        <td>
+          @if ( $student->toBeCalled())
+            <span class="glyphicon glyphicon-earphone icon-large" style="color:red;font-size: 20px"><br>
           @endif
         </td>
         <td onClick="document.location.href='{{ route('notes.index', ['student_id' => $student->id, 'user_id'=>Auth::user()->id])}}';">

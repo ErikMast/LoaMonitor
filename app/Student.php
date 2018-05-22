@@ -9,6 +9,7 @@ use LoaMonitor\Group;
 use LoaMonitor\Note;
 use DateTime;
 use Illuminate\Support\Facades\Log;
+use Carbon\Carbon;
 
 class Student extends Model
 {
@@ -69,7 +70,7 @@ class Student extends Model
 	}
 
   public function modulesDoneSorted(){
-    return $this->modules_done()->orderBy('date', 'DESC')->take(5);
+	  return $this->modules_done()->orderBy('date', 'DESC')->take(5);
   }
 
   public function sumOfSBU(){
@@ -81,6 +82,23 @@ class Student extends Model
       sum('sbu');
     return $som;
   }
+
+  public function toBeCalled(){
+    //get last contact and last progress note
+		$lastdate = $this->notes()->
+      whereIn("note_types_id", array(1,2))->
+      orderBy('date', 'DESC')->take(1)->pluck('date')->map(function($date) {
+        return $date->format('d-m-Y');
+      });
+    $now = Carbon::now();
+    if (sizeof($lastdate)>0) {
+      $lastdate = Carbon::createFromFormat('d-m-Y', $lastdate[0]);
+      //magical number... 21 days
+      return (($this->end_date == null) && ($this->is_visible = 1) && ($now->diffInDays($lastdate)>21));
+    } else {
+      return (($this->end_date == null) && ($this->is_visible = 1));
+    }
+}
 
   public static function getStudents($keyword, $inDashboard) {
       Log::info("Search for $keyword");
