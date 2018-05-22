@@ -30,7 +30,7 @@ class HomeController extends Controller
         if (Auth::guest()) {
 			       return view('login');
 		    } else {
-          $currentDay = date("j F Y");
+          $currentDay = date("j-m-Y");
 
           $keyword = Input::get('keyword');
           if (isset($keyword)){
