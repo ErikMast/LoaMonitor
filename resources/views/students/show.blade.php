@@ -23,14 +23,26 @@
 	<div class="row">
         <div class="col-lg-3">{{ Form::label('student_number', 'Stamnr: ') }}</div>
         <div class="col-lg-6">{{ $student->student_number }}</div>
-    </div>
-		<div class="row">
+  </div>
+	<div class="row">
 	        <div class="col-lg-3">{{ Form::label('group', 'Klas: ') }}</div>
 	        <div class="col-lg-6">{{ $student->Group->name }}</div>
-	    </div>
+	</div>
 	<div class="row">
         <div class="col-lg-3">{{ Form::label('village', 'Woonplaats - ETA: ') }}</div>
-		<div class="col-lg-6">{{ $student->Village->name }} ({{ $student->eta }})</div>
+				<div class="col-lg-6">{{ $student->Village->name }} ({{ $student->eta }})</div>
+	</div>
+	<div class="row">
+        <div class="col-lg-3">{{ Form::label('end_date', 'Datum afsluiten: ') }}</div>
+				<div class="col-lg-6">
+						@if ($student->end_date != null)
+							{{ $student->end_date->format("d-m-Y") }}
+						@endif
+				</div>
+	</div>
+	<div class="row">
+        <div class="col-lg-3">{{ Form::label('is_visible', 'Zichtbaar (in dashboard) ') }}</div>
+				<div class="col-lg-6">{{ $student->visibleAsText() }}</div>
 	</div>
 
 	<table class="display table table-bordered table-condensed table-responsive dynamic-table">

@@ -22,9 +22,9 @@ class StudentController extends Controller
     {
         $keyword = Input::get('keyword');
         if (isset($keyword)){
-          $students = Student::getStudents($keyword);
+          $students = Student::getStudents($keyword, false);
         } else {
-          $students = Student::getStudents('');
+          $students = Student::getStudents('', false);
         }
 
         return view('students.index',compact('students'));
@@ -41,6 +41,7 @@ class StudentController extends Controller
         $villages = Village::orderBy("name")->pluck('name', 'id');
   		  $groups = Group::orderBy("sortorder")->pluck('name', 'id');
         $student = new Student();
+        $student->is_visible = true;
         $student->Village = Village::find(1);
         $student->Group = Group::find(1);
         return view('students.create',compact('student', 'villages', 'groups'));
@@ -61,7 +62,7 @@ class StudentController extends Controller
             'lastname' => 'required',
             'student_number' => 'required'
         ]);
-		Student::create($request->all());
+        Student::create($request->all());
         return redirect()->route('home')
                        ->with('success','Item created successfully');
     }

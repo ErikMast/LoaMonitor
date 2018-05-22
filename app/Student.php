@@ -12,7 +12,12 @@ use Illuminate\Support\Facades\Log;
 
 class Student extends Model
 {
-	/**
+
+  protected $dates = [
+    'end_date'
+  ];
+
+  /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -25,6 +30,8 @@ class Student extends Model
 		'villages_id',
 		'eta',
 		'groups_id',
+    'end_date',
+    'is_visible'
 	];
 
 
@@ -43,6 +50,11 @@ class Student extends Model
   public function modules_done(){
     return $this->hasMany(ModuleDone::class, 'students_id');
   }
+
+  public function visibleAsText(){
+    return ($this->is_visible !=0 ) ? "Ja": "Nee";
+  }
+
 
 	public function mostRecentNotes(){
     //get last contact and last progress note
@@ -70,24 +82,36 @@ class Student extends Model
     return $som;
   }
 
-  public static function getStudents($keyword) {
-    Log::info("Search for $keyword");
+  public static function getStudents($keyword, $inDashboard) {
+      Log::info("Search for $keyword");
     $groups = Group::where('name', 'LIKE', "%$keyword%")->orderBy("sortorder")->pluck('id');
+    if ($inDashboard) {
+      $students = Student::whereNull('end_date')->where('is_visible', '=', '1');
+    } else {
+      $students = Student::all();
+    }
+
     if ((sizeof($groups)>0)&&($keyword !== '')) {
       Log::info('in Groups: groupcount = '.sizeof($groups));
-      return Student::select('students.*')->join("groups", "groups.id", "=", "students.groups_id")->
+
+      return Student::select('students.*')->
+          join("groups", "groups.id", "=", "students.groups_id")->
           wherein('groups_id', $groups)->
+          wherein('students.id', $students->pluck('id'))->
           orderBy('groups.sortorder')->
           orderBy('lastname')->get();
-          //orderBy('lastname')->paginate(10);
     } else
       Log::info('in students');
-      return Student::select('students.*')->join("groups", "groups.id", "=", "students.groups_id")->
-              where('lastname', 'LIKE', "%$keyword%")->
-              orwhere('firstname', 'LIKE', "%$keyword%")->
+      if ($keyword !== '') {
+        $students = Student::where('firstname', 'LIKE', "%$keyword%")->
+          orwhere('lastname', 'LIKE', "%$keyword%")->
+          wherein('students.id', $students->pluck('id'));
+      }
+
+      return Student::select('students.*')->
+              wherein('students.id', $students->pluck('id'))->
+              join("groups", "groups.id", "=", "students.groups_id")->
               orderBy('groups.sortorder')->
               orderBy('lastname')->get();
-//              orderBy('lastname')->paginate(10);
   }
-
 }

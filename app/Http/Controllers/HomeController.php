@@ -34,9 +34,9 @@ class HomeController extends Controller
 
           $keyword = Input::get('keyword');
           if (isset($keyword)){
-            $students = Student::getStudents($keyword);
+            $students = Student::getStudents($keyword, true);
           } else {
-            $students = Student::getStudents('');
+            $students = Student::getStudents('', true);
           }
 
     			return view('dashboard', compact('currentDay', 'students'));
