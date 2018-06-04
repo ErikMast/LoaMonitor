@@ -74,12 +74,15 @@ class Student extends Model
   }
 
   public function sumOfSBU(){
-    $som = DB::table('module_dones')->
+    //selecteer alle gedane modules voor een student en neem daarvan de unieke module.id
+    $modulesdone = DB::table('module_dones')->
       where('module_dones.students_id', '=', $this->id)->
-      distinct()->
-      join('modules', 'module_dones.modules_id','=', 'modules.id')->
-      select('modules.sbu')->
+      distinct()->pluck("modules_id");
+    //neem de som van sbu van alle gedane unieke modules
+    $som = DB::table('modules')->
+      whereIn('modules.id', $modulesdone)->
       sum('sbu');
+
     return $som;
   }
 
