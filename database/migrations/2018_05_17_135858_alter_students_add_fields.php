@@ -18,7 +18,7 @@ class AlterStudentsAddFields extends Migration
         $table->date('end_date')->nullable();
         $table->boolean('is_visible')->default(0);
       });
-      Db::table('students')->update(['end_date' => null, 'is_visible' => true]);
+      DB::table('students')->update(['end_date' => null, 'is_visible' => true]);
     }
 
     /**
