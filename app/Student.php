@@ -32,7 +32,8 @@ class Student extends Model
 		'eta',
 		'groups_id',
     'end_date',
-    'is_visible'
+    'is_visible',
+    'previous_groups_id'
 	];
 
 
@@ -104,35 +105,55 @@ class Student extends Model
 }
 
   public static function getStudents($keyword, $inDashboard) {
+    /*
+      1. inDash: alleen huidige Studenten
+        groups students is_visible
+        anders alles
+      2. zoeken
+        IN groups resultaat: alleen die Studenten
+        anders zoeken in studenten
+    */
       Log::info("Search for $keyword");
-    $groups = Group::where('name', 'LIKE', "%$keyword%")->orderBy("sortorder")->pluck('id');
     if ($inDashboard) {
+      $groups = Group::where('is_visible', '=','1')->where('name', 'LIKE', "%$keyword%")->orderBy("sortorder");
       $students = Student::whereNull('end_date')->where('is_visible', '=', '1');
     } else {
+      $groups = Group::where('name', 'LIKE', "%$keyword%")->orderBy("sortorder");
       $students = Student::all();
     }
 
     if ((sizeof($groups)>0)&&($keyword !== '')) {
-      Log::info('in Groups: groupcount = '.sizeof($groups));
+      Log::info('in Groups: '.$groups->pluck('id'));
 
       return Student::select('students.*')->
           join("groups", "groups.id", "=", "students.groups_id")->
-          wherein('groups_id', $groups)->
+          wherein('groups_id', $groups->pluck('id'))->
           wherein('students.id', $students->pluck('id'))->
           orderBy('groups.sortorder')->
           orderBy('lastname')->get();
-    } else
+    } else {
       Log::info('in students');
-      if ($keyword !== '') {
-        $students = Student::where('firstname', 'LIKE', "%$keyword%")->
-          orwhere('lastname', 'LIKE', "%$keyword%")->
-          wherein('students.id', $students->pluck('id'));
+      if ($inDashboard) {
+        $groups = Group::where('is_visible', '=','1')->orderBy("sortorder")->pluck('id');
+      } else{
+        $groups = Group::orderBy("sortorder")->pluck('id');
       }
-
+      if ($keyword !== '') {
+        Log::info($groups);
+        Log::info('groupcount = '.sizeof($groups));
+        $students = Student::
+          where('firstname', 'LIKE', "%$keyword%")->
+          orwhere('lastname', 'LIKE', "%$keyword%")->
+          wherein('students.id', $students->pluck('id'))->
+          wherein('groups_id', $groups);
+      }
       return Student::select('students.*')->
               wherein('students.id', $students->pluck('id'))->
+              wherein('groups_id', $groups)->
               join("groups", "groups.id", "=", "students.groups_id")->
               orderBy('groups.sortorder')->
               orderBy('lastname')->get();
+    }
   }
+
 }

@@ -13,7 +13,7 @@ class Group extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'name','sortorder'
+        'id', 'name','sortorder', 'next_groups_id'
     ];
 
     /*
@@ -21,4 +21,18 @@ class Group extends Model
         return $this->hasMany(Student::class);
     }
 	*/
+
+  public static function getIdByName($name){
+    $group = Group::where("name", '=', $name)->first();
+
+    return $group["id"];
+  }
+
+  public function nextGroup(){
+    $next = Group::find($this->next_groups_id);
+    if ($next == null) {
+      return "";
+    }
+    return $next->name;
+  }
 }

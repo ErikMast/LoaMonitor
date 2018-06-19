@@ -8,6 +8,7 @@ use LoaMonitor\Village;
 use LoaMonitor\Group;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Input;
+use DateTime;
 
 class StudentController extends Controller
 {
@@ -44,6 +45,7 @@ class StudentController extends Controller
         $student->is_visible = true;
         $student->Village = Village::find(1);
         $student->Group = Group::find(1);
+        $student->previous_groups_id = 0;
         return view('students.create',compact('student', 'villages', 'groups'));
     }
 
@@ -57,10 +59,12 @@ class StudentController extends Controller
 
     public function store(Request $request)
     {
+      Log::info($request);
         $this->validate($request, [
             'firstname' => 'required',
             'lastname' => 'required',
-            'student_number' => 'required'
+            'student_number' => 'required',
+            'eta'=>'required'
         ]);
         Student::create($request->all());
         return redirect()->route('home')
@@ -113,7 +117,8 @@ class StudentController extends Controller
         $this->validate($request, [
             'firstname' => 'required',
             'lastname' => 'required',
-            'student_number' => 'required'
+            'student_number' => 'required',
+            'eta'=>'required'
         ]);
 
         Student::find($id)->update($request->all());

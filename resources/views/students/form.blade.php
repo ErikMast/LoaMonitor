@@ -1,3 +1,5 @@
+{!! Form::hidden('previous_groups_id', $student->previous_groups_id) !!}
+
 <div class="row">
     <div class="col-lg-3">{{ Form::label('firstname', 'Voornaam: ') }}</div>
 		<div class="col-lg-6">{!! Form::text('firstname') !!}</div>
@@ -20,7 +22,7 @@
     </div>
 	<div class="row">
         <div class="col-lg-3">{{ Form::label('eta', 'Tijd: ') }}</div>
-        <div class="col-lg-6">{!! Form::text('eta') !!}</div>
+        <div class="col-lg-6">{!! Form::text('eta', '12:30:00') !!}</div>
     </div>
     <div class="row">
           <div class="col-lg-3">{{ Form::label('end_date', 'Datum afsluiten: ') }}</div>

@@ -31,6 +31,13 @@ Route::group(['middleware' => ['auth']], function() {
   Route::post('csvdata/import', 'CsvdataController@import');
   Route::get('sbustats', 'SbuStatsController@index');
 
+  //Studenten naar volgende klas
+  Route::get('movestudents', 'MoveStudentsController@index');
+  Route::post('movestudents/move', 'MoveStudentsController@move');
+  Route::post('movestudents/revert', 'MoveStudentsController@revert');
+  Route::resource('groups', 'GroupController');
+
+
   Route::get('laravel-version', function()  {
       $laravel = app();
       return "Your Laravel version is ".$laravel::VERSION;

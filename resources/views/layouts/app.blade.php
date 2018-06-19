@@ -75,6 +75,12 @@
 								                   <a href="/modules">Modules</a>
                                 </li>
                                 <li>
+                                   <a href="/groups">Klassen</a>
+                                </li>
+                                <li>
+                                   <a href="/movestudents">Studenten verhuizen (klas)</a>
+                                </li>
+                                <li>
         								           <a href="/csvdata">Studenten Importeren</a>
                 					      </li>
                               </ul>
