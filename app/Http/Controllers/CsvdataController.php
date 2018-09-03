@@ -32,7 +32,7 @@ class CsvdataController extends Controller
 		{
 			$path = $request->file('imported-file')->getRealPath();
 			$data = Excel::load($path, function($reader) {})->get();
-
+      $prev_group = Group::where("name", "=", "Niets")->first();
 			if(!empty($data) && $data->count()){
 				$data = $data->toArray();
 				for($i=0; $i<count($data); $i++){
@@ -62,6 +62,8 @@ class CsvdataController extends Controller
 						$student['student_number']= $data[$i]['stamnr'];
 						//$student['eta'] = new DateTime('2000-01-01 12:30:00');
 						$student['groups_id'] = $group->id;
+            $student["previous_groups_id"] = $prev_group->id;
+            $student["is_visible"] = "1";
 						Student::insert($student);
 						//$dataImported[] = $data[$i];
 					}
