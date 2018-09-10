@@ -26,7 +26,9 @@ class GroupController extends Controller
      */
     public function create()
     {
-        //
+      $group = new Group();
+      $groups = Group::orderBy('sortorder')->pluck('name', 'id');
+      return view('groups.create',compact('group', 'groups'));
     }
 
     /**
@@ -37,7 +39,8 @@ class GroupController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      Group::create($request->all());
+      return redirect()->route('groups.index')->with('success', 'Klas toegevoegd');
     }
 
     /**
