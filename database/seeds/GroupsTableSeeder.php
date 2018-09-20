@@ -13,29 +13,29 @@ class GroupsTableSeeder extends Seeder
     {
         DB::table('groups')->insert(
                 [
-                    [
-						'name' => 'avicos1a', 'sortorder' => '1'
+                    [ 'id'=>'1',
+						'name' => 'avicos1a', 'sortorder' => '1', "next_groups_id" => '0'
                     ],
-					[
-						'name' => 'avicos2a', 'sortorder' => '2'
+					[ 'id'=>'2',
+						'name' => 'avicos2a', 'sortorder' => '2', "next_groups_id" => '0'
                     ],
-					[
-						'name' => 'avicos3a', 'sortorder' => '3'
+					[  'id'=>'3',
+						'name' => 'avicos3a', 'sortorder' => '3', "next_groups_id" => '0'
                     ],
-					[
-						'name' => 'swicos1a', 'sortorder' => '4'
+					[  'id'=>'4',
+						'name' => 'swicos1a', 'sortorder' => '4', "next_groups_id" => '0'
                     ],
-					[
-						'name' => 'swicos1b', 'sortorder' => '5'
+					[  'id'=>'5',
+						'name' => 'swicos1b', 'sortorder' => '5', "next_groups_id" => '0'
                     ],
-					[
-						'name' => 'swicos2a', 'sortorder' => '6'
+					[  'id'=>'6',
+						'name' => 'swicos2a', 'sortorder' => '6', "next_groups_id" => '0'
                     ],
-					[
-						'name' => 'swicos2b', 'sortorder' => '7'
+					[  'id'=>'7',
+						'name' => 'swicos2b', 'sortorder' => '7', "next_groups_id" => '0'
                     ],
-					[
-						'name' => 'swicos3a', 'sortorder' => '8'
+					[  'id'=>'8', 
+						'name' => 'swicos3a', 'sortorder' => '8', "next_groups_id" => '0'
                     ]
         ]);
     }

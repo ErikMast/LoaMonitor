@@ -17,10 +17,10 @@ class AddGroups extends Migration
       DB::table('groups')->insert(
         [
           [
-            'name' => 'av-vanopleiding', 'sortorder' => '11', 'is_visible' => false
+            'id'=>'11','name' => 'av-vanopleiding', 'sortorder' => '11', 'is_visible' => false
           ],
           [
-            'name' => 'sw-vanopleiding', 'sortorder' => '12', 'is_visible' => false
+            'id'=>'12','name' => 'sw-vanopleiding', 'sortorder' => '12', 'is_visible' => false
           ]
         ]);
     }
