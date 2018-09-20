@@ -34,7 +34,8 @@ class TestCaseSeeder extends Seeder
 					'student_number'=> '1234',
 					'villages_id' => 1,
 					'eta'=>$usualTime,
-					'groups_id'=>4
+					'groups_id'=>4,
+          'previous_groups_id'=>0
 				],
 				[
 					'firstname'=>'Joep',
@@ -42,7 +43,8 @@ class TestCaseSeeder extends Seeder
 					'student_number'=> '4321',
 					'villages_id' => 2,
 					'eta'=>$usualTime,
-					'groups_id'=>1
+					'groups_id'=>1,
+          'previous_groups_id'=>0
 				]
 			]
 		);
