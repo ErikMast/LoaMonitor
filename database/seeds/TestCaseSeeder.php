@@ -25,6 +25,7 @@ class TestCaseSeeder extends Seeder
 		);
 
 		$usualTime = new DateTime('2000-01-01 12:30:00');
+    $endDate = new DateTime("2010-01-01 0:00:00");
 
 		DB::table('students')->insert(
 			[
@@ -35,7 +36,8 @@ class TestCaseSeeder extends Seeder
 					'villages_id' => 1,
 					'eta'=>$usualTime,
 					'groups_id'=>4,
-          'previous_groups_id'=>0
+          'previous_groups_id'=>0,
+          'is_visible'=>1
 				],
 				[
 					'firstname'=>'Joep',
@@ -44,7 +46,54 @@ class TestCaseSeeder extends Seeder
 					'villages_id' => 2,
 					'eta'=>$usualTime,
 					'groups_id'=>1,
-          'previous_groups_id'=>0
+          'previous_groups_id'=>0,
+          'is_visible'=>1
+				],
+				[
+					'firstname'=>'Jaap',
+					'lastname'=>'Aap_Onzichtbaar',
+					'student_number'=> '12345',
+					'villages_id' => 1,
+					'eta'=>$usualTime,
+					'groups_id'=>4,
+          'previous_groups_id'=>0,
+          'is_visible'=>0
+				],
+				[
+					'firstname'=>'Joep',
+					'lastname'=>'Meloen_Onzichtbaar',
+					'student_number'=> '54321',
+					'villages_id' => 2,
+					'eta'=>$usualTime,
+					'groups_id'=>1,
+          'previous_groups_id'=>0,
+          'is_visible'=>0
+				]
+      ]
+    );
+    DB::table('students')->insert(
+			[
+			  [
+					'firstname'=>'Jaap',
+					'lastname'=>'Aap_Einddatum',
+					'student_number'=> '123456',
+					'villages_id' => 1,
+					'eta'=>$usualTime,
+					'groups_id'=>4,
+          'previous_groups_id'=>0,
+          'end_date'=>$endDate,
+          'is_visible'=>1
+				],
+				[
+					'firstname'=>'Joep',
+					'lastname'=>'Meloen_Einddatum',
+					'student_number'=> '654321',
+					'villages_id' => 2,
+					'eta'=>$usualTime,
+					'groups_id'=>1,
+          'previous_groups_id'=>0,
+          'end_date'=>$endDate,
+          'is_visible'=>1
 				]
 			]
 		);

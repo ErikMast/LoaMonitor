@@ -104,6 +104,14 @@ class Student extends Model
     }
 }
 
+  public static function getStudentsByVisibility($visible){
+    if ($visible) {
+      return Student::whereNull('end_date')->where('is_visible', '=', '1');
+    } else {
+      return Student::all();
+    }
+  }
+
   public static function getStudents($keyword, $inDashboard) {
     /*
       1. inDash: alleen huidige Studenten
@@ -113,17 +121,18 @@ class Student extends Model
         IN groups resultaat: alleen die Studenten
         anders zoeken in studenten
     */
-      Log::info("Search for $keyword");
+
     if ($inDashboard) {
-      $groups = Group::where('is_visible', '=','1')->where('name', 'LIKE', "%$keyword%")->orderBy("sortorder");
-      $students = Student::whereNull('end_date')->where('is_visible', '=', '1');
+      $groups = Group::where('is_visible', '=','1')->orderBy("sortorder")->where('name', 'LIKE', "%$keyword%");
     } else {
       $groups = Group::where('name', 'LIKE', "%$keyword%")->orderBy("sortorder");
-      $students = Student::all();
     }
 
-    if ((sizeof($groups)>0)&&($keyword !== '')) {
-      Log::info('in Groups: '.$groups->pluck('id'));
+    $students = Student::getStudentsByVisibility($inDashboard);
+
+    Log::info("Search for [$keyword]");
+    if (($groups->count()>0) && ($keyword !== '')) {
+      Log::debug('in Groups: '.$groups->pluck('id'));
 
       return Student::select('students.*')->
           join("groups", "groups.id", "=", "students.groups_id")->
@@ -131,29 +140,31 @@ class Student extends Model
           wherein('students.id', $students->pluck('id'))->
           orderBy('groups.sortorder')->
           orderBy('lastname')->get();
-    } else {
-      Log::info('in students');
+    } else {  
+      Log::debug('In students');
       if ($inDashboard) {
-        $groups = Group::where('is_visible', '=','1')->orderBy("sortorder")->pluck('id');
+        $groups = Group::where('is_visible', '=','1')->orderBy("sortorder");
       } else{
-        $groups = Group::orderBy("sortorder")->pluck('id');
+        $groups = Group::orderBy("sortorder");
       }
       if ($keyword !== '') {
-        Log::info($groups);
-        Log::info('groupcount = '.sizeof($groups));
-        $students = Student::
+        Log::debug('groupcount = '.$groups->count(). " ".$groups->pluck('id'));
+        Log::debug("Students: ".$students->pluck('student_number'));
+        $search = Student::
           where('firstname', 'LIKE', "%$keyword%")->
-          orwhere('lastname', 'LIKE', "%$keyword%")->
+          orwhere('lastname', 'LIKE', "%$keyword%");
+        $students = Student::
           wherein('students.id', $students->pluck('id'))->
-          wherein('groups_id', $groups);
+          wherein('groups_id', $groups->pluck('id'))->
+          wherein('students.id', $search->pluck('id'));
+        Log::debug("Found ".$students->count()." ".$students->pluck('student_number'));
       }
       return Student::select('students.*')->
               wherein('students.id', $students->pluck('id'))->
-              wherein('groups_id', $groups)->
+              wherein('groups_id', $groups->pluck('id'))->
               join("groups", "groups.id", "=", "students.groups_id")->
               orderBy('groups.sortorder')->
               orderBy('lastname')->get();
     }
   }
-
 }
