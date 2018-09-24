@@ -65,4 +65,30 @@ class StudentTest extends TestCase
       $this->assertEquals(6, $students->count(), "StudentView: visibility");
 
     }
+
+    public function testToBeCalled(){
+      //Student id =2 moet gebeld worden id= =1 niet
+      $studentCall = Student::where("id","=", "2")->where("is_visible", "=", "1")->whereNull("end_date")->first();
+      $student= Student::where("id","=", "1")->where("is_visible", "=", "1")->whereNull("end_date")->first();
+
+      $this->assertTrue($studentCall->toBeCalled(), "Zichtbare student bellen");
+      $this->assertFalse($student->toBeCalled(), "Zichtbare student NIET bellen");
+
+      //Student id =3 (niet zichtbaar) en id=5 (einddatum) niet bellen
+      $student= Student::where("id","=", "3")->first();
+      $this->assertFalse($student->toBeCalled(), "Niet Zichtbare student NIET bellen");
+
+      $student= Student::where("id","=", "5")->first();
+      $this->assertFalse($student->toBeCalled(), "Student met einddatum NIET bellen");
+    }
+
+    public function testSumOfSBU(){
+      //Student id = 2 sbu = 0
+      $student = Student::find("2");
+      $this->assertEquals(0, $student->sumOfSBU(), "Geen modules voltooid");
+
+      //Student id = 1 sbu = 78 waarvan een dubbel gedaan
+      $student = Student::find("1");
+      $this->assertEquals(78, $student->sumOfSBU(), "Modules voltooid");
+    }
 }

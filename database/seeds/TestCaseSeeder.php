@@ -30,6 +30,7 @@ class TestCaseSeeder extends Seeder
 		DB::table('students')->insert(
 			[
 				[
+          'id'=>"1",
 					'firstname'=>'Jaap',
 					'lastname'=>'Aap',
 					'student_number'=> '1234',
@@ -40,6 +41,7 @@ class TestCaseSeeder extends Seeder
           'is_visible'=>1
 				],
 				[
+          'id'=>"2",
 					'firstname'=>'Joep',
 					'lastname'=>'Meloen',
 					'student_number'=> '4321',
@@ -50,7 +52,8 @@ class TestCaseSeeder extends Seeder
           'is_visible'=>1
 				],
 				[
-					'firstname'=>'Jaap',
+          'id'=>"3",
+          'firstname'=>'Jaap',
 					'lastname'=>'Aap_Onzichtbaar',
 					'student_number'=> '12345',
 					'villages_id' => 1,
@@ -60,7 +63,8 @@ class TestCaseSeeder extends Seeder
           'is_visible'=>0
 				],
 				[
-					'firstname'=>'Joep',
+          'id'=>"4",
+          'firstname'=>'Joep',
 					'lastname'=>'Meloen_Onzichtbaar',
 					'student_number'=> '54321',
 					'villages_id' => 2,
@@ -74,7 +78,8 @@ class TestCaseSeeder extends Seeder
     DB::table('students')->insert(
 			[
 			  [
-					'firstname'=>'Jaap',
+					'id'=>"5",
+          'firstname'=>'Jaap',
 					'lastname'=>'Aap_Einddatum',
 					'student_number'=> '123456',
 					'villages_id' => 1,
@@ -85,7 +90,8 @@ class TestCaseSeeder extends Seeder
           'is_visible'=>1
 				],
 				[
-					'firstname'=>'Joep',
+					'id'=>"6",
+          'firstname'=>'Joep',
 					'lastname'=>'Meloen_Einddatum',
 					'student_number'=> '654321',
 					'villages_id' => 2,
@@ -100,6 +106,8 @@ class TestCaseSeeder extends Seeder
 
 		$oldDate = new DateTime();
 		$oldDate->sub(new DateInterval('P10D'));
+    $toBeCalledDate = new DateTime();
+    $toBeCalledDate ->sub(new DateInterval("P22D"));
 
 		DB::table('notes')->insert(
 			[
@@ -118,14 +126,14 @@ class TestCaseSeeder extends Seeder
 					'users_id' => 1
 				],
 				[
-					'date'=> $oldDate,
+					'date'=> $toBeCalledDate->sub(new DateInterval('P10D')),
 					'notes'=>'status 3',
 					'note_types_id'=>2,
 					'students_id' => 2,
 					'users_id' => 1
 				],
 				[
-					'date'=> new DateTime(),
+					'date'=> $toBeCalledDate,
 					'notes'=>'status 4',
 					'note_types_id'=>2,
 					'students_id' => 2,
@@ -146,14 +154,14 @@ class TestCaseSeeder extends Seeder
 					'users_id' => 1
 				],
 				[
-					'date'=> $oldDate,
+					'date'=> $toBeCalledDate->sub(new DateInterval('P10D')),
 					'notes'=>'contact 3',
 					'note_types_id'=> 1,
 					'students_id' => 2,
 					'users_id' => 1
 				],
 				[
-					'date'=> new DateTime(),
+					'date'=> $toBeCalledDate,
 					'notes'=>'contact 4',
 					'note_types_id'=> 1,
 					'students_id' => 2,
@@ -174,14 +182,14 @@ class TestCaseSeeder extends Seeder
 					'users_id' => 1
 				],
 				[
-					'date'=> $oldDate,
+					'date'=> $toBeCalledDate->sub(new DateInterval('P10D')),
 					'notes'=>'note 3',
 					'note_types_id'=> 3,
 					'students_id' => 2,
 					'users_id' => 1
 				],
 				[
-					'date'=> new DateTime(),
+					'date'=> $toBeCalledDate,
 					'notes'=>'note 4',
 					'note_types_id'=> 3,
 					'students_id' => 2,
@@ -199,6 +207,13 @@ class TestCaseSeeder extends Seeder
                   'students_id' => 1,
                   'users_id'=> 1,
                   'date' => $oldDate,
+                  'result'=> '5'
+                ],
+                [
+                  'modules_id' => $moduleA1->id,
+                  'students_id' => 1,
+                  'users_id'=> 1,
+                  'date' => new DateTime(),
                   'result'=> '6'
                 ],
                 [

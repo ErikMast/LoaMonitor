@@ -88,6 +88,11 @@ class Student extends Model
   }
 
   public function toBeCalled(){
+    //Students with end_date or not visible
+    if (($this->end_date != null) || ($this->is_visible != 1)) {
+      return false;
+    }
+
     //get last contact and last progress note
 		$lastdate = $this->notes()->
       whereIn("note_types_id", array(1,2))->
@@ -98,12 +103,12 @@ class Student extends Model
     if (sizeof($lastdate)>0) {
       $lastdate = Carbon::createFromFormat('d-m-Y', $lastdate[0]);
       //magical number... 21 days
-      return (($this->end_date == null) && ($this->is_visible = 1) && ($now->diffInDays($lastdate)>21));
+      return ($now->diffInDays($lastdate)>21);
     } else {
-      return (($this->end_date == null) && ($this->is_visible = 1));
+      return true;
     }
-}
-
+  }
+  // Selecting students methods
   public static function getStudentsByVisibility($visible){
     if ($visible) {
       return Student::whereNull('end_date')->where('is_visible', '=', '1');
@@ -140,7 +145,7 @@ class Student extends Model
           wherein('students.id', $students->pluck('id'))->
           orderBy('groups.sortorder')->
           orderBy('lastname')->get();
-    } else {  
+    } else {
       Log::debug('In students');
       if ($inDashboard) {
         $groups = Group::where('is_visible', '=','1')->orderBy("sortorder");
