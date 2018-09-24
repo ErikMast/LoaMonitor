@@ -14,6 +14,10 @@
 12. Met een webbrowser naar localhost:8000 gaan
 13. Inloggen met je mailadres en wachtwoord Welkom1234
 
+## Testen
+1. met create_test_db.bat kun je een test database maken (in een lege database)
+2. Met test.bat kun je gemakkelijk Unittests draaien...
+
 
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
