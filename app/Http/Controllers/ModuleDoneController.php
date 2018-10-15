@@ -69,10 +69,9 @@ class ModuleDoneController extends Controller
   {
      $this->validate($request, [
           'modules_id' => 'required',
-          'date' => 'required',
+          'date_start' => 'required',
           'students_id' => 'required',
-          'users_id' => 'required',
-          'result' => 'required'
+          'users_id' => 'required'
       ]);
 
       ModuleDone::create($request->all());
@@ -117,11 +116,10 @@ class ModuleDoneController extends Controller
   public function update(Request $request, $id)
   {
       $this->validate($request, [
-          'date' => 'required',
+          'date_start' => 'required',
           'modules_id' => 'required',
           'students_id' => 'required',
-          'users_id' => 'required',
-          'result' => 'required'
+          'users_id' => 'required'
       ]);
 
       ModuleDone::find($id)->update($request->all());

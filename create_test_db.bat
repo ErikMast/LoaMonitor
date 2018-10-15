@@ -1,3 +1,3 @@
-php artisan migrate --env=testing
+php artisan migrate:refresh --env=testing
 php artisan db:seed --env=testing
-php artisan db:seed --class TestCaseSeeder --env=testing 
+php artisan db:seed --class TestCaseSeeder --env=testing

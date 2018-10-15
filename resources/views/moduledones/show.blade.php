@@ -26,15 +26,23 @@
 
 	<div class="row">
         <div class="col-lg-3">{{ Form::label('module', 'Module: ') }}</div>
-		<div class="col-lg-6">{{ $moduledone->Module->domain}}{{$moduledone->Module->level}} {{ $moduledone->Module->description}}</div>
+		<div class="col-lg-6">{{ $moduledone->Module->getFullNameAttribute()}}</div>
 	</div>
 	<div class="row">
 				<div class="col-lg-3">{{ Form::label('sbu', 'SBU: ') }}</div>
 				<div class="col-lg-6">{{ $moduledone->Module->sbu }}</div>
 	</div>
 	<div class="row">
+        <div class="col-lg-3">{{ Form::label('date_start', 'Startdatum: ') }}</div>
+        <div class="col-lg-6">{{ $moduledone->dateStartString() }}</div>
+  </div>
+	<div class="row">
+        <div class="col-lg-3">{{ Form::label('date_end', 'Einddatum: ') }}</div>
+        <div class="col-lg-6">{{ $moduledone->dateEndString() }}</div>
+  </div>
+	<div class="row">
         <div class="col-lg-3">{{ Form::label('date', 'Datum: ') }}</div>
-        <div class="col-lg-6">{{ $moduledone->date->format('d-m-Y') }}</div>
+        <div class="col-lg-6">{{ $moduledone->dateString() }}</div>
     </div>
 		<div class="row">
 	        <div class="col-lg-3">{{ Form::label('result', 'Resultaat: ') }}</div>

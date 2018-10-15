@@ -24,21 +24,27 @@
 
     <table class="table table-bordered">
         <tr>
-            <th width= "100px">Datum</th>
-            <th>Module</th>
+          <th width= "100px">Gestart</th>
+          <th width= "100px">Voltooid</th>
+          <th width= "100px">Beoordeeld</th>
+          <th width= "50px">Resultaat</th>
+          <th>Module</th>
             <th width="280px">Actie</th>
         </tr>
         @foreach ($moduledones as $key => $moduledone)
         <tr>
-		         <td>{{ $moduledone->date->format('d-m-Y') }}</td>
-            <td>{{ $moduledone->Module->domain}}{{$moduledone->Module->level}} ({{$moduledone->result}}) {{ $moduledone->Module->description}} ({{ $moduledone->Module->sbu}})</td>
+            <td>{{ $moduledone->dateStartString() }}</td>
+            <td>{{ $moduledone->dateEndString() }}</td>
+            <td>{{ $moduledone->dateString() }}</td>
+            <td>{{ $moduledone->result }}
+            <td>{{ $moduledone->Module->getFullNameAttribute()}}</td>
             <td>
-              <a class="btn btn-info" href="{{ route('moduledones.show',$moduledone->id) }}">Show</a>
-              <a class="btn btn-primary" href="{{ route('moduledones.edit',$moduledone->id) }}">Edit</a>
+              <a class="btn btn-info" href="{{ route('moduledones.show',$moduledone->id) }}">Info</a>
+              <a class="btn btn-primary" href="{{ route('moduledones.edit',$moduledone->id) }}">Wijzig</a>
               {!! Form::open(['method' => 'DELETE',
                     'route' => ['moduledones.destroy', $moduledone->id],'style'=>'display:inline',
                     'onsubmit' => 'return confirm("Weet u zeker dat u deze Voltooide Module wilt verwijderen?")']) !!}
-              {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+              {!! Form::submit('Verwijder', ['class' => 'btn btn-danger']) !!}
               {!! Form::close() !!}
             </td>
           </tr>

@@ -16,7 +16,7 @@ class Module extends Model
 
     public function getFullNameAttribute()
     {
-        return $this->domain . $this->level." ".$this->description;
+        return $this->domain . $this->level." ".$this->description." (".$this->sbu.")";
     }
 
 

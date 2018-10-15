@@ -224,5 +224,71 @@ class TestCaseSeeder extends Seeder
                   'result'=> '7'
                 ]
     ]);
+
+    //Unit testing Module
+    DB::table('modules')->insert(
+      [
+        [
+          'id'=>"100",
+          'domain'=> 'T',
+          'level'=>'1',
+          'description' => 'Test 1',
+          'sbu'=> '10',
+        ],
+        [
+          'id'=>"101",
+          'domain'=> 'T',
+          'level'=>'2',
+          'description' => 'Test 2',
+          'sbu'=> '20',
+        ]
+        ,
+        [
+          'id'=>"102",
+          'domain'=> 'T',
+          'level'=>'3',
+          'description' => 'Test 3',
+          'sbu'=> '30',
+        ]
+    ]);
+
+    //ModuleDone Unit Tests
+    // student id = 3
+    $lastweek = new DateTime();
+		$lastweek->sub(new DateInterval('P7D'));
+
+    DB::table('module_dones')->insert(
+      [
+          [
+            'id' => 100,
+            'modules_id' =>100,
+            'students_id' => 3,
+            'users_id'=> 1,
+            'date' => new DateTime(),
+            'date_start' => null,
+            'date_end' => null,
+            'result'=> '6'
+          ],
+          [
+            'id' => 101,
+            'modules_id' => 101,
+            'students_id' => 3,
+            'users_id'=> 1,
+            'date'=> null,
+            'date_start' => $lastweek,
+            'date_end' => null,
+            'result'=>null
+          ],
+          [
+            'id' => 102,
+            'modules_id' => 102,
+            'students_id' => 3,
+            'users_id'=>1,
+            'date'=> null,
+            'date_start' => $lastweek,
+            'date_end' => new DateTime(),
+            'result'=>null
+          ]
+        ]);
    }
 }

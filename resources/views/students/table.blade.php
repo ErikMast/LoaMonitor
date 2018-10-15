@@ -53,8 +53,9 @@
         <td onClick="document.location.href='{{ route('moduledones.index', ['student_id' => $student->id, 'user_id'=>Auth::user()->id])}}';">
           <strong>SBU: {{$student->sumOfSBU()}}</strong><br>
           @foreach($student->modulesDoneSorted as $moduledone)
-          <strong>{{$moduledone->Module->domain}}{{$moduledone->Module->level}} ({{$moduledone->result}})</strong>
-          {{$moduledone->date->format('d-m-Y')}} {{$moduledone->Module->description}} ({{$moduledone->Module->sbu}})<br>
+            <strong>{{$moduledone->descriptionHeader()}}</strong>
+
+            {{$moduledone->descriptionBody()}}<br>
           @endforeach
         </td>
         <td>
