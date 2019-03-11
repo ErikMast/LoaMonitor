@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use LoaMonitor\Module;
+use LoaMonitor\ModuleGroup;
 
 class TestCaseSeeder extends Seeder
 {
@@ -198,8 +199,11 @@ class TestCaseSeeder extends Seeder
 			]
 		);
 
-    $moduleA1 = Module::where('domain', '=', 'A')->where('level', '=', '1')->first();
-    $moduleB1 = Module::where('domain', '=', 'B')->where('level', '=', '1')->first();
+    $moduleGroupA1 = ModuleGroup::where('domains', '=', 'A')->first();
+    $moduleGroupB1 = ModuleGroup::where('domains', '=', 'B')->first();
+
+    $moduleA1 = Module::where('module_groups_id', '=', $moduleGroupA1->id)->where('level', '=', '1')->first();
+    $moduleB1 = Module::where('module_groups_id', '=', $moduleGroupB1->id)->where('level', '=', '1')->first();
     DB::table('module_dones')->insert(
             [
                 [
@@ -225,28 +229,39 @@ class TestCaseSeeder extends Seeder
                 ]
     ]);
 
+
+    //Module groups
+    DB::table('module_groups')->insert(
+      [
+        [
+          'id'=> "100",
+          'domains' => 'T',
+          'description'=> 'Test module group'
+        ]
+      ]
+    );
     //Unit testing Module
     DB::table('modules')->insert(
       [
         [
           'id'=>"100",
-          'domain'=> 'T',
           'level'=>'1',
+          'module_groups_id' => "100",
           'description' => 'Test 1',
           'sbu'=> '10',
         ],
         [
           'id'=>"101",
-          'domain'=> 'T',
           'level'=>'2',
+          'module_groups_id' => "100",
           'description' => 'Test 2',
           'sbu'=> '20',
         ]
         ,
         [
           'id'=>"102",
-          'domain'=> 'T',
           'level'=>'3',
+          'module_groups_id' => "100",
           'description' => 'Test 3',
           'sbu'=> '30',
         ]

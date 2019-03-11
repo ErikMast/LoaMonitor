@@ -27,9 +27,9 @@ class ModuleDone extends Model
 
     public function descriptionHeader(){
       if ($this->result != null) {
-        return $this->Module->domain.$this->Module->level.' ('. $this->result.')';
+        return $this->Module->ModuleGroup->domains.$this->Module->level.' ('. $this->result.')';
       } else {
-        return $this->Module->domain.$this->Module->level.' (S: '.
+        return $this->Module->ModuleGroup->domains.$this->Module->level.' (S: '.
           $this->date_start->format('d-m-Y').')';
       }
     }

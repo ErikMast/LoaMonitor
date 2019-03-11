@@ -15,7 +15,7 @@ class CreateModuleTable extends Migration
      {
  		    Schema::create('modules', function (Blueprint $table) {
  			      $table->increments('id');
-            $table->string('domain', 1);
+            $table->string('domain', 1)->default("");
             $table->integer('level')->unsigned();
             $table->string('description', 255);
             $table->timestamps();
@@ -30,6 +30,6 @@ class CreateModuleTable extends Migration
       */
      public function down()
      {
-             Schema::dropIfExists('modules');
+         Schema::dropIfExists('modules');
      }
 }

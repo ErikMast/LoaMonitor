@@ -31,11 +31,11 @@
         </tr>
         @foreach ($modules as $key => $module)
         <tr>
-		        <td>{{ $module->domain}}</td>
+		        <td>{{ $module->ModuleGroup->domains}}</td>
             <td>{{ $module->level }}</td>
             <td>{{ $module->description }}</td>
             <td>{{ $module->sbu }}</td>
-            <td><a class="btn btn-primary" href="{{ route('modules.edit',$module->id) }}">Edit</a>
+            <td><a class="btn btn-primary" href="{{ route('modules.edit',$module->id) }}">Wijzigen</a>
               </td>
           </tr>
           @endforeach

@@ -1,1 +1,2 @@
+cls
 vendor\bin\phpunit 

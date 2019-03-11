@@ -3,20 +3,22 @@
 namespace LoaMonitor;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
+
 
 class Module extends Model
 {
     protected $fillable = [
-      'id', 'domain','level', 'description', 'sbu'
+      'id', 'level', 'description', 'sbu', 'module_groups_id'
     ];
 
-    public function domainInt() {
-        return ord($this->domain)-ord('A')+1;
-    }
+    public function ModuleGroup() {
+  		return $this->belongsTo(ModuleGroup::class, 'module_groups_id');
+  	}
 
     public function getFullNameAttribute()
     {
-        return $this->domain . $this->level." ".$this->description." (".$this->sbu.")";
+      return $this->ModuleGroup->domains . $this->level." ".$this->description." (".$this->sbu.")";
     }
 
 

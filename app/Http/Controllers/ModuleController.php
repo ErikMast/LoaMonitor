@@ -4,6 +4,7 @@ namespace LoaMonitor\Http\Controllers;
 
 use Illuminate\Http\Request;
 use LoaMonitor\Module;
+use LoaMonitor\ModuleGroup;
 
 class ModuleController extends Controller
 {
@@ -28,8 +29,12 @@ class ModuleController extends Controller
    */
   public function index()
   {
-    $modules = Module::orderBy('level')->orderBy('domain')->paginate(10);
+    $modules = Module::select('modules.*')->join('module_groups', "module_groups.id", "=", "modules.module_groups_id")->orderBy('modules.level')->orderBy('module_groups.domains')->paginate(10);
     return view('modules.index', compact('modules'));
+  }
+
+  public function getModuleGroupDescriptions(){
+    return ModuleGroup::selectRaw('id, concat (domains, " ",description) as full_description')->pluck('full_description','id');
   }
 
   /**
@@ -40,12 +45,12 @@ class ModuleController extends Controller
   public function create()
   {
     $module = new Module();
-    $module -> domain = 'A';
+    $module ->ModuleGroup = ModuleGroup::find(1);
     $module ->level = 0;
     $module ->sbu = 0;
-    $domains = $this->domains;
+    $moduleGroups = $this->getModuleGroupDescriptions();
     $levels = $this->levels;
-    return view('modules.create',compact('module', 'domains', 'levels'));
+    return view('modules.create',compact('module', 'moduleGroups', 'levels'));
 
   }
 
@@ -58,12 +63,12 @@ class ModuleController extends Controller
   public function store(Request $request)
   {
      $this->validate($request, [
-          'domain' => 'required',
+          'module_groups_id' => 'required',
           'level' => 'required',
           'description' => 'required',
           'sbu'=> 'required|integer'
       ]);
-      $request["domain"] = $this->adjustDomain($request["domain"]);
+      //$request["domain"] = $this->adjustDomain($request["domain"]);
       Module::create($request->all());
       return redirect()->route('modules.index')->with('success','Module toegevoegd');
   }
@@ -90,9 +95,9 @@ class ModuleController extends Controller
   public function edit($id)
   {
       $module = Module::find($id);
-      $domains = $this->domains;
+      $moduleGroups = $this->getModuleGroupDescriptions();
       $levels = $this->levels;
-      return view('modules.edit',compact('module', 'domains', 'levels'));
+      return view('modules.edit',compact('module', 'moduleGroups', 'levels'));
   }
 
   /**
@@ -105,14 +110,14 @@ class ModuleController extends Controller
   public function update(Request $request, $id)
   {
     $this->validate($request, [
-         'domain' => 'required',
+         'module_groups_id' => 'required',
          'level' => 'required',
          'description' => 'required',
          'sbu'=> 'required|integer'
      ]);
 
      //workaround voor lijst
-     $request["domain"] = $this->adjustDomain($request["domain"]);
+    // $request["domain"] = $this->adjustDomain($request["domain"]);
 
      Module::find($id)->update($request->all());
      return redirect()->route('modules.index')->with('success','Module aangepast');

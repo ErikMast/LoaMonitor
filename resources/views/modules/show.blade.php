@@ -6,7 +6,7 @@
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
                 <h2>Module bekijken</h2>
-								<h3>Domein: {{ $module->domain }} Level {{ $module->level }}</h3>
+								<h3>Domein: {{ $module->ModuleGroup->domains }} Level {{ $module->level }}</h3>
             </div>
 			<div class="pull-right">
                 <a class="btn btn-primary" href="{{ route('modules.index') }}"> Terug</a>

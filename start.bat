@@ -1,1 +1,1 @@
-php artisan serve --env testing
+php artisan serve --env=testing

@@ -23,30 +23,42 @@ class ModuleDoneTest extends TestCase
        * result = 6, date = today
        */
       $moduleDone = ModuleDone::find(100);
-      $this->assertEquals($moduleDone->descriptionHeader(), 'T1 (6)' ,'descriptionHeader');
-      $this->assertEquals($moduleDone->descriptionBody(),
+      $this->assertEquals(
+        'T1 (6)' ,
+        $moduleDone->descriptionHeader(),
+        'descriptionHeader');
+      $this->assertEquals(
         $moduleDone->date->format('d-m-Y').' '.
-        $moduleDone->Module->description.' ('.$moduleDone->Module->sbu.')' ,'descriptionBody');
+        $moduleDone->Module->description.' ('.$moduleDone->Module->sbu.')',
+        $moduleDone->descriptionBody() ,
+        'descriptionBody');
 
       /*
        * Started working
        * result = NULL, date_start = Last week, date_end = null, date = NULL
        */
       $moduleDone = ModuleDone::find(101);
-      $this->assertEquals($moduleDone->descriptionHeader(),
-          'T2 (S: '.$moduleDone->date_start->format('d-m-Y').')' ,'descriptionHeader');
-      $this->assertEquals($moduleDone->descriptionBody(),
-          $moduleDone->Module->description.' ('.$moduleDone->Module->sbu.')' ,'descriptionBody');
+      $this->assertEquals('T2 (S: '.$moduleDone->date_start->format('d-m-Y').')' ,
+        $moduleDone->descriptionHeader(),
+        'descriptionHeader');
+      $this->assertEquals(
+        $moduleDone->Module->description.' ('.$moduleDone->Module->sbu.')' ,
+        $moduleDone->descriptionBody(),
+        'descriptionBody');
 
        /*
         * Stopped working
         * result = NULL, date_start = Last week , date_end = Today
         */
       $moduleDone = ModuleDone::find(102);
-      $this->assertEquals($moduleDone->descriptionHeader(),
-          'T3 (S: '.$moduleDone->date_start->format('d-m-Y').')' ,'descriptionHeader');
-      $this->assertEquals($moduleDone->descriptionBody(),
-          $moduleDone->Module->description.' ('.$moduleDone->Module->sbu.')' ,'descriptionBody');
+      $this->assertEquals(
+          'T3 (S: '.$moduleDone->date_start->format('d-m-Y').')' ,
+          $moduleDone->descriptionHeader(),
+          'descriptionHeader');
+      $this->assertEquals(
+          $moduleDone->Module->description.' ('.$moduleDone->Module->sbu.')' ,
+          $moduleDone->descriptionBody(),
+          'descriptionBody');
 
 
     }

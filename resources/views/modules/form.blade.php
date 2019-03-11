@@ -2,7 +2,7 @@
 
 <div class="row">
         <div class="col-lg-3">{{ Form::label('domain', 'Domein: ') }}</div>
-        <div class="col-lg-6">{!! Form::select('domain', $domains, $module->domainInt()) !!}</div>
+        <div class="col-lg-6">{!! Form::select('module_groups_id', $moduleGroups, $module->ModuleGroup->id) !!}</div>
 </div>
 <div class="row">
         <div class="col-lg-3">{{ Form::label('level', 'Level: ') }}</div>
