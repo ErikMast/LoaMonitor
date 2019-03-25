@@ -51,12 +51,14 @@
         </a>
         </td>
         <td onClick="document.location.href='{{ route('moduledones.index', ['student_id' => $student->id, 'user_id'=>Auth::user()->id])}}';">
-          <strong>SBU: {{$student->sumOfSBU()}}</strong><br>
+          <strong>SBU: {{$student->sumOfSBU()}}</strong><br><br>
+          @include('moduledones.overview')<br>
           @foreach($student->modulesDoneSorted as $moduledone)
             <strong>{{$moduledone->descriptionHeader()}}</strong>
 
             {{$moduledone->descriptionBody()}}<br>
           @endforeach
+
         </td>
         <td>
           <a href="{{ route('moduledones.create', ['student_id' => $student->id, 'user_id'=>Auth::user()->id])}}">

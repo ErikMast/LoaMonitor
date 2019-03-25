@@ -71,12 +71,26 @@ class ModuleDone extends Model
     public static function overview($studentId){
       $results = [];
       $modules = Module::allSorted()->get();
+      $modulesBsa1 = Module::where('level', '=', '1')->count();
+      $modulesBsa2 = 5;
+      $modulesBsa3 = Module::where('level', '=', '2')->count();
       foreach($modules as $module){
           $done = ModuleDone::isDone($studentId, $module->id);
           $result = '';
           if ($done!=null && isset($done->result)){
             if (((float)$done->result>5.4)||strtoupper($done->result)=="UITSTEKEND"||strtoupper($done->result)=="GOED"||strtoupper($done->result)=="VOLDOENDE") {
               $result = $done->result;
+              if ($done->Module->level==1) {
+                $modulesBsa1--;
+              }
+              if ($done->Module->level==2) {
+                if ($done->Module->ModuleGroup->domains == 'A' || $done->Module->ModuleGroup->domains == 'C') {
+                  $modulesBsa2 = $modulesBsa2 - 4;
+                } else {
+                  $modulesBsa2 --;
+                }
+                $modulesBsa3--;
+              }
             }
           }
           $item =
@@ -88,6 +102,9 @@ class ModuleDone extends Model
               'result'=>$result);
           array_push($results, $item);
       }
-      return $results;
+
+      $bsa = [$modulesBsa1<=0, $modulesBsa2<=0, $modulesBsa3<=0];
+      
+      return (array('results'=>$results, 'bsa'=>$bsa));
     }
 }

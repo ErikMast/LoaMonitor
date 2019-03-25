@@ -172,4 +172,8 @@ class Student extends Model
               orderBy('lastname')->get();
     }
   }
+
+  public function overviewModuleDones(){
+    return ModuleDone::overview($this->id);
+  }
 }

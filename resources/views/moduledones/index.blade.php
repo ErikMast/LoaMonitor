@@ -5,9 +5,11 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Voltooide modules</h2>
-                <h3>{{$student->firstname}} {{$student->lastname}}</h3>
-                <p>SBU: {{$student->sumOfSBU()}}<br></p>
+                <h2>Voltooide modules ({{$student->firstname}} {{$student->lastname}})</h2>
+                <h3>Overzicht</h3>
+                <p>SBU: {{$student->sumOfSBU()}}<br>
+                @include('moduledones.overview')
+                <br></p>
         		</div>
             <div class="pull-right">
                 <a class="btn btn-success"
@@ -37,7 +39,7 @@
             <td>{{ $moduledone->dateEndString() }}</td>
             <td>{{ $moduledone->dateString() }}</td>
             <td>{{ $moduledone->result }}
-            <td>{{ $moduledone->Module->getFullNameAttribute()}}</td>
+            <td>{{ $moduledone->Module->fullName}}</td>
             <td>
               <a class="btn btn-info" href="{{ route('moduledones.show',$moduledone->id) }}">Info</a>
               <a class="btn btn-primary" href="{{ route('moduledones.edit',$moduledone->id) }}">Wijzig</a>
@@ -52,5 +54,8 @@
     </table>
 
     {!! $moduledones->render() !!}
+
+
+
 </div>
 @endsection

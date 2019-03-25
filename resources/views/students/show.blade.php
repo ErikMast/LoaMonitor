@@ -45,6 +45,10 @@
 				<div class="col-lg-6">{{ $student->visibleAsText() }}</div>
 	</div>
 
+	<h3>Overzicht</h3>
+	<p>SBU: {{$student->sumOfSBU()}}<br>
+	@include('moduledones.overview')
+
 	<table class="display table table-bordered table-condensed table-responsive dynamic-table">
 	  <thead>
 	    <tr>
