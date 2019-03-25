@@ -51,7 +51,8 @@
             <td>
               <a class="btn btn-info" href="{{ route('notes.show',$note->id) }}">Show</a>
               <a class="btn btn-primary" href="{{ route('notes.edit',$note->id) }}">Edit</a>
-              {!! Form::open(['method' => 'DELETE','route' => ['notes.destroy', $note->id],'style'=>'display:inline']) !!}
+              {!! Form::open(['method' => 'DELETE','route' => ['notes.destroy', $note->id],'style'=>'display:inline',
+              'onsubmit' => 'return confirm("Weet u zeker dat u deze Notitie wilt verwijderen?")']) !!}
               {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
               {!! Form::close() !!}
             </td>
