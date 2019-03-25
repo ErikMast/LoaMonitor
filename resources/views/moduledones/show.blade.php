@@ -26,7 +26,7 @@
 
 	<div class="row">
         <div class="col-lg-3">{{ Form::label('module', 'Module: ') }}</div>
-		<div class="col-lg-6">{{ $moduledone->Module->getFullNameAttribute()}}</div>
+		<div class="col-lg-6">{{ $moduledone->Module->fullName}}</div>
 	</div>
 	<div class="row">
 				<div class="col-lg-3">{{ Form::label('sbu', 'SBU: ') }}</div>
