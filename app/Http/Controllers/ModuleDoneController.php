@@ -25,15 +25,22 @@ class ModuleDoneController extends Controller
       if ($studentId != null) {
            $moduledones = ModuleDone::where('students_id','=',$studentId)
               ->orderBy('date','DESC')->paginate(10);
+
            $student = Student::find($studentId);
-           return view('moduledones.index', compact('moduledones', 'student'));
+           $modulesOverview = ModuleDone::overview($studentId);
+
+           return view('moduledones.index', compact('moduledones', 'student', 'modulesOverview'));
       } else {
            return view('home');
       }
     }
   public function getModuleDescriptions(){
-    return Module::selectRaw('id, concat (domain,level, " ",description) as full_description')->pluck('full_description','id');
-    //return Module::pluck('description','id');
+    return
+      Module::selectRaw('modules.id, concat(domains, level, " ", modules.description) as full_description')
+        ->join('module_groups', 'module_groups.id', '=','modules.module_groups_id')
+        ->orderBy('level')
+        ->orderBy('domains')
+        ->pluck('full_description','modules.id');
   }
   /**
    * Show the form for creating a new resource.
