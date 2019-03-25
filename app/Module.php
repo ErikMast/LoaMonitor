@@ -4,6 +4,7 @@ namespace LoaMonitor;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 
 
 class Module extends Model
@@ -21,5 +22,15 @@ class Module extends Model
       return $this->ModuleGroup->domains . $this->level." ".$this->description." (".$this->sbu.")";
     }
 
+    public static function allSorted(){
+      return Module::select('modules.*')->
+        join('module_groups', "module_groups.id", "=", "modules.module_groups_id")->
+        orderBy('modules.level')->orderBy('module_groups.domains');
+    }
+
+    public function canDelete(){
+      $result = DB::table('module_dones')->where('modules_id', '=', $this->id)->count('id')==0;
+      return $result;
+    }
 
 }

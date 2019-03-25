@@ -36,7 +36,13 @@
             <td>{{ $module->description }}</td>
             <td>{{ $module->sbu }}</td>
             <td><a class="btn btn-primary" href="{{ route('modules.edit',$module->id) }}">Wijzigen</a>
-              </td>
+            @if ($module->canDelete())
+              {!! Form::open(['method' => 'DELETE','route' => ['modules.destroy', $module->id],'style'=>'display:inline',
+              'onsubmit' => 'return confirm("Weet u zeker dat u deze Module wilt verwijderen?")']) !!}
+              {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+              {!! Form::close() !!}
+            @endif
+            </td>
           </tr>
           @endforeach
     </table>
