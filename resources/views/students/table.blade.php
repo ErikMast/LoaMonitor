@@ -38,7 +38,7 @@
         <td onClick="document.location.href='{{ route('notes.index', ['student_id' => $student->id, 'user_id'=>Auth::user()->id])}}';">
           @foreach($student->mostRecentNotes as $note)
           <strong>{{$note->NoteType->name}}</strong>
-          {{$note->date->format('d-m-Y')}} {{$note->user->firstname}} {{$note->user->lastname}} <br> {{$note->notes}}<br>
+          {{$note->date->format('d-m-Y')}} {{$note->user->firstname}} {{$note->user->lastname}} <br> {{str_limit($note->notes, $limit = 150, $end = ' ...') }}<br>
           @endforeach
         </td>
 
