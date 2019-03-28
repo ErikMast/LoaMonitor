@@ -75,6 +75,9 @@
 								                   <a href="/modules">Modules</a>
                                 </li>
                                 <li>
+                                   <a href="/modulegroups">Modulegroepen</a>
+                                </li>
+                                <li>
                                    <a href="/groups">Klassen</a>
                                 </li>
                                 <li>
