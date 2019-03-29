@@ -9,6 +9,7 @@ use LoaMonitor\Group;
 use LoaMonitor\Note;
 use DateTime;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Input;
 use Carbon\Carbon;
 
 class Student extends Model
@@ -144,7 +145,7 @@ class Student extends Model
           wherein('groups_id', $groups->pluck('id'))->
           wherein('students.id', $students->pluck('id'))->
           orderBy('groups.sortorder')->
-          orderBy('lastname')->get();
+          orderBy('lastname')->paginate(20)->appends(Input::except('page'));
     } else {
       Log::debug('In students');
       if ($inDashboard) {
@@ -169,7 +170,7 @@ class Student extends Model
               wherein('groups_id', $groups->pluck('id'))->
               join("groups", "groups.id", "=", "students.groups_id")->
               orderBy('groups.sortorder')->
-              orderBy('lastname')->get();
+              orderBy('lastname')->paginate(20)->appends(Input::except('page'));
     }
   }
 
