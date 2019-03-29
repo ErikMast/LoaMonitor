@@ -24,7 +24,7 @@ class ModuleDoneController extends Controller
       $studentId = Input::get('student_id');
       if ($studentId != null) {
            $moduledones = ModuleDone::where('students_id','=',$studentId)
-              ->orderBy('date','DESC')->paginate(10);
+              ->orderBy('date','DESC')->paginate(10)->appends(Input::except('page'));
 
            $student = Student::find($studentId);
            $modulesOverview = $student->overview(null);
@@ -81,8 +81,10 @@ class ModuleDoneController extends Controller
       ]);
 
       ModuleDone::create($request->all());
+
       return redirect()->route('home')
                      ->with('success','Voltooide module toegevoegd');
+
   }
 
   /**
@@ -127,11 +129,10 @@ class ModuleDoneController extends Controller
           'users_id' => 'required'
       ]);
 
-      ModuleDone::find($id)->update($request->all());
-
       return redirect()->route('home')
-                      ->with('success','Voltooide module aangepast');
-  }
+                     ->with('success','Voltooide module toegevoegd');
+      
+    }
 
   /**
    * Remove the specified resource from storage.
