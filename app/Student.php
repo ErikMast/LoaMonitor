@@ -50,7 +50,7 @@ class Student extends Model
 	}
 
   public function modules_done(){
-    return $this->hasMany(ModuleDone::class, 'students_id');
+    return $this->hasMany(ModuleDone::class, 'students_id')->orderBy('date','DESC');
   }
 
   public function visibleAsText(){
@@ -173,7 +173,58 @@ class Student extends Model
     }
   }
 
-  public function overviewModuleDones(){
-    return ModuleDone::overview($this->id);
+  public function isDone($moduleId){
+    $result = null;
+    foreach ($this->modules_done as $moduledone) {
+      if ($result == null && $moduledone->modules_id == $moduleId)
+        $result = $moduledone;
+    }
+    return $result;
   }
+
+  public function overview($overviewSupport){
+    $results = [];
+    if ($overviewSupport == null)
+      $overviewSupport = Module::overviewSupport();
+
+    $modules = $overviewSupport['modules']; //Module::allSorted()->get();
+    $modulesBsa1 = $overviewSupport['level1count']; //Module::where('level', '=', '1')->count();
+    $modulesBsa2 = 5;
+    $modulesBsa3 = $overviewSupport['level2count']; //Module::where('level', '=', '2')->count();
+    foreach($modules as $module){
+        $result = '';
+        $done = $this->isDone($module->id);
+        if ($done!=null && isset($done->result)){
+          //komma vs punt in cijfers, kommas werken niet in php
+          $tempres = str_replace(',','.', $done->result);
+          if (((float)$tempres>5.4) ||strtoupper($tempres)=="UITSTEKEND"||strtoupper($tempres)=="GOED"||strtoupper($tempres)=="VOLDOENDE") {
+            $result = $done->result;
+            if ($done->Module->level==1) {
+              $modulesBsa1--;
+            }
+            if ($done->Module->level==2) {
+              if ($done->Module->ModuleGroup->domains == 'A' || $done->Module->ModuleGroup->domains == 'C') {
+                $modulesBsa2 = $modulesBsa2 - 4;
+              } else {
+                $modulesBsa2 --;
+              }
+              $modulesBsa3--;
+            }
+          }
+        }
+        $item =
+          array(
+            'module'=>$module->id,
+            'domain'=>$module->ModuleGroup->domains,
+            'level'=>$module->level,
+            'description'=>$module->fullName,
+            'result'=>$result);
+        array_push($results, $item);
+    }
+
+    $bsa = [$modulesBsa1<=0, $modulesBsa2<=0, $modulesBsa3<=0];
+
+    return (array('results'=>$results, 'bsa'=>$bsa));
+  }
+
 }

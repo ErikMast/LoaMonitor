@@ -33,4 +33,11 @@ class Module extends Model
       return $result;
     }
 
+    public static function overviewSupport(){
+      $result = array('modules' =>  Module::allSorted()->get(),
+        'level1count'=> Module::where('level', '=', '1')->count(),
+        'level2count'=> Module::where('level', '=', '2')->count());
+      return $result;
+    }
+
 }

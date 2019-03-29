@@ -1,7 +1,7 @@
 <table class="table-bordered">
     <tr>
     <?php
-      $modulesOverview = $student->overviewModuleDones();
+      $modulesOverview = $student->overview($modulesSupport);
       $currentLevel = '';
     ?>
     @foreach ($modulesOverview['results'] as $moduledone)

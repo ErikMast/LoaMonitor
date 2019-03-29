@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use LoaMonitor\Student;
 use LoaMonitor\Village;
 use LoaMonitor\Group;
+use LoaMonitor\Module;
+
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Input;
 use DateTime;
@@ -27,8 +29,8 @@ class StudentController extends Controller
         } else {
           $students = Student::getStudents('', false);
         }
-
-        return view('students.index',compact('students'));
+        $modulesSupport = Module::overviewSupport();
+        return view('students.index',compact('students', 'modulesSupport'));
     }
 
     /**
@@ -83,8 +85,8 @@ class StudentController extends Controller
     public function show($id)
     {
         $student = Student::find($id);
-
-        return view('students.show',compact('student'));
+        $modulesSupport = Module::overviewSupport();
+        return view('students.show',compact('student', 'modulesSupport'));
     }
 
 

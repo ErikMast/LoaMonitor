@@ -27,9 +27,9 @@ class ModuleDoneController extends Controller
               ->orderBy('date','DESC')->paginate(10);
 
            $student = Student::find($studentId);
-           $modulesOverview = ModuleDone::overview($studentId);
-
-           return view('moduledones.index', compact('moduledones', 'student', 'modulesOverview'));
+           $modulesOverview = $student->overview(null);
+           $modulesSupport = Module::overviewSupport();
+           return view('moduledones.index', compact('moduledones', 'student', 'modulesOverview', 'modulesSupport'));
       } else {
            return view('home');
       }
@@ -76,7 +76,6 @@ class ModuleDoneController extends Controller
   {
      $this->validate($request, [
           'modules_id' => 'required',
-          'date_start' => 'required',
           'students_id' => 'required',
           'users_id' => 'required'
       ]);
@@ -123,7 +122,6 @@ class ModuleDoneController extends Controller
   public function update(Request $request, $id)
   {
       $this->validate($request, [
-          'date_start' => 'required',
           'modules_id' => 'required',
           'students_id' => 'required',
           'users_id' => 'required'

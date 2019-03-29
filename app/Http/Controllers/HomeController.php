@@ -5,6 +5,7 @@ namespace LoaMonitor\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use LoaMonitor\Student;
+use LoaMonitor\Module;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Input;
 
@@ -38,8 +39,8 @@ class HomeController extends Controller
           } else {
             $students = Student::getStudents('', true);
           }
-
-    			return view('dashboard', compact('currentDay', 'students'));
+          $modulesSupport = Module::overviewSupport();
+    			return view('dashboard', compact('currentDay', 'students', 'modulesSupport'));
     		}
     }
 }
