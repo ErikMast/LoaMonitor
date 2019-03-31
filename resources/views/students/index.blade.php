@@ -26,7 +26,7 @@
 
       {!! Form::close() !!}
     </div>
-
+    <h4>Aantal studenten: {{ sizeof($students) }}</h4>
     @if ($message = Session::get('success'))
         <div class="alert alert-success">
             <p>{{ $message }}</p>
