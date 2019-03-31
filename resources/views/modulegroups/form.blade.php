@@ -2,7 +2,7 @@
 
 <div class="row">
         <div class="col-lg-3">{{ Form::label('domains', 'Domeinen: ') }}</div>
-		<div class="col-lg-6">{!! Form::textarea('domains') !!}</div>
+		<div class="col-lg-6">{!! Form::text('domains') !!}</div>
 </div>
 <div class="row">
         <div class="col-lg-3">{{ Form::label('description', 'Beschrijving: ') }}</div>
