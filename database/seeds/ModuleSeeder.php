@@ -107,13 +107,13 @@ class ModuleSeeder extends Seeder
                   [
                     'level' => 1,
                     'description'=>'Projecten doen',
-                    'module_groups_id' => ModuleGroup::where('domains', '=', 'DG')->first()['id'],
+                    'module_groups_id' => ModuleGroup::where('domains', '=', 'D-G')->first()['id'],
                     'sbu' => 32
                   ],
                   [
                     'level' => 2,
                     'description'=>'Samen projecten doen',
-                    'module_groups_id' => ModuleGroup::where('domains', '=', 'DG')->first()['id'],
+                    'module_groups_id' => ModuleGroup::where('domains', '=', 'D-G')->first()['id'],
                     'sbu' => 32
                   ]
       ]);

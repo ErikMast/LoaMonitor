@@ -45,7 +45,7 @@ class CreateModuleGroup extends Migration
                    ['domains' => 'G', 'description' => 'Scrum']
                  );
       DB::table('module_groups')->insert(
-                    ['domains' => 'DG', 'description' => 'Documentatie-Versiebeheer-Scrum']
+                    ['domains' => 'D-G', 'description' => 'Documentatie-Versiebeheer-Scrum']
                   );
     }
 
