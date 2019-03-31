@@ -128,10 +128,10 @@ class ModuleDoneController extends Controller
           'students_id' => 'required',
           'users_id' => 'required'
       ]);
-
+      ModuleDone::find($id)->update($request->all());
       return redirect()->route('home')
                      ->with('success','Voltooide module toegevoegd');
-      
+
     }
 
   /**
