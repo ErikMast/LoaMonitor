@@ -43,11 +43,11 @@
 
   <div class="dashboard-overview">
     <div class="dashboard_table">
-      <div class="col-lg-4"><h4>Aantal studenten: {{ sizeof($students) }}</h4>
+      <div class="col-lg-4"><h4>Aantal studenten: {{ $students->total() }}</h4>
       </div>
         @include('students.table');
       </div>
     </div>
-
+    {!! $students->render() !!}
 </div>
 @endsection
