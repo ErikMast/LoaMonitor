@@ -71,6 +71,7 @@
                                 <li>
 								                   <a href="/users">Gebruikers</a>
                                 </li>
+                                <li role="separator" class="divider"></li>
                                 <li>
 								                   <a href="/modules">Modules</a>
                                 </li>
@@ -80,6 +81,10 @@
                                 <li>
                                    <a href="/groups">Klassen</a>
                                 </li>
+                                <li>
+                                   <a href="/villages">Plaatsnamen</a>
+                                </li>
+                                <li role="separator" class="divider"></li>
                                 <li>
                                    <a href="/movestudents">Studenten verhuizen (klas)</a>
                                 </li>
