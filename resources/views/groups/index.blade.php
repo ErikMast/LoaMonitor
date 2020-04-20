@@ -38,6 +38,7 @@
           <th width= "50px">Id</th>
           <th width= "100px">Naam</th>
           <th width= "50px">Sorteervolgorde</th>
+          <th width= "50px">Zichtbaar (in dashboard)</th>
 		      <th width= "50px">Volgende groep</th>
           <th>Acties</th>
         </tr>
@@ -46,8 +47,15 @@
             <td>{{ $group->id}}</td>
             <td>{{ $group->name}}</td>
             <td>{{ $group->sortorder }}</td>
+            <td>{!! Form::checkbox('is_visible',1, $group->is_visible, array('disabled')) !!}</td>
             <td>{{ $group->nextGroup() }}</td>
             <td><a class="btn btn-primary" href="{{ route('groups.edit',$group->id) }}">Wijzig</a>
+              @if ($group->canDelete())
+                {!! Form::open(['method' => 'DELETE','route' => ['groups.destroy', $group->id],'style'=>'display:inline',
+                'onsubmit' => 'return confirm("Weet u zeker dat u deze klas wilt verwijderen?")']) !!}
+                {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+                {!! Form::close() !!}
+              @endif
               </td>
           </tr>
           @endforeach

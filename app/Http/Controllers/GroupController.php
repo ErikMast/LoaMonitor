@@ -107,6 +107,9 @@ class GroupController extends Controller
      */
     public function destroy($id)
     {
-        //
+      Group::find($id)->delete();
+
+      return redirect()->route('groups.index')
+                      ->with('success','Item deleted successfully');
     }
 }

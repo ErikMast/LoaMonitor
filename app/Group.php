@@ -4,6 +4,7 @@ namespace LoaMonitor;
 
 use Illuminate\Database\Eloquent\Model;
 //use LoaMonitor\Student;
+use Illuminate\Support\Facades\DB;
 
 class Group extends Model
 {
@@ -13,7 +14,7 @@ class Group extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'name','sortorder', 'next_groups_id'
+        'id', 'name','sortorder', 'is_visible','next_groups_id'
     ];
 
     /*
@@ -34,5 +35,10 @@ class Group extends Model
       return "";
     }
     return $next->name;
+  }
+
+  public function canDelete(){
+    $result = DB::table('students')->where('groups_id', '=', $this->id)->count('id')==0;
+    return $result;
   }
 }
