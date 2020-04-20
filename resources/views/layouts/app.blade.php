@@ -84,13 +84,13 @@
                                 <li>
                                    <a href="/villages">Plaatsnamen</a>
                                 </li>
-                                <li role="separator" class="divider"></li>
+                                <!--li role="separator" class="divider"></li>
                                 <li>
                                    <a href="/movestudents">Studenten verhuizen (klas)</a>
                                 </li>
                                 <li>
         								           <a href="/csvdata">Studenten Importeren</a>
-                					      </li>
+                					      </li-->
                               </ul>
         					          </li>
                         </ul>
