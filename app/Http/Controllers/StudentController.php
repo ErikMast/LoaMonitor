@@ -100,7 +100,7 @@ class StudentController extends Controller
     public function edit($id)
     {
         $student = Student::find($id);
-		    $villages = Village::pluck('name', 'id');
+		    $villages = Village::orderBy("name")->pluck('name', 'id');
 		    $groups = Group::orderBy("sortorder")->pluck('name', 'id');
         return view('students.edit',compact('student', 'villages', 'groups'));
     }
