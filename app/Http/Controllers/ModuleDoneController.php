@@ -31,7 +31,7 @@ class ModuleDoneController extends Controller
            $modulesSupport = Module::overviewSupport();
            return view('moduledones.index', compact('moduledones', 'student', 'modulesOverview', 'modulesSupport'));
       } else {
-           return view('home');
+           return redirect()->route('home');
       }
     }
   public function getModuleDescriptions(){
@@ -62,7 +62,7 @@ class ModuleDoneController extends Controller
       $moduledone->Student = $student;
       return view('moduledones.create', compact('student', 'modules', 'moduledone'));
     } else {
-      return view('home');
+      return redirect()->route('home');
     }
   }
 

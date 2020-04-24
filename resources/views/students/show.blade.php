@@ -57,12 +57,17 @@
 						Notitie
 					</a>
 				</th>
+				<th width="300px">
+					<a href="{{ route('logbooks', ['student_id' => $student->id])}}">
+						Logboek
+					</a>
+				</th>
 	      <th>
 					<a href="{{ route('moduledones.index', ['student_id' => $student->id, 'user_id'=>Auth::user()->id])}}">
 						Modules
 					</a>
 				</th>
-	      <th width="300px">Acties</th>
+	      <th width="100px">Acties</th>
 	    </tr>
 	  </thead>
 	  <tbody>
@@ -74,6 +79,19 @@
 	          {{$note->date->format('d-m-Y')}} {{$note->user->firstname}} {{$note->user->lastname}} <br>
 						{{$note->notes}}<br>
 	          @endforeach
+	        </td>
+					<td>
+						@foreach($student->logbooks as $logbook)
+						<strong>{{$logbook->date->format('d-m-Y')}}</strong><br>
+						{{$logbook->progress}}<br>
+						@if ($logbook->specification != null)
+							{{$logbook->specification}}<br>
+						@endif
+						@if ($logbook->remark != null)
+							{{$logbook->remark}}<br>
+						@endif
+						<br>
+						@endforeach
 	        </td>
 	        <td>
 						<strong>SBU: {{$student->sumOfSBU()}}</strong><br>

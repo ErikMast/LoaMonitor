@@ -11,6 +11,7 @@ use DateTime;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Input;
 use Carbon\Carbon;
+use LoaMonitor\Logbook;
 
 class Student extends Model
 {
@@ -54,6 +55,14 @@ class Student extends Model
     return $this->hasMany(ModuleDone::class, 'students_id')->orderBy('date','DESC');
   }
 
+  public function logbooks() {
+      return $this->hasMany(Logbook::class, 'students_id')->orderBy('date','DESC');
+  }
+
+  public function mostRecentLogbook(){
+      return $this->hasMany(Logbook::class, 'students_id')->orderBy('date','DESC')->take(3);
+  }
+
   public function visibleAsText(){
     return ($this->is_visible !=0 ) ? "Ja": "Nee";
   }
@@ -86,6 +95,24 @@ class Student extends Model
       sum('sbu');
 
     return $som;
+  }
+
+  public function toBeLogging(){
+    $goLogging = $this->logbooks()->count() == 0;
+
+    //get last contact and last progress note
+		$lastdate = $this->mostRecentLogbook()->take(1)->pluck('date')->map(function($date) {
+        return $date->format('d-m-Y');
+      });
+
+    $now = Carbon::now();
+    if (sizeof($lastdate)>0) {
+      $lastdate = Carbon::createFromFormat('d-m-Y', $lastdate[0]);
+      //magical number... 5 days
+      $goLogging = $goLogging || ($now->diffInDays($lastdate)>5);
+    }
+
+    return $goLogging;
   }
 
   public function toBeCalled(){

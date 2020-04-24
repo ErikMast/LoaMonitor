@@ -33,6 +33,12 @@ Route::group(['middleware' => ['auth']], function() {
   Route::post('csvdata/import', 'CsvdataController@import');
   Route::get('sbustats', 'SbuStatsController@index');
 
+  //csv import Logboek
+  Route::get('imports/logbook', 'ImportLogbook@index');
+  Route::post('imports/logbook/import', 'ImportLogbook@import');
+  Route::get('logbooks', 'LogbookController@index')->name('logbooks');
+
+
   //Studenten naar volgende klas
   Route::get('movestudents', 'MoveStudentsController@index');
   Route::post('movestudents/move', 'MoveStudentsController@move');

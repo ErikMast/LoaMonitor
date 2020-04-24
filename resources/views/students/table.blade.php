@@ -2,11 +2,11 @@
   <thead>
     <tr>
       <th width="200px">Student</th>
-      <th width="50px"></th>
-      <th width="300px">Notitie</th>
-      <th width="120px"></th>
+      <th width="40px"></th>
+      <th width="250px">Notitie</th>
+      <th width="250px">Logboek</th>
       <th>Modules</th>
-      <th width="120px"></th>
+      <th width="100px">Acties</th>
     </tr>
   </thead>
   <tbody>
@@ -32,7 +32,10 @@
         </td>
         <td>
           @if ( $student->toBeCalled())
-            <span class="glyphicon glyphicon-earphone icon-large" style="color:red;font-size: 20px"><br>
+            <span class="glyphicon glyphicon-earphone icon-large" style="color:red;font-size: 20px"><br></span>
+          @endif
+          @if ( $student->toBeLogging())
+            <span class="glyphicon glyphicon-list icon-large" style="color:red;font-size: 20px"><br></span>
           @endif
         </td>
         <td onClick="document.location.href='{{ route('notes.index', ['student_id' => $student->id, 'user_id'=>Auth::user()->id])}}';">
@@ -41,14 +44,19 @@
           {{$note->date->format('d-m-Y')}} {{$note->user->firstname}} {{$note->user->lastname}} <br> {{str_limit($note->notes, $limit = 150, $end = ' ...') }}<br>
           @endforeach
         </td>
-
         <td>
-
-        <a href="{{ route('notes.create', ['student_id' => $student->id, 'user_id'=>Auth::user()->id])}}">
-          <button class="btn btn-success">
-            <span class="glyphicon glyphicon-plus"> Notitie</span>
-          </button>
-        </a>
+          @foreach($student->mostRecentLogbook as $logbook)
+          <strong>{{$logbook->date->format('d-m-Y')}}</strong><br>
+          {{$logbook->progress}}<br>
+          @if ($logbook->specification != null)
+            {{$logbook->specification}}<br>
+          @endif
+          @if ($logbook->remark != null)
+            {{$logbook->remark}}<br>
+          @endif
+          <br>
+          @endforeach
+          <br>
         </td>
         <td onClick="document.location.href='{{ route('moduledones.index', ['student_id' => $student->id, 'user_id'=>Auth::user()->id])}}';">
           <strong>SBU: {{$student->sumOfSBU()}}</strong><br><br>
@@ -61,6 +69,11 @@
 
         </td>
         <td>
+          <a href="{{ route('notes.create', ['student_id' => $student->id, 'user_id'=>Auth::user()->id])}}">
+            <button class="btn btn-warning">
+              <span class="glyphicon glyphicon-plus"> Notitie</span>
+            </button>
+          </a>
           <a href="{{ route('moduledones.create', ['student_id' => $student->id, 'user_id'=>Auth::user()->id])}}">
             <button class="btn btn-success">
               <span class="glyphicon glyphicon-plus">Module</span>
