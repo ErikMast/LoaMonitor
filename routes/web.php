@@ -37,6 +37,7 @@ Route::group(['middleware' => ['auth']], function() {
   Route::get('imports/logbook', 'ImportLogbook@index');
   Route::post('imports/logbook/import', 'ImportLogbook@import');
   Route::get('logbooks', 'LogbookController@index')->name('logbooks');
+  Route::get('logbookoverview', 'LogbookOverviewController@index')->name('logbookoverview');
 
 
   //Studenten naar volgende klas

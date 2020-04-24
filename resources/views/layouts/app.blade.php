@@ -58,6 +58,11 @@
                                       SBU voortgang
                                   </a>
                                 </li>
+                                <li>
+                                  <a href="{{ route('logbookoverview') }}">
+                                      Logboek telling
+                                  </a>
+                                </li>
                               </ul>
         					          </li>
                         </ul>
