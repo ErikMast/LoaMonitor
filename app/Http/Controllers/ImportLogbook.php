@@ -62,8 +62,7 @@ class ImportLogbook extends Controller
                     //dd($studentobj);
                     //dd($logbook);
                     $check = Logbook::where("original_id", "=",$logbook["original_id"])
-                              ->where("students_id", "=",$logbook["students_id"])
-                              ->where("date", "=",$logbook["date"])->first();
+                              ->where("students_id", "=",$logbook["students_id"])->first();
                     if ($check == null) {
                       Logbook::insert($logbook);
                     }
