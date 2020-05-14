@@ -14,7 +14,7 @@ class LogbookOverviewController extends Controller
    */
   public function index()
   {
-      $logbooks = DB::select('SELECT m.progress FROM logbooks m LEFT JOIN logbooks b ON m.students_id = b.students_id  AND m.date < b.date WHERE b.date IS NULL');
+      $logbooks = DB::select('SELECT m.progress, m.date FROM logbooks m LEFT JOIN logbooks b ON m.students_id = b.students_id  AND m.date < b.date WHERE b.date IS NULL');
 
       $progresses = array();
 
@@ -23,9 +23,12 @@ class LogbookOverviewController extends Controller
           for ($i=0; $i<sizeof($split); $i++) {
             if (!empty($split[$i])) {
               if (!isset($progresses[$split[$i]])) {
-                $progresses[$split[$i]] = 1;
+                $progresses[$split[$i]] = array("count"=>1, "lastdate"=>date("d-m-Y", strtotime($l->date)));
               } else {
-                $progresses[$split[$i]] += 1;
+                $progresses[$split[$i]]["count"] += 1;
+                if ($progresses[$split[$i]]["lastdate"]<date("d-m-Y", strtotime($l->date))) {
+                  $progresses[$split[$i]]["lastdate"]=date("d-m-Y", strtotime($l->date));
+                }
               }
             }
           }

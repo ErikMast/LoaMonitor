@@ -16,19 +16,21 @@
   @endif
 
   <div class="">
-    <div class="col-lg-3 margin-tb">
+    <div class="col-lg-6 margin-tb">
       <table class="display table table-bordered table-condensed table-responsive dynamic-table">
         <thead>
           <tr>
-            <th width="200px">Progress</th>
+            <th width="300px">Progress</th>
             <th width="50px">Aantal</th>
+            <th width="100px">Laatst gelogd</th>
           </tr>
         </thead>
         <tbody>
           @foreach($progresses as $key => $progress)
           <tr >
             <td>{{$key}}</td>
-            <td>{{$progress}}</td>
+            <td>{{$progress["count"]}}</td>
+              <td>{{$progress["lastdate"]}}</td>
           </tr>
           @endforeach
         </tbody>
