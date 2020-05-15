@@ -4,6 +4,8 @@ namespace LoaMonitor\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
+use LoaMonitor\Logbook;
 
 class LogbookOverviewController extends Controller
 {
@@ -14,7 +16,7 @@ class LogbookOverviewController extends Controller
    */
   public function index()
   {
-      $logbooks = DB::select('SELECT m.progress, m.date FROM logbooks m LEFT JOIN logbooks b ON m.students_id = b.students_id  AND m.date < b.date WHERE b.date IS NULL');
+      $logbooks = DB::select('SELECT m.progress, m.date, m.id FROM logbooks m LEFT JOIN logbooks b ON m.students_id = b.students_id  AND m.date < b.date WHERE b.date IS NULL');
 
       $progresses = array();
 
@@ -27,9 +29,12 @@ class LogbookOverviewController extends Controller
 
               //Carbon::createFromFormat('d-m-Y', $lastdate[0]);
               if (!isset($progresses[$split[$i]])) {
-                $progresses[$split[$i]] = array("count"=>1, "lastdate"=>$l->date);
+                $progresses[$split[$i]] = array("count"=>1, "lastdate"=>$l->date, "ids"=>array());
+                array_push(  $progresses[$split[$i]]["ids"], $l->id);
               } else {
+
                 $progresses[$split[$i]]["count"] += 1;
+                array_push(  $progresses[$split[$i]]["ids"], $l->id);
                 if ($progresses[$split[$i]]["lastdate"]<$l->date) {
                   $progresses[$split[$i]]["lastdate"] = $l->date;
                 }
@@ -50,6 +55,26 @@ class LogbookOverviewController extends Controller
 
       //array_multisort($custom, SORT_DESC, $progresses);
       array_multisort($custom["lastdate"], SORT_DESC, $custom["count"], SORT_DESC, $progresses);
-      return view('reports.logbook', ['progresses'=>$progresses]);
+      $keyword = Input::get('keyword');
+      if (isset($keyword)){
+
+
+        if (isset($progresses[$keyword])) {
+          $logbookids = array();
+          $logbookids =  $progresses[$keyword]["ids"];
+
+          $logbooks = Logbook::whereIn('id', $logbookids)->orderBy('date', 'DESC')->get();
+          // dd($logbookids);
+        }
+
+        //dd($logbooks);
+        return view ('reports.logbookdetail', ['keyword'=>$keyword, "logbooks"=>$logbooks]);
+      } else {
+        return view('reports.logbook', ['progresses'=>$progresses]);
+      }
+  }
+
+  function byname($name) {
+
   }
 }
