@@ -30,7 +30,7 @@
           <tr >
             <td>{{$key}}</td>
             <td>{{$progress["count"]}}</td>
-              <td>{{$progress["lastdate"]}}</td>
+              <td>{{ date("d-m-Y", strtotime($progress["lastdate"]))}}</td>
           </tr>
           @endforeach
         </tbody>

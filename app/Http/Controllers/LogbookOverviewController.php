@@ -18,23 +18,38 @@ class LogbookOverviewController extends Controller
 
       $progresses = array();
 
+      $format = "d-m-Y";
+
       foreach($logbooks as $l) {
           $split = explode(';', $l->progress);
           for ($i=0; $i<sizeof($split); $i++) {
             if (!empty($split[$i])) {
+
+              //Carbon::createFromFormat('d-m-Y', $lastdate[0]);
               if (!isset($progresses[$split[$i]])) {
-                $progresses[$split[$i]] = array("count"=>1, "lastdate"=>date("d-m-Y", strtotime($l->date)));
+                $progresses[$split[$i]] = array("count"=>1, "lastdate"=>$l->date);
               } else {
                 $progresses[$split[$i]]["count"] += 1;
-                if ($progresses[$split[$i]]["lastdate"]<date("d-m-Y", strtotime($l->date))) {
-                  $progresses[$split[$i]]["lastdate"]=date("d-m-Y", strtotime($l->date));
+                if ($progresses[$split[$i]]["lastdate"]<$l->date) {
+                  $progresses[$split[$i]]["lastdate"] = $l->date;
                 }
               }
             }
           }
       }
 
-      ksort($progresses);
+      //ksort($progresses);
+      //usort($progresses, function ($a, $b) {return $a['lastdate'] < $b['lastdate'];});
+
+      $custom = array();
+      foreach ($progresses as $key => $row)
+      {
+          $custom["lastdate"][$key] = $row['lastdate'];
+          $custom["count"][$key] = $row['count'];
+      }
+
+      //array_multisort($custom, SORT_DESC, $progresses);
+      array_multisort($custom["lastdate"], SORT_DESC, $custom["count"], SORT_DESC, $progresses);
       return view('reports.logbook', ['progresses'=>$progresses]);
   }
 }
