@@ -3,10 +3,10 @@
 1. Clone doen van deze git repository (in de webservermap van je keuze)
 2. kopie maken van .env.example naar .env
 3. Een nieuwe database maken in phpMyAdmin (van Xampp of USBWebserver) en een nieuwe gebruiker.
-4. Een nieuwe key genereren met php artisan key:generate
-5. Gegevens invullen in .env
-6. Cmd openen en naar map van project gaan
-7. composer install (mbstring en phpxml en ...)
+4. Gegevens invullen in .env
+5. Cmd openen en naar map van project gaan
+6. composer install (mbstring en phpxml en ...)
+7. Een nieuwe key genereren met php artisan key:generate (deze wordt automatisch in .env ingevuld)
 8. php artisan migrate
 9. php artisan db:seed
 10. php artisan db:seed --class TestCaseSeeder (alleen als je ook teststudenten wilt)
