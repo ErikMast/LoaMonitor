@@ -34,9 +34,11 @@
           @if ( $student->toBeCalled())
             <span title="Er is minimaal 21 dagen geen contact geweest" class="glyphicon glyphicon-earphone icon-large" style="color:red;font-size: 20px"><br></span>
           @endif
+          <!--
           @if ( $student->toBeLogging())
             <span title="Er is minimaal 5 dagen geen logboek ingevuld" class="glyphicon glyphicon-list icon-large" style="color:red;font-size: 20px"><br></span>
           @endif
+          -->
         </td>
         <td onClick="document.location.href='{{ route('notes.index', ['student_id' => $student->id, 'user_id'=>Auth::user()->id])}}';">
           @foreach($student->mostRecentNotes as $note)
