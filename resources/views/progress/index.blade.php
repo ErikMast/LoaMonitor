@@ -27,6 +27,16 @@
             <td>12-10-2020</td>
             <td>Module A1 PHP is klaar op 12 okt. Verder alles op schema</td>
           </tr>
+          <tr>
+              <td>3-10-2020</td>
+              <td></td>
+              <td>Bezig met A1 PHP</td>
+          </tr>
+          <tr>
+              <td>26-9-2020</td>
+              <td></td>
+              <td>C1 afgerond</td>
+          </tr>
     </table>
 
 
