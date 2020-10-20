@@ -3,46 +3,47 @@
 @section('content')
 <div class="container">
 	<div class="row">
-        <div class="col-lg-12 margin-tb">
-            <div class="pull-left">
-                <h2> {{ $student->firstname }} {{ $student->lastname }}</h2>
-            </div>
-						<div class="col-lg-1 pull-right">
-								<a href="{{ url('/students/' . $student->id . '/edit') }}" class="btn btn-warning">
-									<i class="fa fa-pencil-square-o"></i>Aanpassen</a>
-        	  </div><div class="col-lg-1 pull-right">
-                <a class="btn btn-primary" href="{{ route('home') }}"> Terug</a>
-            </div>
-
+    <div class="col-lg-12 margin-tb">
+        <div class="pull-left">
+            <h2> {{ $student->firstname }} {{ $student->lastname }}</h2>
+        </div>
+				<div class="col-lg-1 pull-right">
+						<a href="{{ url('/students/' . $student->id . '/edit') }}" class="btn btn-warning">
+							<i class="fa fa-pencil-square-o"></i>Aanpassen</a>
+    	  </div>
+				<div class="col-lg-1 pull-right">
+            <a class="btn btn-primary" href="{{ route('home') }}"> Terug</a>
+        </div>
     </div>
 	</div>
 	<div class="row">
-        <div class="col-lg-3">{{ Form::label('naam', 'Naam: ') }}</div>
-		<div class="col-lg-6">{{ $student->firstname }} {{ $student->lastname }}</div>
-	</div>
-	<div class="row">
-        <div class="col-lg-3">{{ Form::label('student_number', 'Stamnr: ') }}</div>
+        <div class="col-lg-2">{{ Form::label('student_number', 'Stamnr: ') }}</div>
         <div class="col-lg-6">{{ $student->student_number }}</div>
   </div>
 	<div class="row">
-	        <div class="col-lg-3">{{ Form::label('group', 'Klas: ') }}</div>
+	        <div class="col-lg-2">{{ Form::label('group', 'Klas: ') }}</div>
 	        <div class="col-lg-6">{{ $student->Group->name }}</div>
 	</div>
 	<div class="row">
-        <div class="col-lg-3">{{ Form::label('village', 'Woonplaats - ETA: ') }}</div>
+        <div class="col-lg-2">{{ Form::label('village', 'Woonplaats - ETA: ') }}</div>
 				<div class="col-lg-6">{{ $student->Village->name }} ({{ $student->eta }})</div>
 	</div>
 	<div class="row">
-        <div class="col-lg-3">{{ Form::label('end_date', 'Datum afsluiten: ') }}</div>
-				<div class="col-lg-6">
-						@if ($student->end_date != null)
-							{{ $student->end_date->format("d-m-Y") }}
-						@endif
-				</div>
+        <div class="col-lg-2">{{ Form::label('mentor', 'Mentor: ') }}</div>
+				<div class="col-lg-6">Erik Mast</div>
 	</div>
-	<div class="row">
-        <div class="col-lg-3">{{ Form::label('is_visible', 'Zichtbaar (in dashboard) ') }}</div>
-				<div class="col-lg-6">{{ $student->visibleAsText() }}</div>
+  <div class="row">
+		<div class="col-lg-2">
+		@if ( $student->toBeCalled())
+			<span title="Er is minimaal 21 dagen geen contact geweest" class="glyphicon glyphicon-earphone icon-large" style="color:red;font-size: 20px"><br></span>
+		@endif
+		<!--
+		@if ( $student->toBeLogging())
+			<span title="Er is minimaal 5 dagen geen logboek ingevuld" class="glyphicon glyphicon-list icon-large" style="color:red;font-size: 20px"><br></span>
+		@endif
+		-->
+			<span title="Er is een deadline verstreken" class="glyphicon glyphicon-hourglass icon-large" style="color:red;font-size: 20px"><br></span>
+	  </div>
 	</div>
 
 	<h3>Overzicht</h3>
@@ -57,12 +58,12 @@
 						Notitie
 					</a>
 				</th>
-				<th width="300px">
-					<a href="{{ route('logbooks', ['student_id' => $student->id])}}">
-						Logboek
+				<th>
+					<a href="{{ route('progress.index', ['student_id' => $student->id])}}">
+						Voortgang
 					</a>
 				</th>
-	      <th>
+	      <th width="220px">
 					<a href="{{ route('moduledones.index', ['student_id' => $student->id, 'user_id'=>Auth::user()->id])}}">
 						Modules
 					</a>
@@ -81,18 +82,10 @@
 	          @endforeach
 	        </td>
 					<td>
-						@foreach($student->logbooks as $logbook)
-						<strong>{{$logbook->date->format('d-m-Y')}}</strong><br>
-						{{$logbook->progress}}<br>
-						@if ($logbook->specification != null)
-							{{$logbook->specification}}<br>
-						@endif
-						@if ($logbook->remark != null)
-							{{$logbook->remark}}<br>
-						@endif
-						<br>
-						@endforeach
-	        </td>
+						<strong>10-10-2020</strong><br>
+	          Module A1 PHP is klaar op 12 okt. Verder alles op schema
+	          <br>
+					</td>
 	        <td>
 						<strong>SBU: {{$student->sumOfSBU()}}</strong><br>
 
@@ -110,6 +103,11 @@
 						<a href="{{ route('moduledones.create', ['student_id' => $student->id, 'user_id'=>Auth::user()->id])}}">
 	            <button class="btn btn-success">
 	              <span class="glyphicon glyphicon-plus">Module</span>
+	            </button>
+	          </a>
+						<a href="#">
+	            <button class="btn btn-primary">
+	              <span class="glyphicon glyphicon-plus"> Voortgang</span>
 	            </button>
 	          </a>
 	        </td>
