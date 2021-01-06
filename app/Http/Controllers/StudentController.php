@@ -46,7 +46,7 @@ class StudentController extends Controller
         $student = new Student();
         $student->is_visible = true;
         $student->Village = Village::find(1);
-        $student->Group = Group::find(1);
+        $student->Group = Group::where("name", "=", "Niets")->first();
         $prev_group = Group::where("name", "=", "Niets")->first();
         $student->previous_groups_id = $prev_group->id;
         return view('students.create',compact('student', 'villages', 'groups'));
