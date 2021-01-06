@@ -71,20 +71,20 @@
                               </a>
                               <ul class="dropdown-menu" role="menu">
                                 <li>
-								                   <a href="/users">Gebruikers</a>
+								                   <a href="{{ url('/users') }}">Gebruikers</a>
                                 </li>
                                 <li role="separator" class="divider"></li>
                                 <li>
-								                   <a href="/modules">Modules</a>
+								                   <a href="{{ url('/modules') }}" >Modules</a>
                                 </li>
                                 <li>
-                                   <a href="/modulegroups">Modulegroepen</a>
+                                   <a href="{{ url('/modulegroups') }}" >Modulegroepen</a>
                                 </li>
                                 <li>
-                                   <a href="/groups">Klassen</a>
+                                   <a href="{{ url('/groups') }}" >Klassen</a>
                                 </li>
                                 <li>
-                                   <a href="/villages">Plaatsnamen</a>
+                                   <a href="{{ url('/villages') }}" >Plaatsnamen</a>
                                 </li>
                                 <!--li role="separator" class="divider"></li>
                                 <li>
@@ -97,7 +97,7 @@
                                 </li-->
                                 <li role="separator" class="divider"></li>
                                 <li>
-        								           <a href="/csvdata">Studenten Importeren</a>
+        								           <a href="{{ url('/users') }}" "/csvdata">Studenten Importeren</a>
                 					      </li>
                               </ul>
         					          </li>
