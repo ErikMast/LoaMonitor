@@ -97,7 +97,7 @@
                                 </li-->
                                 <li role="separator" class="divider"></li>
                                 <li>
-        								           <a href="{{ url('/users') }}" "/csvdata">Studenten Importeren</a>
+        								           <a href="{{ url('/csvdata') }}">Studenten Importeren</a>
                 					      </li>
                               </ul>
         					          </li>
