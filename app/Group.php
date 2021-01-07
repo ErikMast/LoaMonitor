@@ -39,6 +39,10 @@ class Group extends Model
 
   public function canDelete(){
     $result = DB::table('students')->where('groups_id', '=', $this->id)->count('id')==0;
+
+    //hack om te voorkomen dat Groep "Niets" weggegooid wordt
+    if ($this->id == 99) $result=false;
+
     return $result;
   }
 }
