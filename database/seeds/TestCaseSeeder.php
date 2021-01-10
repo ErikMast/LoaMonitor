@@ -25,6 +25,17 @@ class TestCaseSeeder extends Seeder
 			]
 		);
 
+    DB::table('groups')->insert(
+        [
+          [ 'id'=>'101',
+            'name' => 'avOnzichtbaar1a', 'sortorder' => '1', "next_groups_id" => '0',
+            "is_visible"=>'0'
+          ],
+          [ 'id'=>'102',
+            'name' => 'avOnzichtbaar1a', 'sortorder' => '2', "next_groups_id" => '0'
+          ]
+        ]);
+
 		$usualTime = new DateTime('2000-01-01 12:30:00');
     $endDate = new DateTime("2010-01-01 0:00:00");
 
@@ -59,9 +70,8 @@ class TestCaseSeeder extends Seeder
 					'student_number'=> '12345',
 					'villages_id' => 1,
 					'eta'=>$usualTime,
-					'groups_id'=>4,
-          'previous_groups_id'=>0,
-          'is_visible'=>0
+					'groups_id'=>101,
+          'previous_groups_id'=>0
 				],
 				[
           'id'=>"4",
@@ -70,7 +80,7 @@ class TestCaseSeeder extends Seeder
 					'student_number'=> '54321',
 					'villages_id' => 2,
 					'eta'=>$usualTime,
-					'groups_id'=>1,
+					'groups_id'=>102,
           'previous_groups_id'=>0,
           'is_visible'=>0
 				]
@@ -103,7 +113,8 @@ class TestCaseSeeder extends Seeder
           'is_visible'=>1
 				]
 			]
-		);
+    );
+
 
 		$oldDate = new DateTime();
 		$oldDate->sub(new DateInterval('P10D'));
@@ -305,5 +316,73 @@ class TestCaseSeeder extends Seeder
             'result'=>null
           ]
         ]);
+
+        $oldDate = new DateTime();
+        $oldDate->sub(new DateInterval('P10D'));
+
+        DB::table('progress')->insert(
+          [
+// laatste een deadline
+            [
+              'date'=> $oldDate,
+              'date_deadline'=>null,
+              'notes'=>'status 1',
+              'students_id' => 1,
+              'users_id' => 1
+            ],
+            [
+              'date'=> new DateTime(),
+              'date_deadline'=>$oldDate,
+              'notes'=>'status 2',
+              'students_id' => 1,
+              'users_id' => 1
+            ],
+// geen deadline
+            [
+              'date'=> $oldDate,
+              'date_deadline'=>null,
+              'notes'=>'status 3',
+              'students_id' => 2,
+              'users_id' => 1
+            ],
+            [
+              'date'=> new DateTime(),
+              'date_deadline'=>null,
+              'notes'=>'status 4',
+              'students_id' => 2,
+              'users_id' => 1
+            ],
+            // laatste een deadline (onzichtbare student)
+            [
+              'date'=> $oldDate,
+              'date_deadline'=>null,
+              'notes'=>'status 1',
+              'students_id' => 3,
+              'users_id' => 1
+            ],
+            [
+              'date'=> new DateTime(),
+              'date_deadline'=>$oldDate,
+              'notes'=>'status 2',
+              'students_id' => 3,
+              'users_id' => 1
+            ],
+            // geen deadline (onzichtbare student)
+            [
+              'date'=> $oldDate,
+              'date_deadline'=>null,
+              'notes'=>'status 3',
+              'students_id' => 4,
+              'users_id' => 1
+            ],
+            [
+              'date'=> new DateTime(),
+              'date_deadline'=>null,
+              'notes'=>'status 4',
+              'students_id' => 4,
+              'users_id' => 1
+            ]
+          ]
+        );
    }
 }

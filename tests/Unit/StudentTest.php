@@ -82,6 +82,26 @@ class StudentTest extends TestCase
       $this->assertFalse($student->toBeCalled(), "Student met einddatum NIET bellen");
     }
 
+    public function testHasDeadline(){
+      //Student id =2 moet gebeld worden id= =1 niet
+      $studentHasDeadline = Student::where("id","=", "1")->where("is_visible", "=", "1")->whereNull("end_date")->first();
+      $this->assertTrue($studentHasDeadline->isVisible(), "Zichtbare student id =".$studentHasDeadline->id);
+      $this->assertTrue($studentHasDeadline->hasDeadline(), "Zichtbare student heeft deadline");
+
+      $student= Student::where("id","=", "2")->where("is_visible", "=", "1")->whereNull("end_date")->first();
+      $this->assertTrue($student->isVisible(), "Zichtbare student id =".$student->id);
+      $this->assertFalse($student->hasDeadline(), "Zichtbare student GEEN deadline");
+
+      //Student id =3 (niet zichtbaar) en id=5 (einddatum) geeb deadline
+      $studentHasDeadline= Student::where("id","=", "3")->first();
+      $this->assertFalse($studentHasDeadline->isVisible(), "Onzichtbare student id =".$studentHasDeadline->id);
+      $this->assertFalse($studentHasDeadline->hasDeadline(), "Student 3: Niet Zichtbare student GEEN deadline");
+
+      $student= Student::where("id","=", "5")->first();
+      $this->assertFalse($student->isVisible(), "Onzichtbare student id =".$student->id);
+      $this->assertFalse($student->hasDeadline(), "Student 5: Niet Student met einddatum GEEN deadline");
+    }
+
     public function testSumOfSBU(){
       //Student id = 2 sbu = 0
       $student = Student::find("2");

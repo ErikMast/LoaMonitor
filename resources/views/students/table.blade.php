@@ -4,8 +4,8 @@
       <th width="200px">Student</th>
       <th width="40px"></th>
       <th width="250px">Notitie</th>
-      <th width="250px">Logboek</th>
-      <th>Modules</th>
+      <th>Voortgang</th>
+      <th width="220px">Modules</th>
       <th width="100px">Acties</th>
     </tr>
   </thead>
@@ -29,6 +29,7 @@
           @if ( $student->end_date != null)
             {{ $student->end_date->format('d-m-Y')}}<br>
           @endif
+          <br>Mentor: Erik Mast<br>
         </td>
         <td>
           @if ( $student->toBeCalled())
@@ -39,6 +40,7 @@
             <span title="Er is minimaal 5 dagen geen logboek ingevuld" class="glyphicon glyphicon-list icon-large" style="color:red;font-size: 20px"><br></span>
           @endif
           -->
+            <span title="Er is een deadline verstreken" class="glyphicon glyphicon-hourglass icon-large" style="color:red;font-size: 20px"><br></span>
         </td>
         <td onClick="document.location.href='{{ route('notes.index', ['student_id' => $student->id, 'user_id'=>Auth::user()->id])}}';">
           @foreach($student->mostRecentNotes as $note)
@@ -46,18 +48,9 @@
           {{$note->date->format('d-m-Y')}} {{$note->user->firstname}} {{$note->user->lastname}} <br> {{str_limit($note->notes, $limit = 150, $end = ' ...') }}<br>
           @endforeach
         </td>
-        <td onClick="document.location.href='{{ route('logbooks', ['student_id' => $student->id, 'user_id'=>Auth::user()->id])}}';">
-          @foreach($student->mostRecentLogbook as $logbook)
-          <strong>{{$logbook->date->format('d-m-Y')}}</strong><br>
-          <strong>Module:</strong>{{$logbook->progress}}<br>
-          @if ($logbook->specification != null)
-            <strong>Waar:</strong>{{$logbook->specification}}<br>
-          @endif
-          @if ($logbook->remark != null)
-            <strong>Vragen:</strong>{{$logbook->remark}}<br>
-          @endif
-          <br>
-          @endforeach
+        <td>
+          <strong>10-10-2020</strong><br>
+          Module A1 PHP is klaar op 12 okt. Verder alles op schema
           <br>
         </td>
         <td onClick="document.location.href='{{ route('moduledones.index', ['student_id' => $student->id, 'user_id'=>Auth::user()->id])}}';">
@@ -79,6 +72,21 @@
           <a href="{{ route('moduledones.create', ['student_id' => $student->id, 'user_id'=>Auth::user()->id])}}">
             <button class="btn btn-success">
               <span class="glyphicon glyphicon-plus"> Module</span>
+            </button>
+          </a>
+          <a href="#">
+            <button class="btn btn-success">
+              <span class="glyphicon glyphicon-plus"> Voortgang</span>
+            </button>
+          </a>
+          <a href="#">
+            <button class="btn btn-success">
+              <span class="glyphicon glyphicon-user"> Mentor</span>
+            </button>
+          </a>
+          <a href="#">
+            <button class="btn btn-success">
+              <span class="glyphicon glyphicon-pencil"> Aanpassen</span>
             </button>
           </a>
         </td>

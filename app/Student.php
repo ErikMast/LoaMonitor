@@ -59,14 +59,31 @@ class Student extends Model
       return $this->hasMany(Logbook::class, 'students_id')->orderBy('date','DESC');
   }
 
+  public function progresses() {
+      return $this->hasMany(Progress::class, 'students_id')->orderBy('date', 'DESC');
+  }
+
   public function mostRecentLogbook(){
       return $this->hasMany(Logbook::class, 'students_id')->orderBy('date','DESC')->take(3);
+  }
+
+  public function isVisible() {
+    return $this->is_visible;
+//    return $this->Group->is_visible;
   }
 
   public function visibleAsText(){
     return ($this->is_visible !=0 ) ? "Ja": "Nee";
   }
 
+  public function hasDeadline(){
+    dd($this->isVisible());
+    if  (($this->progresses->count()>0) && ($this->isVisible())) {
+        //dd($this->progresses->first());
+        return $this->progresses->first()->hasDeadline();
+    } else
+      return false;
+  }
 
 	public function mostRecentNotes(){
     //get last contact and last progress note
