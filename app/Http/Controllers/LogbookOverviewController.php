@@ -54,7 +54,9 @@ class LogbookOverviewController extends Controller
       }
 
       //array_multisort($custom, SORT_DESC, $progresses);
-      array_multisort($custom["lastdate"], SORT_DESC, $custom["count"], SORT_DESC, $progresses);
+      if (count($custom)>0){
+        array_multisort($custom["lastdate"], SORT_DESC, $custom["count"], SORT_DESC, $progresses);
+      }
       $keyword = Input::get('keyword');
       if (isset($keyword)){
 
