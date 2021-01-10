@@ -86,7 +86,8 @@ class StudentTest extends TestCase
       //Student id =2 moet gebeld worden id= =1 niet
       $studentHasDeadline = Student::where("id","=", "1")->whereNull("end_date")->first();
       $this->assertTrue($studentHasDeadline->isVisible(), "Zichtbare student id =".$studentHasDeadline->id);
-      $this->assertTrue($studentHasDeadline->hasDeadlineNotExpired(), "Zichtbare student heeft deadline");
+      $this->assertFalse($studentHasDeadline->hasDeadlineNotExpired(), "Zichtbare student heeft geen verlopen deadline");
+      $this->assertTrue($studentHasDeadline->hasDeadlineExpired(), "Zichtbare student heeft deadline");
 
       $student= Student::where("id","=", "2")->whereNull("end_date")->first();
       $this->assertTrue($student->isVisible(), "Zichtbare student id =".$student->id);
