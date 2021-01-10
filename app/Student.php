@@ -34,7 +34,6 @@ class Student extends Model
 		'eta',
 		'groups_id',
     'end_date',
-    'is_visible',
     'previous_groups_id'
 	];
 
@@ -59,31 +58,18 @@ class Student extends Model
       return $this->hasMany(Logbook::class, 'students_id')->orderBy('date','DESC');
   }
 
-  public function progresses() {
-      return $this->hasMany(Progress::class, 'students_id')->orderBy('date', 'DESC');
-  }
-
   public function mostRecentLogbook(){
       return $this->hasMany(Logbook::class, 'students_id')->orderBy('date','DESC')->take(3);
   }
 
-  public function isVisible() {
-    return $this->is_visible;
-//    return $this->Group->is_visible;
+  public function isVisible(){
+    return $this->Group->is_visible;
   }
 
   public function visibleAsText(){
-    return ($this->is_visible !=0 ) ? "Ja": "Nee";
+    return ($this->isVisible() !=0 ) ? "Ja": "Nee";
   }
 
-  public function hasDeadline(){
-    dd($this->isVisible());
-    if  (($this->progresses->count()>0) && ($this->isVisible())) {
-        //dd($this->progresses->first());
-        return $this->progresses->first()->hasDeadline();
-    } else
-      return false;
-  }
 
 	public function mostRecentNotes(){
     //get last contact and last progress note
@@ -134,7 +120,7 @@ class Student extends Model
 
   public function toBeCalled(){
     //Students with end_date or not visible
-    if (($this->end_date != null) || ($this->is_visible != 1)) {
+    if (($this->end_date != null) || ($this->isVisible() != 1)) {
       return false;
     }
 
@@ -154,11 +140,12 @@ class Student extends Model
     }
   }
   // Selecting students methods
-  public static function getStudentsByVisibility($visible){
-    if ($visible) {
-      return Student::whereNull('end_date')->where('is_visible', '=', '1');
+  public static function getStudentsByVisibility($inDashboard){
+    if ($inDashboard) {
+      return Student::select("students.*")->join('groups', 'groups.id', '=','.students.groups_id')
+                ->where('groups.is_visible', '=', '1');
     } else {
-      return Student::all();
+      return Student::select("students.*");
     }
   }
 
@@ -173,12 +160,13 @@ class Student extends Model
     */
 
     if ($inDashboard) {
-      $groups = Group::where('is_visible', '=','1')->orderBy("sortorder")->where('name', 'LIKE', "%$keyword%");
+      $groups = Group::where('name', 'LIKE', "%$keyword%")->where('is_visible', '=','1')->orderBy("sortorder");
     } else {
       $groups = Group::where('name', 'LIKE', "%$keyword%")->orderBy("sortorder");
     }
 
     $students = Student::getStudentsByVisibility($inDashboard);
+
 
     Log::info("Search for [$keyword]");
     if (($groups->count()>0) && ($keyword !== '')) {
@@ -187,7 +175,7 @@ class Student extends Model
       return Student::select('students.*')->
           join("groups", "groups.id", "=", "students.groups_id")->
           wherein('groups_id', $groups->pluck('id'))->
-          wherein('students.id', $students->pluck('id'))->
+          wherein('students.id', $students->pluck('students.id'))->
           orderBy('groups.sortorder')->
           orderBy('lastname')->paginate(20)->appends(Input::except('page'));
     } else {

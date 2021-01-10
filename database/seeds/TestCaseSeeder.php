@@ -16,9 +16,11 @@ class TestCaseSeeder extends Seeder
 		DB::table('villages')->insert(
 			[
 				[
+					'id'=>'1',
 					'name' => 'Emmen',
                 ],
 				[
+          'id'=>'2',
 					'name' => 'Assen',
                 ]
 
@@ -26,15 +28,16 @@ class TestCaseSeeder extends Seeder
 		);
 
     DB::table('groups')->insert(
-        [
-          [ 'id'=>'101',
-            'name' => 'avOnzichtbaar1a', 'sortorder' => '1', "next_groups_id" => '0',
-            "is_visible"=>'0'
-          ],
-          [ 'id'=>'102',
-            'name' => 'avOnzichtbaar1a', 'sortorder' => '2', "next_groups_id" => '0'
-          ]
-        ]);
+         [
+           [ 'id'=>'101',
+             'name' => 'avOnzichtbaar1a', 'sortorder' => '1', "next_groups_id" => '0',
+             "is_visible"=>'0'
+           ],
+           [ 'id'=>'102',
+             'name' => 'swOnzichtbaar1a', 'sortorder' => '2', "next_groups_id" => '0',
+             "is_visible"=>'0'
+           ]
+         ]);
 
 		$usualTime = new DateTime('2000-01-01 12:30:00');
     $endDate = new DateTime("2010-01-01 0:00:00");
@@ -49,8 +52,7 @@ class TestCaseSeeder extends Seeder
 					'villages_id' => 1,
 					'eta'=>$usualTime,
 					'groups_id'=>4,
-          'previous_groups_id'=>0,
-          'is_visible'=>1
+          'previous_groups_id'=>0
 				],
 				[
           'id'=>"2",
@@ -60,8 +62,7 @@ class TestCaseSeeder extends Seeder
 					'villages_id' => 2,
 					'eta'=>$usualTime,
 					'groups_id'=>1,
-          'previous_groups_id'=>0,
-          'is_visible'=>1
+          'previous_groups_id'=>0
 				],
 				[
           'id'=>"3",
@@ -81,8 +82,7 @@ class TestCaseSeeder extends Seeder
 					'villages_id' => 2,
 					'eta'=>$usualTime,
 					'groups_id'=>102,
-          'previous_groups_id'=>0,
-          'is_visible'=>0
+          'previous_groups_id'=>0
 				]
       ]
     );
@@ -97,8 +97,7 @@ class TestCaseSeeder extends Seeder
 					'eta'=>$usualTime,
 					'groups_id'=>4,
           'previous_groups_id'=>0,
-          'end_date'=>$endDate,
-          'is_visible'=>1
+          'end_date'=>$endDate
 				],
 				[
 					'id'=>"6",
@@ -109,8 +108,7 @@ class TestCaseSeeder extends Seeder
 					'eta'=>$usualTime,
 					'groups_id'=>1,
           'previous_groups_id'=>0,
-          'end_date'=>$endDate,
-          'is_visible'=>1
+          'end_date'=>$endDate
 				]
 			]
     );
