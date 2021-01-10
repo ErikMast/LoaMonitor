@@ -20,9 +20,9 @@ class StudentTest extends TestCase
       Log::info("");
       Log::info("Testing Student::search");
       // In student view
-      //Search in Student expect 3 in this group
+      //Search in Student expect 2 in this group
       $students=Student::getStudents("avicos1a", false);
-      $this->assertEquals(3, $students->count(), "StudentView: By group");
+      $this->assertEquals(2, $students->count(), "StudentView: By group");
 
       //Search by Firstname expect 3 students
       $students=Student::getStudents("Jaap", false);
@@ -37,28 +37,28 @@ class StudentTest extends TestCase
       $this->assertEquals(6, $students->count(), "StudentView: All");
 
       // In student Dashboard
-      //Search in Student expect 1 in this group
+      //Search in Student expect 2 in this group
       $students=Student::getStudents("avicos1a", true);
-      $this->assertEquals(1, $students->count(), "Dashboard: By Group");
+      $this->assertEquals(2, $students->count(), "Dashboard: By Group");
 
-      //Search by Firstname expect 1 students
+      //Search by Firstname expect 2 students
       $students=Student::getStudents("jaap", true);
-      $this->assertEquals(1, $students->count(), "Dashboard: By FirstName");
+      $this->assertEquals(2, $students->count(), "Dashboard: By FirstName");
 
       //Search by Lastname expect 1 students
       $students=Student::getStudents("meloen", true);
-      $this->assertEquals(1, $students->count(), "Dashboard: By LastName");
+      $this->assertEquals(2, $students->count(), "Dashboard: By LastName");
 
-      //Search empty expect 2 students
+      //Search empty expect 4 students
       $students=Student::getStudents("", true);
-      $this->assertEquals(2, $students->count(), "Dashboard: All");
+      $this->assertEquals(4, $students->count(), "Dashboard: All");
     }
 
     public function testGetStudentsByVisibility() {
       Log::info("Testing Student::getStudentsByVisibility");
       //Expect 2 students in Dashboard
       $students=Student::getStudentsByVisibility(true);
-      $this->assertEquals(2, $students->count(), "Dashboard:  visibility");
+      $this->assertEquals(4, $students->count(), "Dashboard:  visibility");
 
       //Expect 6 students in view
       $students=Student::getStudentsByVisibility(false);
@@ -68,8 +68,8 @@ class StudentTest extends TestCase
 
     public function testToBeCalled(){
       //Student id =2 moet gebeld worden id= =1 niet
-      $studentCall = Student::where("id","=", "2")->where("is_visible", "=", "1")->whereNull("end_date")->first();
-      $student= Student::where("id","=", "1")->where("is_visible", "=", "1")->whereNull("end_date")->first();
+      $studentCall = Student::where("id","=", "2")->whereNull("end_date")->first();
+      $student= Student::where("id","=", "1")->whereNull("end_date")->first();
 
       $this->assertTrue($studentCall->toBeCalled(), "Zichtbare student bellen");
       $this->assertFalse($student->toBeCalled(), "Zichtbare student NIET bellen");

@@ -44,7 +44,6 @@ class StudentController extends Controller
         $villages = Village::orderBy("name")->pluck('name', 'id');
   		  $groups = Group::orderBy("sortorder")->pluck('name', 'id');
         $student = new Student();
-        $student->is_visible = true;
         $student->Village = Village::find(1);
         $student->Group = Group::where("name", "=", "Niets")->first();
         $prev_group = Group::where("name", "=", "Niets")->first();

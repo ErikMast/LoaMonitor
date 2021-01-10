@@ -63,7 +63,6 @@ class CsvdataController extends Controller
 						//$student['eta'] = new DateTime('2000-01-01 12:30:00');
 						$student['groups_id'] = $group->id;
             $student["previous_groups_id"] = $prev_group->id;
-            $student["is_visible"] = "1";
 						Student::insert($student);
 						//$dataImported[] = $data[$i];
 					} else {
