@@ -65,7 +65,8 @@ class ProgressController extends Controller
     {
       $this->validate($request, [
            'students_id' => 'required',
-           'users_id' => 'required'
+           'users_id' => 'required',
+           'notes' =>'required'
        ]);
 
        Progress::create($request->all());
@@ -112,7 +113,8 @@ class ProgressController extends Controller
     {
       $this->validate($request, [
           'students_id' => 'required',
-          'users_id' => 'required'
+          'users_id' => 'required',
+          'notes' =>'required'
       ]);
       Progress::find($id)->update($request->all());
       return redirect()->route('home')

@@ -3,6 +3,7 @@
 namespace LoaMonitor;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Progress extends Model
 {
@@ -37,7 +38,17 @@ class Progress extends Model
     }
   }
 
-  public function hasDeadline() {
-    return !empty($this->dateDeadLineString());
+  public function hasDeadlineNotExpired() {
+    return (bool) ($this->date_deadline != null) && (!$this->hasDeadlineExpired());
+  }
+
+  public function hasDeadlineExpired(){
+    if ($this->date_deadline != null){
+      $now = Carbon::now();
+      return ($now->diffInDays($this->date_deadline, false)<0);
+
+    } else {
+      return false;
+    }
   }
 }

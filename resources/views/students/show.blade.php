@@ -28,10 +28,10 @@
         <div class="col-lg-2">{{ Form::label('village', 'Woonplaats - ETA: ') }}</div>
 				<div class="col-lg-6">{{ $student->Village->name }} ({{ $student->eta }})</div>
 	</div>
-	<div class="row">
+	<!--div class="row">
         <div class="col-lg-2">{{ Form::label('mentor', 'Mentor: ') }}</div>
 				<div class="col-lg-6">Erik Mast</div>
-	</div>
+	</div-->
   <div class="row">
 		<div class="col-lg-2">
 		@if ( $student->toBeCalled())
@@ -42,8 +42,11 @@
 			<span title="Er is minimaal 5 dagen geen logboek ingevuld" class="glyphicon glyphicon-list icon-large" style="color:red;font-size: 20px"><br></span>
 		@endif
 		-->
-		@if ( $student->hasDeadline())
+		@if ( $student->hasDeadlineExpired())
 			<span title="Er is een deadline verstreken" class="glyphicon glyphicon-hourglass icon-large" style="color:red;font-size: 20px"><br></span>
+		@endif
+		@if ( $student->hasDeadlineNotExpired())
+			<span title="Er is een deadline" class="glyphicon glyphicon-hourglass icon-large" style="color:green;font-size: 20px"><br></span>
 		@endif
 		</div>
 	</div>
@@ -86,9 +89,13 @@
 					<td>
 						@foreach($student->progresses as $progress)
 							<strong>{{$progress->dateString()}}</strong><br>
-							@if ($progress->hasDeadline())
-								Deadline: {{$progress->dateDeadlineString()}}<br>
-							@endif
+							@if ($progress->hasDeadlineExpired())
+	            <span title="Er is een deadline" style="color:red">Deadline: {{$progress->dateDeadlineString()}}</span>  <br>
+	            @endif
+
+	            @if ($progress->hasDeadlineNotExpired())
+	              Deadline: {{$progress->dateDeadlineString()}}<br>
+	            @endif
 							{{$progress->notes}}<br>
 						@endforeach
 	        </td>

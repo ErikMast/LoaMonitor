@@ -13,6 +13,16 @@ class TestCaseSeeder extends Seeder
      */
     public function run()
     {
+      DB::table('users')->insert(
+      [
+        [
+				      'email' => 'test@test.nl',
+                        'password' => bcrypt('Welkom1234'),
+                        'firstname' => 'Theo',
+                        'lastname' => 'Test'
+        ]
+      ]);
+
 		DB::table('villages')->insert(
 			[
 				[
