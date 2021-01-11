@@ -44,7 +44,7 @@ class Group extends Model
     $result = DB::table('students')->where('groups_id', '=', $this->id)->count('id')==0;
 
     //hack om te voorkomen dat Groep "Niets" weggegooid wordt
-    if ($this->id == $idNiets) $result=false;
+    if ($this->id == Group::$idNiets) $result=false;
 
     return $result;
   }
