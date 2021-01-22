@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Input;
 use Carbon\Carbon;
 use LoaMonitor\Logbook;
+use LoaMonitor\Progress;
 
 class Student extends Model
 {
@@ -63,13 +64,31 @@ class Student extends Model
   }
 
   public function isVisible(){
-    return $this->Group->is_visible;
+    return (bool) $this->Group->is_visible;
   }
 
   public function visibleAsText(){
     return ($this->isVisible() !=0 ) ? "Ja": "Nee";
   }
 
+  public function progresses(){
+    return $this->hasMany(Progress::class, "students_id")->orderBy('date', 'DESC');
+  }
+
+  public function hasDeadlineNotExpired(){
+      if  (($this->progresses->count()>0) && ($this->isVisible())) {
+          return (bool) ($this->progresses->first()->hasDeadlineNotExpired());
+      } else
+        return false;
+  }
+
+  public function hasDeadlineExpired(){
+    if  (($this->progresses->count()>0) && ($this->isVisible())) {
+        return (bool) $this->progresses->first()->hasDeadlineExpired();
+    } else {
+      return false;
+    }
+  }
 
 	public function mostRecentNotes(){
     //get last contact and last progress note

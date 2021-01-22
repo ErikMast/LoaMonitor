@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\DB;
 
 class Group extends Model
 {
+
+    //reserved id 99 =>klas "Niets"
+    public static $idNiets = 99;
     /**
      * The attributes that are mass assignable.
      *
@@ -41,8 +44,12 @@ class Group extends Model
     $result = DB::table('students')->where('groups_id', '=', $this->id)->count('id')==0;
 
     //hack om te voorkomen dat Groep "Niets" weggegooid wordt
-    if ($this->id == 99) $result=false;
+    if ($this->id == Group::$idNiets) $result=false;
 
     return $result;
+  }
+
+  public static function groupNiets(){
+    return Group::find($idNiets);
   }
 }

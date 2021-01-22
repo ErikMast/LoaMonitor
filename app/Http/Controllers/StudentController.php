@@ -45,8 +45,8 @@ class StudentController extends Controller
   		  $groups = Group::orderBy("sortorder")->pluck('name', 'id');
         $student = new Student();
         $student->Village = Village::find(1);
-        $student->Group = Group::where("name", "=", "Niets")->first();
-        $prev_group = Group::where("name", "=", "Niets")->first();
+        $student->Group = Group::groupNiets();
+        $prev_group = Group::groupNiets();
         $student->previous_groups_id = $prev_group->id;
         return view('students.create',compact('student', 'villages', 'groups'));
     }
