@@ -17,6 +17,12 @@
     @endif
 </div>
 <div class="row">
+      <div class="col-lg-3">{{ Form::label('deadline_met', 'Gehaald?') }}</div>
+      <!-- truuk om ongecheckte checkboxen te bewaren -->
+      {!! Form::hidden('deadline_met', 0); !!}
+      <div class="col-lg-6">{!! Form::checkbox('deadline_met',1, $progress->deadline_met) !!}</div>
+</div>
+<div class="row">
         <div class="col-lg-3">{{ Form::label('notes', 'Voortgang: ') }}</div>
         <div class="col-lg-6">{!! Form::textarea('notes') !!}</div>
 </div>

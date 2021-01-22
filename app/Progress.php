@@ -11,7 +11,7 @@ class Progress extends Model
       'date', 'date_deadline'
   ];
   protected $fillable = [
-    'id', 'students_id', 'date', 'date_deadline', 'notes', 'users_id'
+    'id', 'students_id', 'date', 'date_deadline', 'deadline_met', 'notes', 'users_id'
   ];
 
   public function User() {

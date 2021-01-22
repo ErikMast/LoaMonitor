@@ -25,6 +25,7 @@
         <tr>
           <th width= "100px">Datum</th>
           <th width= "100px">Deadline</th>
+          <th width= "50px">Gehaald?</th>
           <th>Tekst</th>
         </tr>
 
@@ -32,6 +33,7 @@
           <tr>
               <td>{{ $progress->dateString() }}</td>
               <td>{{ $progress->dateDeadlineString() }}</td>
+              <td>{!! Form::checkbox('deadline_met',1, $progress->deadline_met, array('disabled')) !!}</td>
               <td>{{ $progress->notes}}</td>
               <td>
                 <a class="btn btn-info" href="{{ route('progresses.show',$progress->id) }}">Info</a>
