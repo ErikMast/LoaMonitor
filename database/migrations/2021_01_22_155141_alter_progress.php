@@ -13,7 +13,7 @@ class AlterProgress extends Migration
      */
     public function up()
     {
-      Schema::table('progresses',  function (Blueprint $table) {
+      Schema::table('progress',  function (Blueprint $table) {
           $table->boolean('deadline_met')->default(1);
       });
       DB::table('progresses')->update(['deadline_met' => true]);
@@ -26,7 +26,7 @@ class AlterProgress extends Migration
      */
     public function down()
     {
-      Schema::table('progresses',  function (Blueprint $table) {
+      Schema::table('progress',  function (Blueprint $table) {
           $table->dropColumn('deadline_met');
       });
     }
