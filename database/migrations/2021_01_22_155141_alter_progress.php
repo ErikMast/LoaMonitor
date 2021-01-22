@@ -16,7 +16,7 @@ class AlterProgress extends Migration
       Schema::table('progress',  function (Blueprint $table) {
           $table->boolean('deadline_met')->default(1);
       });
-      DB::table('progresses')->update(['deadline_met' => true]);
+      DB::table('progress')->update(['deadline_met' => true]);
     }
 
     /**
