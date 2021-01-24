@@ -32,7 +32,13 @@
           @foreach ($progresses as $key => $progress)
           <tr>
               <td>{{ $progress->dateString() }}</td>
-              <td>{{ $progress->dateDeadlineString() }}</td>
+              <td>
+                @if ($progress->hasDeadlineExpired())
+                <span title="Er is een deadline" style="color:red">{{$progress->dateDeadlineString()}}</span>
+                @else
+                {{ $progress->dateDeadlineString() }}
+                @endif
+              </td>
               <td>{!! Form::checkbox('deadline_met',1, $progress->deadline_met, array('disabled')) !!}</td>
               <td>{{ $progress->notes}}</td>
               <td>
