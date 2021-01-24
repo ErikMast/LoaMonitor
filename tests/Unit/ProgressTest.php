@@ -19,25 +19,36 @@ class ProgressTest extends TestCase
      */
     public function testhasDeadline()
     {
-      $deadline = new DateTime();
+      $progress = factory(Progress::class)->make();
 
-      $progress = new Progress([
-        'students_id'=>'1' ,
-        'date'=>new DateTime(),
-        'date_deadline'=> null,
-        'notes' => 'Deadline',
-        'users_id' => 1
-      ]);
+      // $deadline = new DateTime();
+      //
+      // $progress = new Progress([
+      //   'students_id'=>'1' ,
+      //   'date'=>new DateTime(),
+      //   'date_deadline'=> null,
+      //   'notes' => 'Deadline',
+      //   'users_id' => 1
+      // ]);
 
       $this->assertFalse($progress->hasDeadlineNotExpired(), 'Progress has NO UnExpired  Deadline');
       $this->assertFalse($progress->hasDeadlineExpired(), 'Progress NOT Expired');
 
-      $progress->date_deadline =$deadline->add(new DateInterval('P1D'));
+      $progress->date_deadline =$progress->date->add(new DateInterval('P1D'));
       $this->assertTrue($progress->hasDeadlineNotExpired(), 'Progress has UnExpired Deadline');
       $this->assertFalse($progress->hasDeadlineExpired(), 'Progress NOT Expired');
 
-      $progress->date_deadline = $deadline->sub(new DateInterval('P10D'));
+      $progress->deadline_met = true;
+      $this->assertFalse($progress->hasDeadlineNotExpired(), 'Progress has not UnExpired Deadline');
+      $this->assertFalse($progress->hasDeadlineExpired(), 'Progress NOT Expired');
+
+      $progress->deadline_met = false;
+      $progress->date_deadline = $progress->date->sub(new DateInterval('P10D'));
       $this->assertFalse($progress->hasDeadlineNotExpired(), 'Progress has NO UnExpired  Deadline');
       $this->assertTrue($progress->hasDeadlineExpired(), 'Progress Expired');
+
+      $progress->deadline_met = true;
+      $this->assertFalse($progress->hasDeadlineNotExpired(), 'Progress has NO UnExpired  Deadline');
+      $this->assertFalse($progress->hasDeadlineExpired(), 'Progress Expired');
     }
 }

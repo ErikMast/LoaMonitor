@@ -76,18 +76,23 @@ class Student extends Model
   }
 
   public function hasDeadlineNotExpired(){
-      if  (($this->progresses->count()>0) && ($this->isVisible())) {
-          return (bool) ($this->progresses->first()->hasDeadlineNotExpired());
-      } else
-        return false;
+      if  (($this->progresses->count()>0)) {
+          foreach ($this->progresses as $progress) {
+            if ($progress->hasDeadlineNotExpired())
+              return true;
+          }
+      }
+      return false;
   }
 
   public function hasDeadlineExpired(){
-    if  (($this->progresses->count()>0) && ($this->isVisible())) {
-        return (bool) $this->progresses->first()->hasDeadlineExpired();
-    } else {
-      return false;
+    if  (($this->progresses->count()>0)) {
+        foreach ($this->progresses as $progress) {
+          if ($progress->hasDeadlineExpired())
+            return true;
+        }
     }
+    return false;    
   }
 
 	public function mostRecentNotes(){

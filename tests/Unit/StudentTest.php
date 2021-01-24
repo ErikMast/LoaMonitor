@@ -6,7 +6,11 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use LoaMonitor\Student;
+use LoaMonitor\Group;
+use LoaMonitor\Progress;
 use Illuminate\Support\Facades\Log;
+use DateTime;
+use DateInterval;
 
 class StudentTest extends TestCase
 {
@@ -83,24 +87,40 @@ class StudentTest extends TestCase
     }
 
     public function testHasDeadline(){
-      //Student id =2 moet gebeld worden id= =1 niet
-      $studentHasDeadline = Student::where("id","=", "1")->whereNull("end_date")->first();
-      $this->assertTrue($studentHasDeadline->isVisible(), "Zichtbare student id =".$studentHasDeadline->id);
-      $this->assertFalse($studentHasDeadline->hasDeadlineNotExpired(), "Zichtbare student heeft geen verlopen deadline");
-      $this->assertTrue($studentHasDeadline->hasDeadlineExpired(), "Zichtbare student heeft deadline");
+      //student opzetten in factories
+      $student = factory(Student::class)->make();
+      $group = factory(Group::class)->make();
+      $student->Group = $group;
+      $this->assertTrue($student->isVisible(), "Zichtbare student");
+      $progresses = factory(Progress::class, 2)->make(
+        ['students_id' =>$student->id]
+      );
+      $student->progresses = $progresses;
 
-      $student= Student::where("id","=", "2")->whereNull("end_date")->first();
-      $this->assertTrue($student->isVisible(), "Zichtbare student id =".$student->id);
-      $this->assertFalse($student->hasDeadlineNotExpired(), "Zichtbare student GEEN deadline");
+      //geen deadlines
+      $this->assertFalse($student->hasDeadlineNotExpired(), "Student heeft geen deadline");
+      $this->assertFalse($student->hasDeadlineExpired(), "Student heeft geen verlopen deadline");
 
-      //Student id =3 (niet zichtbaar) en id=5 (einddatum) geeb deadline
-      $studentHasDeadline= Student::where("id","=", "3")->first();
-      $this->assertFalse($studentHasDeadline->isVisible(), "Onzichtbare student id =".$studentHasDeadline->id);
-      $this->assertFalse($studentHasDeadline->hasDeadlineNotExpired(), "Student 3: Niet Zichtbare student GEEN deadline");
+      //student met deadline in toekomst
+      $date = new DateTime();
 
-      $student= Student::where("id","=", "4")->first();
-      $this->assertFalse($student->isVisible(), "Onzichtbare student id =".$student->id);
-      $this->assertFalse($student->hasDeadlineNotExpired(), "Student 5: Niet Student met einddatum GEEN deadline");
+      $student->progresses[1]->date_deadline = $date->add(new DateInterval('P1D'));
+      $this->assertTrue($student->hasDeadlineNotExpired(), "Student heeft deadline in toekomst");
+      $this->assertFalse($student->hasDeadlineExpired(), "Student heeft geen verlopen deadline");
+      //voltooid
+      $student->progresses[1]->deadline_met = true;
+      $this->assertFalse($student->hasDeadlineNotExpired(), "Student heeft geen deadline in toekomst");
+      $this->assertFalse($student->hasDeadlineExpired(), "Student heeft geen verlopen deadline");
+
+      //student deadline in verleden
+      $student->progresses[1]->deadline_met = false;
+      $student->progresses[1]->date_deadline = $date->sub(new DateInterval('P10D'));
+      $this->assertFalse($student->hasDeadlineNotExpired(), "Student heeft geen deadline in toekomst");
+      $this->assertTrue($student->hasDeadlineExpired(), "Student heeft verlopen deadline");
+
+      $student->progresses[1]->deadline_met = true;
+      $this->assertFalse($student->hasDeadlineNotExpired(), "Student heeft geen deadline in toekomst");
+      $this->assertFalse($student->hasDeadlineExpired(), "Student heeft geen verlopen deadline");
     }
 
     public function testSumOfSBU(){

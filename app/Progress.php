@@ -39,16 +39,21 @@ class Progress extends Model
   }
 
   public function hasDeadlineNotExpired() {
-    return (bool) ($this->date_deadline != null) && (!$this->hasDeadlineExpired());
+    if (!$this->deadline_met)
+      return (bool) ($this->date_deadline != null) && (!$this->hasDeadlineExpired());
+    else {
+      return false;
+    }
   }
 
   public function hasDeadlineExpired(){
-    if ($this->date_deadline != null){
-      $now = Carbon::now();
-      return ($now->diffInDays($this->date_deadline, false)<0);
+    if (!$this->deadline_met) {
+      if ($this->date_deadline != null){
+        $now = Carbon::now();
+        return ($now->diffInDays($this->date_deadline, false)<0);
 
-    } else {
-      return false;
+      }
     }
+    return false;
   }
 }
